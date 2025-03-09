@@ -1,0 +1,103 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="#FFFFFF"
+    android:padding="24dp">
+
+    <TextView
+        android:id="@+id/tv_main_text"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Текст"
+        android:textStyle="bold"
+        android:textSize="30dp" />
+
+    <TextView
+        android:id="@+id/tv_secondary_text"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Еще какой нибудь текст"
+        android:layout_below="@id/tv_main_text"
+        android:layout_marginBottom="24dp"/>
+
+    <LinearLayout
+        android:id="@+id/ll_search"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_below="@id/tv_secondary_text"
+        android:background="@drawable/bg_rounded_grey"
+        android:padding="3dp"
+        android:paddingStart="10dp"
+        android:paddingEnd="10dp"
+        android:gravity="center_vertical">
+        <ImageView
+            android:layout_width="16dp"
+            android:layout_height="16dp"
+            android:src="@drawable/ic_search"
+            android:layout_marginRight="5dp"/>
+
+        <EditText
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:hint="Поиск"
+            android:textSize="10dp" />
+    </LinearLayout>
+
+    <RelativeLayout
+        android:id="@+id/rl_filter"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_below="@id/ll_search"
+        android:layout_marginTop="10dp"
+        android:padding="10dp"
+        android:background="@drawable/bg_rounded_grey">
+        <TextView
+            android:id="@+id/tv_filter_hero"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Герои"
+            android:layout_centerInParent="true"
+            android:layout_marginStart="40dp"
+            android:layout_marginEnd="40dp"/>
+        <View
+            android:id="@+id/right_view"
+            android:layout_width="1dp"
+            android:layout_height="10dp"
+            android:layout_centerVertical="true"
+            android:background="@color/black"
+            android:layout_toEndOf="@id/tv_filter_hero"/>
+        <View
+            android:id="@+id/left_view"
+            android:layout_width="1dp"
+            android:layout_height="10dp"
+            android:layout_centerVertical="true"
+            android:background="@color/black"
+            android:layout_toStartOf="@id/tv_filter_hero"/>
+        <TextView
+            android:id="@+id/tv_filter_events"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="События"
+            android:layout_marginStart="40dp"
+            android:layout_centerVertical="true"
+            android:layout_toRightOf="@id/right_view"/>
+        <TextView
+            android:id="@+id/tv_filter_all"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Все"
+            android:layout_centerVertical="true"
+            android:layout_toLeftOf="@id/left_view"
+            android:layout_marginEnd="40dp"/>
+    </RelativeLayout>
+
+    <androidx.recyclerview.widget.RecyclerView
+        android:id="@+id/rl_news_container"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_below="@id/rl_filter"
+        android:layout_marginTop="24dp"/>
+
+
+</RelativeLayout>
