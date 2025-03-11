@@ -1,6 +1,10 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
     <style name="BottomNavigationStyle">
-    <item name="itemRippleColor">@android:color/transparent</item>
-    <item name="android:itemBackground">@android:color/transparent</item>
-</style></resources>
+        <item name="android:background">?android:attr/windowBackground</item>
+        <item name="chipIconSize">40dp</item>
+        <item name="height">80dp</item>
+        <item name="paddingEnd">80dp</item>
+        <item name="android:layout_width">wrap_content</item>
+    </style>
+</resources>

@@ -1,0 +1,186 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@color/white"
+    tools:context=".presentation.authorization.fragments.RegistrationFragment">
+
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:paddingStart="24dp"
+        android:paddingEnd="24dp">
+        <TextView
+            android:id="@+id/tv_tv_registration"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Регистрация"
+            android:textSize="16sp"
+            android:textStyle="bold"
+            android:layout_marginTop="24dp"
+            />
+        <TextView
+            android:id="@+id/tv_tv_create_account"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Создайте аккаунт, чтобы начать работу"
+            android:textSize="12sp"
+            android:textStyle="bold"
+            android:layout_below="@id/tv_tv_registration"
+            android:layout_marginBottom="24dp"/>
+        <TextView
+            android:id="@+id/tv_tv_name"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Имя"
+            android:layout_below="@id/tv_tv_create_account"
+            android:textSize="12sp"
+            android:textStyle="bold"
+
+            android:layout_marginBottom="8dp"/>
+        <EditText
+            android:id="@+id/et_name"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_below="@id/tv_tv_name"
+            android:background="@drawable/bg_rounded_white_with_grey_stroke"
+            android:paddingStart="16dp"
+            android:paddingEnd="16dp"
+            android:paddingTop="12dp"
+            android:paddingBottom="12dp"
+            android:hint="Ваше имя"
+            android:layout_marginBottom="16dp"
+            android:textSize="14sp"/>
+
+        <TextView
+            android:id="@+id/tv_tv_surname"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Фамилия пользователя"
+            android:layout_below="@id/et_name"
+            android:textSize="12sp"
+            android:textStyle="bold"
+            android:layout_marginBottom="8dp"/>
+        <EditText
+            android:id="@+id/et_surname"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_below="@id/tv_tv_surname"
+            android:background="@drawable/bg_rounded_white_with_grey_stroke"
+            android:paddingStart="16dp"
+            android:paddingEnd="16dp"
+            android:paddingTop="12dp"
+            android:paddingBottom="12dp"
+            android:hint="Ваша фамилия"
+            android:layout_marginBottom="16dp"
+            android:textSize="14sp"/>
+
+        <TextView
+            android:id="@+id/tv_tv_id"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Имя пользователя"
+            android:layout_below="@id/et_surname"
+            android:textSize="12sp"
+            android:textStyle="bold"
+            android:layout_marginBottom="8dp"/>
+        <EditText
+            android:id="@+id/et_id"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_below="@id/tv_tv_id"
+            android:background="@drawable/bg_rounded_white_with_grey_stroke"
+            android:paddingStart="16dp"
+            android:paddingEnd="16dp"
+            android:paddingTop="12dp"
+            android:paddingBottom="12dp"
+            android:hint="Ваш уникальный id"
+            android:layout_marginBottom="16dp"
+            android:textSize="14sp"/>
+
+        <TextView
+        android:id="@+id/tv_tv_email"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Адрес электронной почты"
+        android:layout_below="@id/et_id"
+        android:textSize="12sp"
+        android:textStyle="bold"
+        android:layout_marginBottom="8dp"/>
+        <EditText
+            android:id="@+id/et_email"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_below="@id/tv_tv_email"
+            android:background="@drawable/bg_rounded_white_with_grey_stroke"
+            android:paddingStart="16dp"
+            android:paddingEnd="16dp"
+            android:paddingTop="12dp"
+            android:paddingBottom="12dp"
+            android:hint="name@email.ru"
+            android:layout_marginBottom="16dp"
+            android:textSize="14sp"/>
+
+        <TextView
+            android:id="@+id/tv_tv_password"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Пароль"
+            android:layout_below="@id/et_email"
+            android:textSize="12sp"
+            android:textStyle="bold"
+            android:layout_marginBottom="8dp"/>
+        <EditText
+            android:id="@+id/et_password"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_below="@id/tv_tv_password"
+            android:background="@drawable/bg_rounded_white_with_grey_stroke"
+            android:paddingStart="16dp"
+            android:paddingEnd="16dp"
+            android:paddingTop="12dp"
+            android:paddingBottom="12dp"
+            android:hint="Создайте пароль"
+            android:layout_marginBottom="8dp"
+            android:textSize="14sp"/>
+        <EditText
+            android:id="@+id/et_repassword"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_below="@id/et_password"
+            android:background="@drawable/bg_rounded_white_with_grey_stroke"
+            android:paddingStart="16dp"
+            android:paddingEnd="16dp"
+            android:paddingTop="12dp"
+            android:paddingBottom="12dp"
+            android:hint="Повторите пароль"
+            android:layout_marginBottom="39dp"
+            android:textSize="14sp"/>
+        <TextView
+            android:id="@+id/b_reg"
+            android:layout_width="match_parent"
+            android:layout_height="48dp"
+            android:text="Зарегистрироваться"
+            android:gravity="center"
+            android:layout_below="@id/et_repassword"
+            android:background="@drawable/bg_rounded_accent"
+            android:textStyle="bold"
+            android:textSize="12sp"
+            android:textColor="@color/white"/>
+    </RelativeLayout>
+    <RelativeLayout
+        android:visibility="invisible"
+        android:id="@+id/rl_with_progress_bar"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:background="#50000000">
+        <ProgressBar
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_centerInParent="true"
+            android:background="@drawable/bg_rounded_white_with_grey_stroke"
+            android:padding="14dp"/>
+    </RelativeLayout>
+
+</RelativeLayout>

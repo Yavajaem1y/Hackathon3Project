@@ -10,21 +10,21 @@
         android:id="@+id/rl_main_layout"
         android:layout_width="match_parent"
         android:layout_height="match_parent">
+
         <FrameLayout
             android:id="@+id/fl_main_fragment_container"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
             android:layout_above="@id/bnv_main_bottom_bar"/>
 
-        <com.google.android.material.bottomnavigation.BottomNavigationView
+        <com.ismaeldivita.chipnavigation.ChipNavigationBar
             android:id="@+id/bnv_main_bottom_bar"
             android:layout_width="match_parent"
             android:layout_height="80dp"
-            app:menu="@menu/main_bottom_navigation_menu"
-            app:labelVisibilityMode="selected"
+            app:cnb_menuResource="@menu/main_bottom_navigation_menu"
             app:itemIconSize="40dp"
-            android:layout_alignParentBottom="true"
-            style="@style/BottomNavigationStyle"/>
+
+            android:layout_alignParentBottom="true"/>
     </RelativeLayout>
 
 </FrameLayout>

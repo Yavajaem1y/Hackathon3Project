@@ -1,8 +1,8 @@
 package com.androidlesson.hackathon3project.di;
 
-import com.androidlesson.hackathon3project.presentation.authorization.activities.AuthorizationActivity;
-import com.androidlesson.hackathon3project.presentation.authorization.activities.SetUserDataActivity;
-import com.androidlesson.hackathon3project.presentation.authorization.activities.UserSessionCheckerActivity;
+import com.androidlesson.hackathon3project.presentation.authorization.activities.MainActivity;
+import com.androidlesson.hackathon3project.presentation.authorization.fragments.LoginFragment;
+import com.androidlesson.hackathon3project.presentation.authorization.fragments.RegistrationFragment;
 import com.androidlesson.hackathon3project.presentation.main.ui.fragments.MainFragment;
 import com.androidlesson.hackathon3project.presentation.main.ui.fragments.bottomNavigationFragments.UserProfileFragment;
 
@@ -17,13 +17,13 @@ public interface AppComponent {
         AppComponent build();
     }
 
-    void injectUserSessionCheckerActivity(UserSessionCheckerActivity userSessionCheckerActivity);
+    void injectUserSessionCheckerActivity(MainActivity mainActivity);
 
     void injectMainFragment(MainFragment mainFragment);
 
-    void injectAuthorizationActivity(AuthorizationActivity authorizationActivity);
+    void injectLoginFragment(LoginFragment loginFragment);
 
-    void injectSetUserDataActivity(SetUserDataActivity setUserDataActivity);
+    void injectRegistrationFragment(RegistrationFragment registrationFragment);
 
     void injectUserProfileFragment(UserProfileFragment userProfileFragment);
 }

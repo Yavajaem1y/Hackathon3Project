@@ -1,4 +1,4 @@
-package com.androidlesson.hackathon3project.presentation.authorization.viewModels.userSessionCheckerActivityViewModel;
+package com.androidlesson.hackathon3project.presentation.authorization.viewModels.mainActivityViewModel;
 
 import androidx.annotation.NonNull;
 import androidx.lifecycle.ViewModel;
@@ -10,7 +10,7 @@ import com.androidlesson.domain.authorization.useCase.CheckUserDataFromSPUseCase
 import com.androidlesson.domain.authorization.useCase.SaveUserDataToSPUseCase;
 import com.androidlesson.domain.main.useCase.LogOutUseCase;
 
-public class UserSessionCheckerActivityViewModelFactory implements ViewModelProvider.Factory {
+public class MainActivityViewModelFactory implements ViewModelProvider.Factory {
 
     private CheckUserAuthorizationUseCase checkUserAuthorizationUseCase;
     private CheckUserDataFromSPUseCase checkUserDataFromSPUseCase;
@@ -18,7 +18,7 @@ public class UserSessionCheckerActivityViewModelFactory implements ViewModelProv
     private SaveUserDataToSPUseCase saveUserDataToSPUseCase;
     private final LogOutUseCase logOutUseCase;
 
-    public UserSessionCheckerActivityViewModelFactory(LogOutUseCase logOutUseCase, SaveUserDataToSPUseCase saveUserDataToSPUseCase, CheckUserDataFromFBUseCase checkUserDataFromFBUseCase, CheckUserDataFromSPUseCase checkUserDataFromSPUseCase, CheckUserAuthorizationUseCase checkUserAuthorizationUseCase) {
+    public MainActivityViewModelFactory(LogOutUseCase logOutUseCase, SaveUserDataToSPUseCase saveUserDataToSPUseCase, CheckUserDataFromFBUseCase checkUserDataFromFBUseCase, CheckUserDataFromSPUseCase checkUserDataFromSPUseCase, CheckUserAuthorizationUseCase checkUserAuthorizationUseCase) {
         this.logOutUseCase = logOutUseCase;
         this.saveUserDataToSPUseCase = saveUserDataToSPUseCase;
         this.checkUserDataFromFBUseCase = checkUserDataFromFBUseCase;
@@ -29,6 +29,6 @@ public class UserSessionCheckerActivityViewModelFactory implements ViewModelProv
     @NonNull
     @Override
     public <T extends ViewModel> T create(@NonNull Class<T> modelClass) {
-        return (T) new UserSessionCheckerActivityViewModel(checkUserAuthorizationUseCase,checkUserDataFromSPUseCase,checkUserDataFromFBUseCase,saveUserDataToSPUseCase,logOutUseCase);
+        return (T) new MainActivityViewModel(checkUserAuthorizationUseCase,checkUserDataFromSPUseCase,checkUserDataFromFBUseCase,saveUserDataToSPUseCase,logOutUseCase);
     }
 }

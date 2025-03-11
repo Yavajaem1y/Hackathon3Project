@@ -23,7 +23,7 @@
             android:name=".presentation.authorization.activities.AuthorizationActivity"
             android:exported="false" />
         <activity
-            android:name=".presentation.authorization.activities.UserSessionCheckerActivity"
+            android:name=".presentation.authorization.activities.MainActivity"
             android:exported="true" >
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />

@@ -1,5 +1,7 @@
 package com.androidlesson.hackathon3project.presentation.main.viewModels.mainActivityViewModel;
 
+import android.util.Log;
+
 import androidx.fragment.app.Fragment;
 import androidx.lifecycle.LiveData;
 import androidx.lifecycle.MutableLiveData;
@@ -22,6 +24,7 @@ public class MainFragmentViewModel extends ViewModel {
 
     public MainFragmentViewModel() {
         setFragmentsInfo();
+        Log.d("viewModel","Create");
     }
 
     private void setFragmentsInfo(){

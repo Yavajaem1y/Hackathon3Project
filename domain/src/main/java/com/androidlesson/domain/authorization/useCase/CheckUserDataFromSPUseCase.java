@@ -11,10 +11,6 @@ public class CheckUserDataFromSPUseCase {
     }
 
     public UserData execute() {
-        UserData userData = authorizationSharedPreferencesRepository.getUserData();
-        if (userData == null) return null;
-        else if (userData.getUserId()!=null && !userData.getUserId().isEmpty() && userData.getUserSystemId()!=null && !userData.getUserSystemId().isEmpty()
-                && userData.getUserName()!=null &&  !userData.getUserName().isEmpty() && userData.getUserSurname()!=null && !userData.getUserSurname().isEmpty()) return null;
-        else return userData;
+        return authorizationSharedPreferencesRepository.getUserData();
     }
 }

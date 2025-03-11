@@ -14,9 +14,9 @@ import com.androidlesson.domain.authorization.useCase.SaveUserDataUseCase;
 import com.androidlesson.domain.authorization.useCase.SetAuthorizationDataToSPUseCase;
 import com.androidlesson.domain.main.useCase.LogOutUseCase;
 import com.androidlesson.domain.main.useCase.ObserveCurrentUserDataUseCase;
-import com.androidlesson.hackathon3project.presentation.authorization.viewModels.userSessionCheckerActivityViewModel.UserSessionCheckerActivityViewModelFactory;
-import com.androidlesson.hackathon3project.presentation.authorization.viewModels.authorizationActivityViewModel.AuthorizationViewModelFactory;
-import com.androidlesson.hackathon3project.presentation.authorization.viewModels.setUserDataActivityViewModel.SetUserDataActivityViewModelFactory;
+import com.androidlesson.hackathon3project.presentation.authorization.viewModels.loginViewModel.LoginFragmentViewModelFactory;
+import com.androidlesson.hackathon3project.presentation.authorization.viewModels.mainActivityViewModel.MainActivityViewModelFactory;
+import com.androidlesson.hackathon3project.presentation.authorization.viewModels.registratoinViewModel.RegistrationFragmentViewModelFactory;
 import com.androidlesson.hackathon3project.presentation.main.viewModels.mainActivityViewModel.MainFragmentViewModelFactory;
 import com.androidlesson.hackathon3project.presentation.main.viewModels.sharedViewModel.SharedViewModelFactory;
 
@@ -38,7 +38,7 @@ public class AppModule {
 
     @Provides
     public Context provideContext() {
-        return application.getApplicationContext(); // ✅ Теперь Dagger дает глобальный Context
+        return application.getApplicationContext();
     }
 
     @Provides
@@ -47,18 +47,18 @@ public class AppModule {
     }
 
     @Provides
-    public AuthorizationViewModelFactory provideAuthorizationViewModelFactory(LoginUseCase loginUseCase, RegistrationUseCase registrationUseCase, SetAuthorizationDataToSPUseCase setAuthorizationDataToSPUseCase) {
-        return new AuthorizationViewModelFactory(loginUseCase, registrationUseCase, setAuthorizationDataToSPUseCase);
+    public RegistrationFragmentViewModelFactory provideRegistrationFragmentViewModelFactory() {
+        return new RegistrationFragmentViewModelFactory();
     }
 
     @Provides
-    public UserSessionCheckerActivityViewModelFactory provideUserSessionCheckerActivityViewModelFactory(LogOutUseCase logOutUseCase, SaveUserDataToSPUseCase saveUserDataToSPUseCase, CheckUserDataFromFBUseCase checkUserDataFromFBUseCase, CheckUserDataFromSPUseCase checkUserDataFromSPUseCase, CheckUserAuthorizationUseCase checkUserAuthorizationUseCase){
-        return new UserSessionCheckerActivityViewModelFactory(logOutUseCase, saveUserDataToSPUseCase, checkUserDataFromFBUseCase, checkUserDataFromSPUseCase, checkUserAuthorizationUseCase);
+    public MainActivityViewModelFactory provideUserSessionCheckerActivityViewModelFactory(LogOutUseCase logOutUseCase, SaveUserDataToSPUseCase saveUserDataToSPUseCase, CheckUserDataFromFBUseCase checkUserDataFromFBUseCase, CheckUserDataFromSPUseCase checkUserDataFromSPUseCase, CheckUserAuthorizationUseCase checkUserAuthorizationUseCase){
+        return new MainActivityViewModelFactory(logOutUseCase, saveUserDataToSPUseCase, checkUserDataFromFBUseCase, checkUserDataFromSPUseCase, checkUserAuthorizationUseCase);
     }
 
     @Provides
-    public SetUserDataActivityViewModelFactory provideSetUserDataActivityViewModelFactory(SaveUserDataUseCase saveUserDataUseCase) {
-        return new SetUserDataActivityViewModelFactory(saveUserDataUseCase);
+    public LoginFragmentViewModelFactory provideLoginFragmentViewModelFactory(LoginUseCase loginUseCase,SetAuthorizationDataToSPUseCase setAuthorizationDataToSPUseCase) {
+        return new LoginFragmentViewModelFactory(loginUseCase,setAuthorizationDataToSPUseCase);
     }
 
     @Provides

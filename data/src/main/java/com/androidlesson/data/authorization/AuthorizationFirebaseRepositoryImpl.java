@@ -67,6 +67,7 @@ public class AuthorizationFirebaseRepositoryImpl implements AuthorizationFirebas
             @Override
             public void onComplete(@NonNull Task<AuthResult> task) {
                 if (task.isSuccessful()) {
+                    Log.d("Authorization","Login is successful");
                     userSystemId=auth.getUid();
                     booleanCallBack.getBoolean(true);
                 }
