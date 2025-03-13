@@ -10,7 +10,6 @@ import com.androidlesson.domain.authorization.useCase.GetUserIdUseCase;
 import com.androidlesson.domain.authorization.useCase.LoginUseCase;
 import com.androidlesson.domain.authorization.useCase.RegistrationUseCase;
 import com.androidlesson.domain.authorization.useCase.SaveUserDataToSPUseCase;
-import com.androidlesson.domain.authorization.useCase.SaveUserDataUseCase;
 import com.androidlesson.domain.authorization.useCase.SetAuthorizationDataToSPUseCase;
 import com.androidlesson.domain.main.repository.MainFirebaseRepository;
 import com.androidlesson.domain.main.useCase.LogOutUseCase;
@@ -52,11 +51,6 @@ public class DomainModule {
     @Provides
     public RegistrationUseCase provideRegistrationUseCase(AuthorizationFirebaseRepository authorizationFirebaseRepository){
         return new RegistrationUseCase(authorizationFirebaseRepository);
-    }
-
-    @Provides
-    public SaveUserDataUseCase provideSaveUserDataUseCase(AuthorizationFirebaseRepository authorizationFirebaseRepository, AuthorizationSharedPreferencesRepository authorizationSharedPreferencesRepository){
-        return new SaveUserDataUseCase(authorizationSharedPreferencesRepository,authorizationFirebaseRepository);
     }
 
     @Provides

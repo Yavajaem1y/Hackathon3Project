@@ -88,7 +88,7 @@ public class AuthorizationFirebaseRepositoryImpl implements AuthorizationFirebas
                     for (DataSnapshot child : snapshot.getChildren()) {
                         if (!child.getKey().equals(ID_LAST_KEY)) {
                             String idFromDb = child.child(USER_ID).getValue(String.class);
-                            if (id.equals(idFromDb)) {
+                            if (idFromDb != null && id.equals(idFromDb)) {
                                 booleanCallBack.getBoolean(true);
                                 return;
                             }
@@ -139,7 +139,6 @@ public class AuthorizationFirebaseRepositoryImpl implements AuthorizationFirebas
                             Integer currentId = snapshot.getValue(Integer.class);
                             if (currentId != null) {
                                 int newId = currentId + 1;
-                                Log.d("basic id",String.valueOf(newId));
                                 callbackWithId.getString(String.valueOf(newId));
 
                                 firebaseDatabase.getReference(DATABASE_SYSTEM_ID_TO_APP_ID)

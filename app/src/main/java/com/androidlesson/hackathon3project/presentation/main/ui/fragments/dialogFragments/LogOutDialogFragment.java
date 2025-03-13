@@ -9,22 +9,21 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.view.Window;
 import android.view.WindowManager;
-import android.widget.LinearLayout;
+import android.widget.TextView;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.fragment.app.DialogFragment;
-import androidx.fragment.app.FragmentManager;
 
 import com.androidlesson.hackathon3project.R;
 import com.androidlesson.hackathon3project.presentation.main.interfaces.OnDataPass;
 
 
-public class DotsMenuFragmentFromCurrnetUserActivity extends DialogFragment {
+public class LogOutDialogFragment extends DialogFragment {
 
     private OnDataPass onDataPass;
 
-    private LinearLayout ll_edit,ll_logout;
+    private TextView b_cancellation, b_logout;
 
     @Override
     public void onAttach(@NonNull Activity activity) {
@@ -35,7 +34,7 @@ public class DotsMenuFragmentFromCurrnetUserActivity extends DialogFragment {
     @Nullable
     @Override
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
-        return inflater.inflate(R.layout.dialog_fragment_dots_menu_from_current_user_activity, container, false);
+        return inflater.inflate(R.layout.dialog_fragment_logout, container, false);
     }
 
     @Override
@@ -59,31 +58,28 @@ public class DotsMenuFragmentFromCurrnetUserActivity extends DialogFragment {
                 window.setBackgroundDrawableResource(android.R.color.transparent);
 
                 WindowManager.LayoutParams params = window.getAttributes();
-                params.gravity = Gravity.TOP | Gravity.END;
-                params.x = 20;
-                params.y = 150;
+                params.gravity = Gravity.CENTER;
                 window.setAttributes(params);
             }
         }
     }
 
+
     private void initialization(View view){
 
 
-        ll_edit=view.findViewById(R.id.ll_edit_your_data);
-        ll_logout=view.findViewById(R.id.ll_logout);
+        b_cancellation=view.findViewById(R.id.b_cancellation);
+        b_logout =view.findViewById(R.id.b_log_out);
     }
 
     private void setOnClickListener(){
-        ll_logout.setOnClickListener(v->{
-            FragmentManager fragmentManager = getParentFragmentManager();
-            LogOutDialogFragment dialogFragment = new LogOutDialogFragment();
-            dialogFragment.show(fragmentManager, "my_dialog");
+        b_logout.setOnClickListener(v->{
+            onDataPass.onDataPass("sda");
             dismiss();
         });
 
-        ll_edit.setOnClickListener(v->{
-
+        b_cancellation.setOnClickListener(v->{
+            dismiss();
         });
     }
 }

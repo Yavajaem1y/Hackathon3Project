@@ -131,8 +131,8 @@
             android:textSize="12sp"
             android:textStyle="bold"
             android:layout_marginBottom="8dp"/>
-        <EditText
-            android:id="@+id/et_password"
+        <RelativeLayout
+            android:id="@+id/ll_password"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_below="@id/tv_tv_password"
@@ -141,33 +141,98 @@
             android:paddingEnd="16dp"
             android:paddingTop="12dp"
             android:paddingBottom="12dp"
-            android:hint="Создайте пароль"
-            android:layout_marginBottom="8dp"
-            android:textSize="14sp"/>
-        <EditText
-            android:id="@+id/et_repassword"
+            android:layout_marginBottom="16dp">
+            <ImageView
+                android:id="@+id/iv_show_password"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:src="@drawable/ic_show_password"
+                android:layout_alignParentRight="true"
+                android:layout_centerVertical="true"
+                android:layout_marginStart="8dp"/>
+            <EditText
+                android:id="@+id/et_password"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:background="@color/white"
+                android:hint="Создайте пароль"
+                android:inputType="textPassword"
+                android:textSize="14sp"
+                android:layout_toLeftOf="@id/iv_show_password"/>
+        </RelativeLayout>
+        <RelativeLayout
+            android:id="@+id/ll_repassword"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_below="@id/et_password"
+            android:layout_below="@id/ll_password"
             android:background="@drawable/bg_rounded_white_with_grey_stroke"
             android:paddingStart="16dp"
             android:paddingEnd="16dp"
             android:paddingTop="12dp"
             android:paddingBottom="12dp"
-            android:hint="Повторите пароль"
-            android:layout_marginBottom="39dp"
-            android:textSize="14sp"/>
+            android:layout_marginBottom="16dp">
+            <ImageView
+                android:id="@+id/iv_show_repassword"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:src="@drawable/ic_show_password"
+                android:layout_alignParentRight="true"
+                android:layout_centerVertical="true"
+                android:layout_marginStart="8dp"/>
+            <EditText
+                android:id="@+id/et_repassword"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:background="@color/white"
+                android:hint="Повторите пароль"
+                android:inputType="textPassword"
+                android:textSize="14sp"
+                android:layout_toLeftOf="@id/iv_show_repassword"/>
+        </RelativeLayout>
+        <TextView
+            android:id="@+id/tv_password_error"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:visibility="invisible"
+            android:text="*Пароль должен содержать не менее 8 символов"
+            android:layout_below="@id/ll_repassword"
+            android:textSize="12sp"
+            android:textColor="#FB2F2F"/>
         <TextView
             android:id="@+id/b_reg"
             android:layout_width="match_parent"
             android:layout_height="48dp"
             android:text="Зарегистрироваться"
             android:gravity="center"
-            android:layout_below="@id/et_repassword"
+            android:layout_above="@id/ll_go_to_log"
             android:background="@drawable/bg_rounded_accent"
             android:textStyle="bold"
             android:textSize="12sp"
-            android:textColor="@color/white"/>
+            android:textColor="@color/white"
+            android:layout_marginTop="16dp"/>
+        <LinearLayout
+            android:id="@+id/ll_go_to_log"
+            android:layout_width="match_parent"
+            android:layout_height="16dp"
+            android:orientation="horizontal"
+            android:gravity="center"
+            android:layout_alignParentBottom="true"
+            android:layout_marginTop="16dp"
+            android:layout_marginBottom="24dp">
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Уже есть аккаунт?"
+                android:textStyle="bold"
+                android:textSize="12sp"/>
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text=" Войти"
+                android:textColor="@color/AccentColor"
+                android:textStyle="bold"
+                android:textSize="12sp"/>
+        </LinearLayout>
     </RelativeLayout>
     <RelativeLayout
         android:visibility="invisible"

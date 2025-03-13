@@ -10,7 +10,6 @@ import com.androidlesson.domain.authorization.useCase.GetUserIdUseCase;
 import com.androidlesson.domain.authorization.useCase.LoginUseCase;
 import com.androidlesson.domain.authorization.useCase.RegistrationUseCase;
 import com.androidlesson.domain.authorization.useCase.SaveUserDataToSPUseCase;
-import com.androidlesson.domain.authorization.useCase.SaveUserDataUseCase;
 import com.androidlesson.domain.authorization.useCase.SetAuthorizationDataToSPUseCase;
 import com.androidlesson.domain.main.useCase.LogOutUseCase;
 import com.androidlesson.domain.main.useCase.ObserveCurrentUserDataUseCase;
@@ -47,8 +46,8 @@ public class AppModule {
     }
 
     @Provides
-    public RegistrationFragmentViewModelFactory provideRegistrationFragmentViewModelFactory() {
-        return new RegistrationFragmentViewModelFactory();
+    public RegistrationFragmentViewModelFactory provideRegistrationFragmentViewModelFactory(RegistrationUseCase registrationUseCase, SetAuthorizationDataToSPUseCase setAuthorizationDataToSPUseCase) {
+        return new RegistrationFragmentViewModelFactory(registrationUseCase,setAuthorizationDataToSPUseCase);
     }
 
     @Provides

@@ -6,16 +6,20 @@ import androidx.fragment.app.Fragment;
 import androidx.lifecycle.Observer;
 import androidx.lifecycle.ViewModelProvider;
 
+import android.text.method.HideReturnsTransformationMethod;
+import android.text.method.PasswordTransformationMethod;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.EditText;
+import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
 import android.widget.Toast;
 
 import com.androidlesson.domain.authorization.models.DataToLogin;
+import com.androidlesson.hackathon3project.R;
 import com.androidlesson.hackathon3project.app.App;
 import com.androidlesson.hackathon3project.databinding.FragmentLoginBinding;
 import com.androidlesson.hackathon3project.presentation.authorization.viewModels.loginViewModel.LoginFragmentViewModel;
@@ -42,6 +46,7 @@ public class LoginFragment extends Fragment {
     private LinearLayout ll_go_to_reg;
     private EditText et_email, et_password;
     private RelativeLayout rl_progress_bar;
+    private ImageView iv_show_password;
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
@@ -68,12 +73,13 @@ public class LoginFragment extends Fragment {
         et_email=binding.etEmail;
         et_password=binding.etPassword;
         rl_progress_bar=binding.rlWithProgressBar;
+        iv_show_password=binding.ivShowPassword;
     }
 
     private void setOnClickListener(){
         b_login.setOnClickListener(v->{
-            vm.login(new DataToLogin(et_email.getText().toString().toLowerCase(Locale.ROOT).trim(),et_password.getText().toString().trim()));
             rl_progress_bar.setVisibility(View.VISIBLE);
+            vm.login(new DataToLogin(et_email.getText().toString().toLowerCase(Locale.ROOT).trim(),et_password.getText().toString().trim()));
         });
 
         ll_go_to_reg.setOnClickListener(v->{
@@ -86,16 +92,29 @@ public class LoginFragment extends Fragment {
             @Override
             public void onChanged(String s) {
                 Toast.makeText(getContext(), s, Toast.LENGTH_SHORT).show();
-                rl_progress_bar.setVisibility(View.INVISIBLE);
+                rl_progress_bar.setVisibility(View.GONE);
             }
         });
 
         vm.getResultMutableLiveData().observe(getViewLifecycleOwner(), new Observer<Boolean>() {
             @Override
             public void onChanged(Boolean aBoolean) {
-                rl_progress_bar.setVisibility(View.INVISIBLE);
+                rl_progress_bar.setVisibility(View.GONE);
                 if (aBoolean) parentVM.checkUserAuthorization();
             }
+        });
+
+        final boolean[] isPasswordVisible = {false};
+        iv_show_password.setOnClickListener(v->{
+            if (isPasswordVisible[0]) {
+                et_password.setTransformationMethod(PasswordTransformationMethod.getInstance());
+                iv_show_password.setImageResource(R.drawable.ic_hide_password);
+            } else {
+                et_password.setTransformationMethod(HideReturnsTransformationMethod.getInstance());
+                iv_show_password.setImageResource(R.drawable.ic_show_password);
+            }
+            isPasswordVisible[0] = !isPasswordVisible[0];
+            et_password.setSelection(et_password.getText().length());
         });
     }
 }

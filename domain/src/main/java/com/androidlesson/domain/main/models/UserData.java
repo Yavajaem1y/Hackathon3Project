@@ -26,10 +26,10 @@ public class UserData {
         this.userId = userId;
     }
 
-    public UserData(String userName, String userSurname, String userSystemId) {
+    public UserData(String userName, String userSurname, String userId) {
         this.userName = userName;
         this.userSurname = userSurname;
-        this.userSystemId = userSystemId;
+        this.userId = userId;
     }
 
     public String getUserName() {

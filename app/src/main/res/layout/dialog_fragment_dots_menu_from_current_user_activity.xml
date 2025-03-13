@@ -10,18 +10,19 @@
         android:id="@+id/ll_edit_your_data"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_gravity="center_vertical">
+        android:gravity="center_vertical">
         <ImageView
-            android:layout_width="30dp"
-            android:layout_height="30dp"
-            android:src="@drawable/ic_edit"
-            android:layout_marginEnd="5dp"/>
+            android:layout_width="24dp"
+            android:layout_height="24dp"
+            android:src="@drawable/ic_edit_profile"
+            android:layout_marginEnd="8dp"/>
         <TextView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:text="Редактировать профиль"
-            android:textSize="20dp"
-            android:textStyle="bold" />
+            android:textSize="12dp"
+            android:textStyle="bold"
+            android:textColor="@color/black"/>
     </LinearLayout>
     <View
         android:layout_width="wrap_content"
@@ -34,18 +35,19 @@
         android:id="@+id/ll_logout"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_gravity="center_vertical">
+        android:gravity="center_vertical">
         <ImageView
-            android:layout_width="30dp"
-            android:layout_height="30dp"
+            android:layout_width="24dp"
+            android:layout_height="24dp"
             android:src="@drawable/ic_logout"
-            android:layout_marginEnd="5dp"/>
+            android:layout_marginEnd="8dp"/>
         <TextView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="Выйти из аккаунта"
-            android:textSize="20dp"
-            android:textStyle="bold" />
+            android:text="Выйти"
+            android:textSize="12dp"
+            android:textStyle="bold"
+            android:textColor="@color/black"/>
     </LinearLayout>
 
 </LinearLayout>
