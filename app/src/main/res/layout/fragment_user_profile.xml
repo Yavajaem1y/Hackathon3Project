@@ -40,11 +40,11 @@
                     android:layout_centerHorizontal="true"
                     android:layout_gravity="center_horizontal"
                     android:layout_marginStart="24dp"
-                    android:layout_marginTop="24dp"
+                    android:layout_marginTop="37dp"
                     android:layout_toRightOf="@id/civ_curr_user_avatar"
                     android:text="name surname"
                     android:textColor="@color/black"
-                    android:textSize="20sp"
+                    android:textSize="16sp"
                     android:textStyle="bold" />
 
                 <TextView
@@ -59,7 +59,7 @@
                     android:layout_toRightOf="@id/civ_curr_user_avatar"
                     android:text="\@login"
                     android:textColor="@color/userAvatarColor"
-                    android:textSize="15sp"
+                    android:textSize="12sp"
                     android:textStyle="bold" />
             </RelativeLayout>
 

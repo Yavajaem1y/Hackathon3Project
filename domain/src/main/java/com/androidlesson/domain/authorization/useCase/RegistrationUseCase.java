@@ -38,6 +38,7 @@ public class RegistrationUseCase {
         }
 
         else if (password.length()<8) {
+            errorCallBack.getString("");
             return;
         }
         else if (!password.equals(repassword)) {

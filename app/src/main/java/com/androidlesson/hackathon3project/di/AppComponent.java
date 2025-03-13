@@ -5,6 +5,8 @@ import com.androidlesson.hackathon3project.presentation.authorization.fragments.
 import com.androidlesson.hackathon3project.presentation.authorization.fragments.RegistrationFragment;
 import com.androidlesson.hackathon3project.presentation.main.ui.fragments.MainFragment;
 import com.androidlesson.hackathon3project.presentation.main.ui.fragments.bottomNavigationFragments.UserProfileFragment;
+import com.androidlesson.hackathon3project.presentation.main.ui.fragments.dialogFragments.EditUserProfileDialogFragment;
+import com.androidlesson.hackathon3project.presentation.main.viewModels.editUserProfileFragmentViewModel.EditUserProfileFragmentViewModel;
 
 import dagger.Component;
 
@@ -26,4 +28,6 @@ public interface AppComponent {
     void injectRegistrationFragment(RegistrationFragment registrationFragment);
 
     void injectUserProfileFragment(UserProfileFragment userProfileFragment);
+
+    void injectEditUserProfileFragment(EditUserProfileDialogFragment editUserProfileDialogFragment);
 }

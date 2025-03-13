@@ -83,7 +83,9 @@ public class DotsMenuFragmentFromCurrnetUserActivity extends DialogFragment {
         });
 
         ll_edit.setOnClickListener(v->{
-
+            FragmentManager fragmentManager = getParentFragmentManager();
+            EditUserProfileDialogFragment dialogFragment = new EditUserProfileDialogFragment();
+            dialogFragment.show(fragmentManager, "my_dialog");
         });
     }
 }

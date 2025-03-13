@@ -50,6 +50,7 @@ dependencies {
     implementation(libs.credentials.play.services.auth)
     implementation(libs.googleid)
     implementation(libs.firebase.database)
+    implementation(libs.firebase.storage)
     annotationProcessor("com.google.dagger:dagger-compiler:2.52")
 
 

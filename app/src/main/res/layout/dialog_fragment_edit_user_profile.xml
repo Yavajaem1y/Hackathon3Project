@@ -1,0 +1,209 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:background="@drawable/bg_rounded_grey"
+    android:backgroundTint="@color/white">
+
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:padding="24dp">
+        <RelativeLayout
+            android:id="@+id/rl_with_avatar"
+            android:layout_width="80dp"
+            android:layout_height="80dp">
+            <de.hdodenhof.circleimageview.CircleImageView
+                android:id="@+id/civ_curr_user_avatar"
+                android:layout_width="80dp"
+                android:layout_height="80dp"
+                android:layout_gravity="center_horizontal"
+                android:clickable="true"
+                android:focusable="true"
+                android:src="@drawable/ic_user_avatar"
+                app:civ_circle_background_color="@color/userAvatarBackground"/>
+            <RelativeLayout
+                android:id="@+id/b_edit_avatar"
+                android:layout_width="24dp"
+                android:layout_height="24dp"
+                android:layout_alignParentRight="true"
+                android:layout_alignParentBottom="true">
+                <de.hdodenhof.circleimageview.CircleImageView
+                    android:layout_width="24dp"
+                    android:layout_height="24dp"
+                    android:src="#797979"/>
+                <ImageView
+                    android:layout_width="10dp"
+                    android:layout_height="10dp"
+                    android:layout_gravity="center"
+                    android:src="@drawable/ic_edit_avatar"
+                    android:layout_centerInParent="true"
+                    />
+            </RelativeLayout>
+        </RelativeLayout>
+    <TextView
+        android:id="@+id/tv_curr_user_name_and_surname"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_centerHorizontal="true"
+        android:layout_gravity="center_horizontal"
+        android:layout_marginStart="24dp"
+        android:layout_toRightOf="@id/rl_with_avatar"
+        android:layout_marginTop="13dp"
+        android:text="name surname"
+        android:textColor="@color/black"
+        android:textSize="16sp"
+        android:textStyle="bold" />
+    <TextView
+        android:id="@+id/tv_login"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/tv_curr_user_name_and_surname"
+        android:layout_centerHorizontal="true"
+        android:layout_gravity="center_horizontal"
+        android:layout_marginStart="24dp"
+        android:layout_marginBottom="10dp"
+        android:layout_toRightOf="@id/rl_with_avatar"
+        android:text="\@login"
+        android:textColor="@color/userAvatarColor"
+        android:textSize="12sp"
+        android:textStyle="bold" />
+    <ImageView
+        android:id="@+id/iv_cancellation"
+        android:layout_width="24dp"
+        android:layout_height="24dp"
+        android:src="@drawable/ic_cancellation"
+        android:layout_alignParentRight="true" />
+
+    <View
+        android:id="@+id/view"
+        android:layout_width="wrap_content"
+        android:layout_height="1dp"
+        android:background="@android:color/darker_gray"
+        android:layout_marginTop="52dp"
+        android:layout_marginBottom="24dp"
+        android:layout_below="@id/tv_login"/>
+
+    <TextView
+        android:id="@+id/tv_tv_name"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Имя"
+        android:layout_below="@id/view"
+        android:textSize="12sp"
+        android:textStyle="bold"
+
+        android:layout_marginBottom="8dp"/>
+    <EditText
+        android:id="@+id/et_name"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_below="@id/tv_tv_name"
+        android:background="@drawable/bg_rounded_white_with_grey_stroke"
+        android:paddingStart="16dp"
+        android:paddingEnd="16dp"
+        android:paddingTop="12dp"
+        android:paddingBottom="12dp"
+        android:hint="Ваше имя"
+        android:layout_marginBottom="16dp"
+        android:textSize="14sp"/>
+
+    <TextView
+        android:id="@+id/tv_tv_surname"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Фамилия пользователя"
+        android:layout_below="@id/et_name"
+        android:textSize="12sp"
+        android:textStyle="bold"
+        android:layout_marginBottom="8dp"/>
+    <EditText
+        android:id="@+id/et_surname"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_below="@id/tv_tv_surname"
+        android:background="@drawable/bg_rounded_white_with_grey_stroke"
+        android:paddingStart="16dp"
+        android:paddingEnd="16dp"
+        android:paddingTop="12dp"
+        android:paddingBottom="12dp"
+        android:hint="Ваша фамилия"
+        android:layout_marginBottom="16dp"
+        android:textSize="14sp"/>
+
+    <TextView
+        android:id="@+id/tv_tv_id"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Имя пользователя"
+        android:layout_below="@id/et_surname"
+        android:textSize="12sp"
+        android:textStyle="bold"
+        android:layout_marginBottom="8dp"/>
+    <EditText
+        android:id="@+id/et_id"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_below="@id/tv_tv_id"
+        android:background="@drawable/bg_rounded_white_with_grey_stroke"
+        android:paddingStart="16dp"
+        android:paddingEnd="16dp"
+        android:paddingTop="12dp"
+        android:paddingBottom="12dp"
+        android:hint="Ваш уникальный id"
+        android:layout_marginBottom="16dp"
+        android:textSize="14sp"/>
+
+    <TextView
+        android:id="@+id/tv_tv_email"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Адрес электронной почты"
+        android:layout_below="@id/et_id"
+        android:textSize="12sp"
+        android:textStyle="bold"
+        android:layout_marginBottom="8dp"/>
+    <EditText
+        android:id="@+id/et_email"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_below="@id/tv_tv_email"
+        android:background="@drawable/bg_rounded_white_with_grey_stroke"
+        android:paddingStart="16dp"
+        android:paddingEnd="16dp"
+        android:paddingTop="12dp"
+        android:paddingBottom="12dp"
+        android:hint="name@email.ru"
+        android:layout_marginBottom="16dp"
+        android:textSize="14sp"/>
+
+    <TextView
+        android:id="@+id/b_edit_profile"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="Сохранить изменения"
+        android:gravity="center"
+        android:paddingTop="12dp"
+        android:paddingBottom="12dp"
+        android:layout_alignParentBottom="true"
+        android:background="@drawable/bg_rounded_accent"
+        android:textColor="@color/white"
+        android:textSize="12sp"
+        android:textStyle="bold"/>
+    </RelativeLayout>
+    <RelativeLayout
+        android:id="@+id/rl_with_progress_bar"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:background="#50000000"
+        android:visibility="invisible">
+
+        <ProgressBar
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_centerInParent="true"
+            android:background="@drawable/bg_rounded_white_with_grey_stroke"
+            android:padding="14dp" />
+    </RelativeLayout>
+</RelativeLayout>

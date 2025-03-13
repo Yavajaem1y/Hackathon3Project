@@ -10,7 +10,7 @@ public class ObserveCurrentUserDataUseCase {
         this.firebaseRepository = firebaseRepository;
     }
 
-    public void execute(String id,UserDataCallback userDataCallback){
-        firebaseRepository.observeCurrentUserData(id,userDataCallback);
+    public void execute(UserDataCallback userDataCallback){
+        firebaseRepository.observeCurrentUserData(userDataCallback);
     }
 }

@@ -38,22 +38,36 @@ public class MainFirebaseRepositoryImpl implements MainFirebaseRepository {
     }
 
     @Override
-    public void observeCurrentUserData(String userId,UserDataCallback userDataCallback) {
-        Log.d("MainRep",userId.toString());
-        firebaseDatabase.getReference(DATABASE_WITH_USERS_DATA).child(userId).addValueEventListener(new ValueEventListener() {
-            @Override
-            public void onDataChange(@NonNull DataSnapshot snapshot) {
-                if (snapshot.exists()){
-                    UserData userData=snapshot.getValue(UserData.class);
-                    userData.setUserId(snapshot.getKey());
-                    userDataCallback.getUserData(userData);
+    public void observeCurrentUserData(UserDataCallback userDataCallback) {
+        if (auth.getUid()!=null) {
+            firebaseDatabase.getReference(DATABASE_SYSTEM_ID_TO_APP_ID).child(auth.getUid()).addValueEventListener(new ValueEventListener() {
+                @Override
+                public void onDataChange(@NonNull DataSnapshot snapshot) {
+                    if (snapshot.exists()) {
+                        String userId = snapshot.child(USER_ID).getValue(String.class);
+                        firebaseDatabase.getReference(DATABASE_WITH_USERS_DATA).child(userId).addValueEventListener(new ValueEventListener() {
+                            @Override
+                            public void onDataChange(@NonNull DataSnapshot snapshot) {
+                                if (snapshot.exists()) {
+                                    UserData userData = snapshot.getValue(UserData.class);
+                                    userData.setUserId(snapshot.getKey());
+                                    userDataCallback.getUserData(userData);
+                                }
+                            }
+
+                            @Override
+                            public void onCancelled(@NonNull DatabaseError error) {
+
+                            }
+                        });
+                    }
                 }
-            }
 
-            @Override
-            public void onCancelled(@NonNull DatabaseError error) {
+                @Override
+                public void onCancelled(@NonNull DatabaseError error) {
 
-            }
-        });
+                }
+            });
+        }
     }
 }

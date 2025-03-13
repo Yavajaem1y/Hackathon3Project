@@ -19,8 +19,11 @@ import com.androidlesson.hackathon3project.databinding.FragmentUserProfileBindin
 import com.androidlesson.hackathon3project.presentation.main.ui.fragments.dialogFragments.DotsMenuFragmentFromCurrnetUserActivity;
 import com.androidlesson.hackathon3project.presentation.main.viewModels.sharedViewModel.SharedViewModel;
 import com.androidlesson.hackathon3project.presentation.main.viewModels.sharedViewModel.SharedViewModelFactory;
+import com.bumptech.glide.Glide;
 
 import javax.inject.Inject;
+
+import de.hdodenhof.circleimageview.CircleImageView;
 
 
 public class UserProfileFragment extends Fragment {
@@ -32,7 +35,8 @@ public class UserProfileFragment extends Fragment {
     SharedViewModelFactory sharedViewModelFactory;
 
     private ImageView ic_dots_menu;
-    private TextView tv_user_name_and_surname;
+    private TextView tv_user_name_and_surname, tv_user_id;
+    private CircleImageView civ_user_avatar;
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
@@ -55,11 +59,14 @@ public class UserProfileFragment extends Fragment {
     private void initialization() {
         ic_dots_menu=binding.icDotsMenu;
         tv_user_name_and_surname=binding.tvCurrUserNameAndSurname;
+        tv_user_id=binding.tvLogin;
+        civ_user_avatar=binding.civCurrUserAvatar;
         UserData userData = null;
         
         if (sharedViewModel.getCurrentUserDataLiveData().getValue()!=null) {
             userData = sharedViewModel.getCurrentUserDataLiveData().getValue();
             if (userData.getUserName()!=null && userData.getUserSurname()!=null) tv_user_name_and_surname.setText(userData.getUserName()+" "+userData.getUserSurname());
+            if (userData.getUserId()!=null && !userData.getUserId().isEmpty()) tv_user_id.setText("@"+userData.getUserId());
         }
     }
 
@@ -69,6 +76,10 @@ public class UserProfileFragment extends Fragment {
             public void onChanged(UserData userData) {
                 if (userData!=null){
                     tv_user_name_and_surname.setText(userData.getUserName()+" "+userData.getUserSurname());
+                    tv_user_id.setText("@"+userData.getUserId());
+                    if (userData.getImageData()!=null && !userData.getImageData().isEmpty()){
+                        Glide.with(getContext()).load(userData.getImageData()).into(civ_user_avatar);
+                    }
                 }
             }
         });

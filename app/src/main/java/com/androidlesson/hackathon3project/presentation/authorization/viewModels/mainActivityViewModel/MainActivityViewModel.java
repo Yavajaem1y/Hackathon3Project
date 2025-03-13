@@ -42,7 +42,6 @@ public class MainActivityViewModel extends ViewModel {
         if (checkUserAuthorizationUseCase.execute()) {
             UserData userData = checkUserDataFromSPUseCase.execute();
             if (userData != null) {
-                Log.d("MainActivityViewModel","User data != null");
                 if (userData.getUserId().isEmpty()) {
                     checkUserDataFromFBUseCase.execute(new UserDataCallback() {
                         @Override

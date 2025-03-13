@@ -58,6 +58,7 @@ public class MainActivity extends AppCompatActivity implements OnDataPass {
         vm= new ViewModelProvider(this,vmFactory).get(MainActivityViewModel.class);
         sharedViewModel=new ViewModelProvider(this,sharedViewModelFactory).get(SharedViewModel.class);
 
+
         mainRelativeLayout=findViewById(R.id.rl_main_in_layout);
         tv_go_to_login=findViewById(R.id.b_log);
         tv_go_to_registration=findViewById(R.id.b_reg);

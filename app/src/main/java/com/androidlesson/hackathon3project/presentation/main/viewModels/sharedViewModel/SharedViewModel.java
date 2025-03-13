@@ -7,24 +7,31 @@ import android.util.Log;
 import androidx.lifecycle.AndroidViewModel;
 import androidx.lifecycle.LiveData;
 import androidx.lifecycle.MutableLiveData;
+import androidx.lifecycle.Observer;
 
+import com.androidlesson.domain.authorization.interfaces.StringCallBack;
 import com.androidlesson.domain.authorization.useCase.GetUserIdUseCase;
 import com.androidlesson.domain.main.interfaces.UserDataCallback;
 import com.androidlesson.domain.main.models.UserData;
+import com.androidlesson.domain.main.useCase.GetUserEmailUseCase;
 import com.androidlesson.domain.main.useCase.ObserveCurrentUserDataUseCase;
 
 public class SharedViewModel extends AndroidViewModel {
     private final ObserveCurrentUserDataUseCase observeCurrentUserDataUseCase;
-    private final MutableLiveData<UserData> currentUserDataMutableLiveData = new MutableLiveData<>();
+    private final GetUserEmailUseCase getUserEmailUseCase;
 
-    public SharedViewModel(Application application, ObserveCurrentUserDataUseCase observeCurrentUserDataUseCase, GetUserIdUseCase getUserIdUseCase) {
+    private final MutableLiveData<UserData> currentUserDataMutableLiveData = new MutableLiveData<>();
+    private final MutableLiveData<String> userEmailMutableLiveData = new MutableLiveData<>();
+
+    public SharedViewModel(Application application, ObserveCurrentUserDataUseCase observeCurrentUserDataUseCase, GetUserIdUseCase getUserIdUseCase, GetUserEmailUseCase getUserEmailUseCase) {
         super(application);
         this.observeCurrentUserDataUseCase = observeCurrentUserDataUseCase;
-        observeCurrentUserData(getUserIdUseCase.execute());
+        this.getUserEmailUseCase=getUserEmailUseCase;
+        observeCurrentUserData();
     }
 
-    private void observeCurrentUserData(String id) {
-        observeCurrentUserDataUseCase.execute(id, new UserDataCallback() {
+    private void observeCurrentUserData() {
+        observeCurrentUserDataUseCase.execute(new UserDataCallback() {
             @Override
             public void getUserData(UserData userData) {
                 setCurrentUserData(userData);
@@ -39,7 +46,23 @@ public class SharedViewModel extends AndroidViewModel {
         }
     }
 
+    public void getUserEmail(){
+        getUserEmailUseCase.execute(new StringCallBack() {
+            @Override
+            public void getString(String string) {
+                if (!string.isEmpty())
+                    userEmailMutableLiveData.setValue(string);
+            }
+        });
+    }
+
     public LiveData<UserData> getCurrentUserDataLiveData() {
         return currentUserDataMutableLiveData;
     }
+
+    public LiveData<String> getUserEmailMutableLiveData() {
+        return userEmailMutableLiveData;
+    }
+
+
 }

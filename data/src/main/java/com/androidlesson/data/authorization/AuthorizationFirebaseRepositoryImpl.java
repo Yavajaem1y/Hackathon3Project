@@ -11,16 +11,28 @@ import com.androidlesson.domain.authorization.models.DataToRegistration;
 import com.androidlesson.domain.authorization.interfaces.StringCallBack;
 import com.androidlesson.domain.authorization.repository.AuthorizationFirebaseRepository;
 import com.androidlesson.domain.main.interfaces.UserDataCallback;
+import com.androidlesson.domain.main.models.ImageToDb;
 import com.androidlesson.domain.main.models.UserData;
 import com.androidlesson.domain.main.models.UserDataToDB;
+import com.androidlesson.domain.main.models.UserDataToEdit;
 import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.OnSuccessListener;
 import com.google.android.gms.tasks.Task;
 import com.google.firebase.FirebaseApp;
+import com.google.firebase.auth.AuthCredential;
 import com.google.firebase.auth.AuthResult;
+import com.google.firebase.auth.EmailAuthProvider;
 import com.google.firebase.auth.FirebaseAuth;
+import com.google.firebase.auth.FirebaseUser;
 import com.google.firebase.database.DataSnapshot;
+import com.google.firebase.database.DatabaseError;
+import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
+import com.google.firebase.database.ValueEventListener;
+import com.google.firebase.storage.FirebaseStorage;
+import com.google.firebase.storage.StorageReference;
+
+import java.util.Objects;
 
 public class AuthorizationFirebaseRepositoryImpl implements AuthorizationFirebaseRepository {
 
@@ -35,6 +47,7 @@ public class AuthorizationFirebaseRepositoryImpl implements AuthorizationFirebas
     private final String USER_NAME="userName";
     private final String USER_SURNAME="userSurname";
     private final String ID_LAST_KEY="LAST_KEY";
+    private final String USER_AVATAR_IMAGE="imageData";
 
     private String userSystemId;
 
@@ -211,6 +224,92 @@ public class AuthorizationFirebaseRepositoryImpl implements AuthorizationFirebas
     public void logOut() {
         auth.signOut();
         Log.d("Authorization","SignOut in fb");
+    }
+
+    @Override
+    public void editEmail(String email, BooleanCallBack booleanCallBack) {
+        //FirebaseUser user = auth.getCurrentUser();
+        //if (user != null) {
+        //    AuthCredential credential = EmailAuthProvider.getCredential();
+        //    user.reauthenticate(credential).addOnCompleteListener(task -> {
+        //        if (task.isSuccessful()) {
+        //            user.updateEmail(email).addOnCompleteListener(updateTask -> {
+        //                booleanCallBack.getBoolean(updateTask.isSuccessful());
+        //            });
+        //        } else {
+        //            booleanCallBack.getBoolean(false);
+        //        }
+        //    });
+        //} else {
+        //    booleanCallBack.getBoolean(false);
+        //}
+        booleanCallBack.getBoolean(true);
+    }
+
+    @Override
+    public void editId(String oldId, String newId, BooleanCallBack booleanCallBack) {
+        firebaseDatabase.getReference(DATABASE_WITH_USERS_DATA).child(oldId).addListenerForSingleValueEvent(new ValueEventListener() {
+            @Override
+            public void onDataChange(@NonNull DataSnapshot snapshot) {
+                if (snapshot.exists()){
+                    UserData data=snapshot.getValue(UserData.class);
+
+                    firebaseDatabase.getReference(DATABASE_WITH_USERS_DATA).child(newId).setValue(data)
+                            .addOnSuccessListener(aVoid -> {
+                                firebaseDatabase.getReference(DATABASE_SYSTEM_ID_TO_APP_ID).child(auth.getUid()).child(USER_ID).setValue(newId);
+                                firebaseDatabase.getReference(DATABASE_WITH_USERS_DATA).child(oldId).removeValue();
+                                booleanCallBack.getBoolean(true);
+                            });
+                }
+            }
+
+            @Override
+            public void onCancelled(@NonNull DatabaseError error) {
+
+            }
+        });
+    }
+
+    @Override
+    public void editUserData(UserDataToEdit userDataToEdit, UserDataCallback userDataCallback) {
+        firebaseDatabase.getReference(DATABASE_WITH_USERS_DATA).child(userDataToEdit.getUserId()).child(USER_NAME).setValue(userDataToEdit.getUserName()).addOnCompleteListener(new OnCompleteListener<Void>() {
+            @Override
+            public void onComplete(@NonNull Task<Void> task) {
+                if (task.isSuccessful()){
+                    firebaseDatabase.getReference(DATABASE_WITH_USERS_DATA).child(userDataToEdit.getUserId()).child(USER_SURNAME).setValue(userDataToEdit.getUserSurname()).addOnCompleteListener(new OnCompleteListener<Void>() {
+                        @Override
+                        public void onComplete(@NonNull Task<Void> task) {
+                            if (task.isSuccessful()){
+                                getCurrentUserData(userDataCallback);
+                            }
+                        }
+                    });
+                }
+            }
+        });
+    }
+
+    @Override
+    public void getUserEmail(StringCallBack stringCallBack) {
+        stringCallBack.getString(Objects.requireNonNull(auth.getCurrentUser()).getEmail());
+    }
+
+    @Override
+    public void addImageAvatar(ImageToDb imageToDb, BooleanCallBack booleanCallBack) {
+        StorageReference storageRef = FirebaseStorage.getInstance().getReference().child(imageToDb.getImageId());
+        storageRef.putBytes(imageToDb.getImageData())
+                .addOnSuccessListener(taskSnapshot -> storageRef.getDownloadUrl().addOnSuccessListener(uri -> {
+                    saveImageAvatarUrl(uri.toString(),imageToDb.getUserId(),booleanCallBack);
+                }))
+                .addOnFailureListener(e -> Log.e("Firebase", "Ошибка загрузки", e));
+    }
+
+    private void saveImageAvatarUrl(String imageId, String userId, BooleanCallBack booleanCallBack) {
+        DatabaseReference databaseRef = FirebaseDatabase.getInstance().getReference().child(DATABASE_WITH_USERS_DATA).child(userId).child(USER_AVATAR_IMAGE);
+        if (imageId != null) {
+            databaseRef.setValue(imageId);
+            booleanCallBack.getBoolean(true);
+        }
     }
 
 }

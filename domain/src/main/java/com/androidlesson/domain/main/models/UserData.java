@@ -3,7 +3,7 @@ package com.androidlesson.domain.main.models;
 import java.util.List;
 
 public class UserData {
-    private String userName, userSurname, userSystemId, userId;
+    private String userName, userSurname, userSystemId, userId, imageData;
     private List<String> listAwardsReceivedIds, listHeroIds, listFavoriteRecordIds;
 
     public UserData() {
@@ -30,6 +30,14 @@ public class UserData {
         this.userName = userName;
         this.userSurname = userSurname;
         this.userId = userId;
+    }
+
+    public String getImageData() {
+        return imageData;
+    }
+
+    public void setImageData(String imageData) {
+        this.imageData = imageData;
     }
 
     public String getUserName() {

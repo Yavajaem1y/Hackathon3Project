@@ -12,6 +12,8 @@ import com.androidlesson.domain.authorization.useCase.RegistrationUseCase;
 import com.androidlesson.domain.authorization.useCase.SaveUserDataToSPUseCase;
 import com.androidlesson.domain.authorization.useCase.SetAuthorizationDataToSPUseCase;
 import com.androidlesson.domain.main.repository.MainFirebaseRepository;
+import com.androidlesson.domain.main.useCase.EditUserDataUseCase;
+import com.androidlesson.domain.main.useCase.GetUserEmailUseCase;
 import com.androidlesson.domain.main.useCase.LogOutUseCase;
 import com.androidlesson.domain.main.useCase.ObserveCurrentUserDataUseCase;
 
@@ -71,5 +73,15 @@ public class DomainModule {
     @Provides
     public SaveUserDataToSPUseCase provideSaveUserDataToSPUseCase(AuthorizationSharedPreferencesRepository authorizationSharedPreferencesRepository){
         return new SaveUserDataToSPUseCase(authorizationSharedPreferencesRepository);
+    }
+
+    @Provides
+    public EditUserDataUseCase provideEditUserDataUseCase(AuthorizationFirebaseRepository authorizationFirebaseRepository){
+        return new EditUserDataUseCase(authorizationFirebaseRepository);
+    }
+
+    @Provides
+    public GetUserEmailUseCase provideGetUserEmailUseCase(AuthorizationFirebaseRepository authorizationFirebaseRepository){
+        return new GetUserEmailUseCase(authorizationFirebaseRepository);
     }
 }

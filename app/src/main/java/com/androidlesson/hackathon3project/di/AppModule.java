@@ -11,11 +11,14 @@ import com.androidlesson.domain.authorization.useCase.LoginUseCase;
 import com.androidlesson.domain.authorization.useCase.RegistrationUseCase;
 import com.androidlesson.domain.authorization.useCase.SaveUserDataToSPUseCase;
 import com.androidlesson.domain.authorization.useCase.SetAuthorizationDataToSPUseCase;
+import com.androidlesson.domain.main.useCase.EditUserDataUseCase;
+import com.androidlesson.domain.main.useCase.GetUserEmailUseCase;
 import com.androidlesson.domain.main.useCase.LogOutUseCase;
 import com.androidlesson.domain.main.useCase.ObserveCurrentUserDataUseCase;
 import com.androidlesson.hackathon3project.presentation.authorization.viewModels.loginViewModel.LoginFragmentViewModelFactory;
 import com.androidlesson.hackathon3project.presentation.authorization.viewModels.mainActivityViewModel.MainActivityViewModelFactory;
 import com.androidlesson.hackathon3project.presentation.authorization.viewModels.registratoinViewModel.RegistrationFragmentViewModelFactory;
+import com.androidlesson.hackathon3project.presentation.main.viewModels.editUserProfileFragmentViewModel.EditUserProfileFragmentViewModelFactory;
 import com.androidlesson.hackathon3project.presentation.main.viewModels.mainActivityViewModel.MainFragmentViewModelFactory;
 import com.androidlesson.hackathon3project.presentation.main.viewModels.sharedViewModel.SharedViewModelFactory;
 
@@ -41,8 +44,8 @@ public class AppModule {
     }
 
     @Provides
-    public SharedViewModelFactory provideSharedViewModelFactory(ObserveCurrentUserDataUseCase observeCurrentUserDataUseCase, GetUserIdUseCase getUserIdUseCase) {
-        return new SharedViewModelFactory(application, observeCurrentUserDataUseCase, getUserIdUseCase);
+    public SharedViewModelFactory provideSharedViewModelFactory(ObserveCurrentUserDataUseCase observeCurrentUserDataUseCase, GetUserIdUseCase getUserIdUseCase, GetUserEmailUseCase getUserEmailUseCase) {
+        return new SharedViewModelFactory(application, observeCurrentUserDataUseCase, getUserIdUseCase, getUserEmailUseCase);
     }
 
     @Provides
@@ -63,6 +66,11 @@ public class AppModule {
     @Provides
     public MainFragmentViewModelFactory provideMainActivityViewModelFactory() {
         return new MainFragmentViewModelFactory();
+    }
+
+    @Provides
+    public EditUserProfileFragmentViewModelFactory provideEditUserProfileFragmentViewModelFactory(EditUserDataUseCase editUserDataUseCase, SaveUserDataToSPUseCase saveUserDataToSPUseCase) {
+        return new EditUserProfileFragmentViewModelFactory(editUserDataUseCase,saveUserDataToSPUseCase);
     }
 }
 

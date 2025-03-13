@@ -1,13 +1,52 @@
 {
   "project_info": {
-    "project_number": "212045028089",
-    "project_id": "hackathon3projects",
-    "storage_bucket": "hackathon3projects.firebasestorage.app"
+    "project_number": "632439724425",
+    "firebase_url": "https://massager-project-default-rtdb.firebaseio.com",
+    "project_id": "massager-project",
+    "storage_bucket": "massager-project.appspot.com"
   },
   "client": [
     {
       "client_info": {
-        "mobilesdk_app_id": "1:212045028089:android:c4d25b2c8fc460a66b6028",
+        "mobilesdk_app_id": "1:632439724425:android:4393e0f8bed24a0a992958",
+        "android_client_info": {
+          "package_name": "android.lesson.massagerproject"
+        }
+      },
+      "oauth_client": [],
+      "api_key": [
+        {
+          "current_key": "AIzaSyB_YgVDarwMaYrOyecHP-S5sPs4yqXNnSA"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": []
+        }
+      }
+    },
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:632439724425:android:7e93e888f2885724992958",
+        "android_client_info": {
+          "package_name": "android.lesson.messengerproject"
+        }
+      },
+      "oauth_client": [],
+      "api_key": [
+        {
+          "current_key": "AIzaSyB_YgVDarwMaYrOyecHP-S5sPs4yqXNnSA"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": []
+        }
+      }
+    },
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:632439724425:android:344aed61bc7337d3992958",
         "android_client_info": {
           "package_name": "com.androidlesson.hackathon3project"
         }
@@ -15,7 +54,7 @@
       "oauth_client": [],
       "api_key": [
         {
-          "current_key": "AIzaSyCoIxggStJoHKahi5o2amOnx-xbFhB4hyE"
+          "current_key": "AIzaSyB_YgVDarwMaYrOyecHP-S5sPs4yqXNnSA"
         }
       ],
       "services": {

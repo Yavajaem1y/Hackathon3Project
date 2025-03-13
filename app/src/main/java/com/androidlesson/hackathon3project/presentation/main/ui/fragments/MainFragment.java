@@ -16,6 +16,8 @@ import com.androidlesson.hackathon3project.app.App;
 import com.androidlesson.hackathon3project.databinding.FragmentMainBinding;
 import com.androidlesson.hackathon3project.presentation.main.viewModels.mainActivityViewModel.MainFragmentViewModel;
 import com.androidlesson.hackathon3project.presentation.main.viewModels.mainActivityViewModel.MainFragmentViewModelFactory;
+import com.androidlesson.hackathon3project.presentation.main.viewModels.sharedViewModel.SharedViewModel;
+import com.androidlesson.hackathon3project.presentation.main.viewModels.sharedViewModel.SharedViewModelFactory;
 import com.ismaeldivita.chipnavigation.ChipNavigationBar;
 
 import javax.inject.Inject;
@@ -27,6 +29,10 @@ public class MainFragment extends Fragment {
     private MainFragmentViewModel vm;
     @Inject
     MainFragmentViewModelFactory vmFactory;
+
+    private SharedViewModel sharedVM;
+    @Inject
+    SharedViewModelFactory sharedVMFactory;
 
     private ChipNavigationBar bottomNavigationView;
 
@@ -53,6 +59,9 @@ public class MainFragment extends Fragment {
         ((App) requireActivity().getApplication()).appComponent.injectMainFragment(this);
 
         vm = new ViewModelProvider(this, vmFactory).get(MainFragmentViewModel.class);
+        sharedVM=new ViewModelProvider(requireActivity(),sharedVMFactory).get(SharedViewModel.class);
+
+        sharedVM.getUserEmail();
 
         currFragment = vm.getFragmentContainerLiveData().getValue();
         if (currFragment != null) {
