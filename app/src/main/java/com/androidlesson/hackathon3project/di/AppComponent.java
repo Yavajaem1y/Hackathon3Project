@@ -4,7 +4,9 @@ import com.androidlesson.hackathon3project.presentation.authorization.activities
 import com.androidlesson.hackathon3project.presentation.authorization.fragments.LoginFragment;
 import com.androidlesson.hackathon3project.presentation.authorization.fragments.RegistrationFragment;
 import com.androidlesson.hackathon3project.presentation.main.ui.fragments.MainFragment;
+import com.androidlesson.hackathon3project.presentation.main.ui.fragments.bottomNavigationFragments.NewsFragment;
 import com.androidlesson.hackathon3project.presentation.main.ui.fragments.bottomNavigationFragments.UserProfileFragment;
+import com.androidlesson.hackathon3project.presentation.main.ui.fragments.dialogFragments.AddHeroDialogFragment;
 import com.androidlesson.hackathon3project.presentation.main.ui.fragments.dialogFragments.EditUserProfileDialogFragment;
 import com.androidlesson.hackathon3project.presentation.main.viewModels.editUserProfileFragmentViewModel.EditUserProfileFragmentViewModel;
 
@@ -30,4 +32,8 @@ public interface AppComponent {
     void injectUserProfileFragment(UserProfileFragment userProfileFragment);
 
     void injectEditUserProfileFragment(EditUserProfileDialogFragment editUserProfileDialogFragment);
+
+    void injectAddHeroFragment(AddHeroDialogFragment addHeroDialogFragment);
+
+    void injectNewsFragment(NewsFragment newsFragment);
 }

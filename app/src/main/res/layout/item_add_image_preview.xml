@@ -1,0 +1,14 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="152dp"
+    android:layout_height="152dp"
+    android:background="@drawable/bg_rounded_sky">
+
+    <ImageView
+        android:id="@+id/iv_hero_image"
+        android:layout_width="100dp"
+        android:layout_height="100dp"
+        android:src="@drawable/ic_plus"
+        android:layout_centerInParent="true"/>
+
+</RelativeLayout>

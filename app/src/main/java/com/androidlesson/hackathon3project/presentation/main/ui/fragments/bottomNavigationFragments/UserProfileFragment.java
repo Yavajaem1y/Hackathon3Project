@@ -6,20 +6,28 @@ import androidx.fragment.app.Fragment;
 import androidx.fragment.app.FragmentManager;
 import androidx.lifecycle.Observer;
 import androidx.lifecycle.ViewModelProvider;
+import androidx.recyclerview.widget.LinearLayoutManager;
+import androidx.recyclerview.widget.RecyclerView;
 
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageView;
 import android.widget.TextView;
+import android.widget.Toast;
 
+import com.androidlesson.domain.main.models.HeroData;
 import com.androidlesson.domain.main.models.UserData;
 import com.androidlesson.hackathon3project.app.App;
 import com.androidlesson.hackathon3project.databinding.FragmentUserProfileBinding;
+import com.androidlesson.hackathon3project.presentation.main.adapters.HeroPreviewAdapter;
 import com.androidlesson.hackathon3project.presentation.main.ui.fragments.dialogFragments.DotsMenuFragmentFromCurrnetUserActivity;
 import com.androidlesson.hackathon3project.presentation.main.viewModels.sharedViewModel.SharedViewModel;
 import com.androidlesson.hackathon3project.presentation.main.viewModels.sharedViewModel.SharedViewModelFactory;
 import com.bumptech.glide.Glide;
+
+import java.util.ArrayList;
+import java.util.List;
 
 import javax.inject.Inject;
 
@@ -37,6 +45,7 @@ public class UserProfileFragment extends Fragment {
     private ImageView ic_dots_menu;
     private TextView tv_user_name_and_surname, tv_user_id;
     private CircleImageView civ_user_avatar;
+    private RecyclerView rv_hero_preview_holder;
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
@@ -61,6 +70,10 @@ public class UserProfileFragment extends Fragment {
         tv_user_name_and_surname=binding.tvCurrUserNameAndSurname;
         tv_user_id=binding.tvLogin;
         civ_user_avatar=binding.civCurrUserAvatar;
+        rv_hero_preview_holder=binding.rvHeroPreviewHolder;
+
+        setAdapter();
+
         UserData userData = null;
         
         if (sharedViewModel.getCurrentUserDataLiveData().getValue()!=null) {
@@ -68,6 +81,15 @@ public class UserProfileFragment extends Fragment {
             if (userData.getUserName()!=null && userData.getUserSurname()!=null) tv_user_name_and_surname.setText(userData.getUserName()+" "+userData.getUserSurname());
             if (userData.getUserId()!=null && !userData.getUserId().isEmpty()) tv_user_id.setText("@"+userData.getUserId());
         }
+    }
+
+    private void setAdapter(){
+        List<HeroData> heroes = new ArrayList<>();
+        heroes.add(null);
+        HeroPreviewAdapter adapter = new HeroPreviewAdapter(heroes,getParentFragmentManager());
+
+        binding.rvHeroPreviewHolder.setLayoutManager(new LinearLayoutManager(getContext(), LinearLayoutManager.HORIZONTAL, false));
+        binding.rvHeroPreviewHolder.setAdapter(adapter);
     }
 
     private void setObserver() {

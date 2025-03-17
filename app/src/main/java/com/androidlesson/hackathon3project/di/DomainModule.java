@@ -12,10 +12,12 @@ import com.androidlesson.domain.authorization.useCase.RegistrationUseCase;
 import com.androidlesson.domain.authorization.useCase.SaveUserDataToSPUseCase;
 import com.androidlesson.domain.authorization.useCase.SetAuthorizationDataToSPUseCase;
 import com.androidlesson.domain.main.repository.MainFirebaseRepository;
+import com.androidlesson.domain.main.useCase.AddNewHeroUseCase;
 import com.androidlesson.domain.main.useCase.EditUserDataUseCase;
 import com.androidlesson.domain.main.useCase.GetUserEmailUseCase;
 import com.androidlesson.domain.main.useCase.LogOutUseCase;
 import com.androidlesson.domain.main.useCase.ObserveCurrentUserDataUseCase;
+import com.androidlesson.domain.main.useCase.ObserveHeroesForNewsUseCase;
 
 import dagger.Module;
 import dagger.Provides;
@@ -83,5 +85,15 @@ public class DomainModule {
     @Provides
     public GetUserEmailUseCase provideGetUserEmailUseCase(AuthorizationFirebaseRepository authorizationFirebaseRepository){
         return new GetUserEmailUseCase(authorizationFirebaseRepository);
+    }
+
+    @Provides
+    public AddNewHeroUseCase provideAddNewHeroUseCase(MainFirebaseRepository firebaseRepository){
+        return new AddNewHeroUseCase(firebaseRepository);
+    }
+
+    @Provides
+    public ObserveHeroesForNewsUseCase provideObserveHeroesForNewsUseCase(MainFirebaseRepository firebaseRepository){
+        return new ObserveHeroesForNewsUseCase(firebaseRepository);
     }
 }

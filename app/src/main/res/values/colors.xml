@@ -5,6 +5,6 @@
 
     <color name="userAvatarColor">#aaaaaa</color>
     <color name="userAvatarBackground">#efefef</color>
-    <color name="secondaryBG">#f8f9fe</color>
+    <color name="secondaryBG">#F8F9FE</color>
     <color name="AccentColor">#006FFD</color>
 </resources>

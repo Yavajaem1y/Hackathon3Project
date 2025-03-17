@@ -1,0 +1,149 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:background="@drawable/bg_rounded_grey"
+    android:backgroundTint="@color/white">
+
+    <ScrollView
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
+        <RelativeLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:paddingEnd="24dp"
+            android:paddingStart="24dp"
+            android:paddingTop="8dp"
+            android:paddingBottom="8dp">
+            <RelativeLayout
+                android:id="@+id/rl_with_avatar_image"
+                android:layout_width="match_parent"
+                android:layout_height="240dp"
+                android:background="@drawable/bg_rounded_sky"
+                android:layout_below="@id/iv_cancellation">
+                <ImageView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_centerInParent="true"
+                    android:src="@drawable/ic_plus"/>
+                <ImageView
+                    android:id="@+id/iv_hero_image"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_centerInParent="true" />
+            </RelativeLayout>
+
+            <ImageView
+                android:id="@+id/iv_cancellation"
+                android:layout_width="24dp"
+                android:layout_height="24dp"
+                android:src="@drawable/ic_cancellation"
+                android:layout_alignParentRight="true"
+                android:layout_marginBottom="8dp"/>
+
+            <View
+                android:id="@+id/view"
+                android:layout_width="wrap_content"
+                android:layout_height="1dp"
+                android:background="@android:color/darker_gray"
+                android:layout_marginTop="24dp"
+                android:layout_marginBottom="8dp"
+                android:layout_below="@id/rl_with_avatar_image"/>
+
+            <TextView
+                android:id="@+id/tv_tv_name"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="ФИО героя"
+                android:layout_below="@id/view"
+                android:textSize="12sp"
+                android:textStyle="bold"
+                android:layout_marginBottom="8dp"/>
+            <EditText
+                android:id="@+id/et_name"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_below="@id/tv_tv_name"
+                android:background="@drawable/bg_rounded_white_with_grey_stroke"
+                android:paddingStart="16dp"
+                android:paddingEnd="16dp"
+                android:paddingTop="12dp"
+                android:paddingBottom="12dp"
+                android:hint="ФИО"
+                android:layout_marginBottom="16dp"
+                android:textSize="14sp"/>
+
+            <TextView
+                android:id="@+id/tv_tv_surname"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Информация"
+                android:layout_below="@id/et_name"
+                android:textSize="12sp"
+                android:textStyle="bold"
+                android:layout_marginBottom="8dp"/>
+            <EditText
+                android:id="@+id/et_info"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_below="@id/tv_tv_surname"
+                android:background="@drawable/bg_rounded_white_with_grey_stroke"
+                android:paddingStart="16dp"
+                android:paddingEnd="16dp"
+                android:paddingTop="12dp"
+                android:paddingBottom="12dp"
+                android:hint="Добавьте информацию о герое: его подвигах, заслугах, как он ушел на войну, когда и как вернулся и так далее"
+                android:layout_marginBottom="16dp"
+                android:textSize="14sp"/>
+
+            <TextView
+                android:id="@+id/tv_tv_image"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Дополнительные фото"
+                android:layout_below="@id/et_info"
+                android:textSize="12sp"
+                android:textStyle="bold"
+                android:layout_marginBottom="8dp"/>
+            
+            <androidx.recyclerview.widget.RecyclerView
+                android:id="@+id/rv_hero_additional_image_holder"
+                android:layout_width="match_parent"
+                android:layout_height="152dp"
+                android:orientation="horizontal"
+                android:layout_below="@id/tv_tv_image"
+                android:layout_marginBottom="16dp"/>
+            
+            <TextView
+                android:id="@+id/b_add_hero"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="Сохранить данные"
+                android:gravity="center"
+                android:paddingTop="12dp"
+                android:paddingBottom="12dp"
+                android:layout_below="@id/rv_hero_additional_image_holder"
+                android:background="@drawable/bg_rounded_accent"
+                android:textColor="@color/white"
+                android:textSize="12sp"
+                android:textStyle="bold"/>
+        </RelativeLayout>
+    </ScrollView>
+        <RelativeLayout
+            android:id="@+id/rl_with_progress_bar"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:background="#50000000"
+            android:visibility="invisible">
+
+            <ProgressBar
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_centerInParent="true"
+                android:background="@drawable/bg_rounded_white_with_grey_stroke"
+                android:padding="14dp" />
+        </RelativeLayout>
+
+
+</RelativeLayout>

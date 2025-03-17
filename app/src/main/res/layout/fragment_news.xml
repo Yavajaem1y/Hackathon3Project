@@ -9,15 +9,15 @@
         android:id="@+id/tv_main_text"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="Текст"
+        android:text="Великая победа"
         android:textStyle="bold"
-        android:textSize="30dp" />
+        android:textSize="28dp"/>
 
     <TextView
         android:id="@+id/tv_secondary_text"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="Еще какой нибудь текст"
+        android:text="Последние события и истории о героях Великой Отечественной войны. Узнайте больше о подвигах, которые изменили историю"
         android:layout_below="@id/tv_main_text"
         android:layout_marginBottom="24dp"/>
 

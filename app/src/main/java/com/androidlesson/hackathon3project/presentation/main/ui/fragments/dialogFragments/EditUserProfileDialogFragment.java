@@ -156,6 +156,7 @@ public class EditUserProfileDialogFragment extends DialogFragment {
             et_user_name.setText(data.getUserName());
             et_user_surname.setText(data.getUserSurname());
             et_user_id.setText(data.getUserId());
+            if (data.getImageData()!=null) Glide.with(getContext()).load(data.getImageData()).into(civ_avatar);
 
             vm.setUserNameMutableLiveData(data.getUserName());
             vm.setUserSurnameMutableLiveData(data.getUserSurname());

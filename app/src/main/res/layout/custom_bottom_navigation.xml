@@ -1,0 +1,100 @@
+<androidx.constraintlayout.widget.ConstraintLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:id="@+id/custom_nav_container"
+    android:layout_width="224dp"
+    android:layout_height="52dp"
+    android:background="@drawable/bg_nav_oval">
+
+    <!-- Подвижный серый овал (фон выбранного элемента) -->
+    <ImageView
+        android:id="@+id/selected_background"
+        android:layout_width="142dp"
+        android:layout_height="44dp"
+        android:src="@drawable/bg_selected_oval"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        android:layout_marginStart="10dp"/>
+
+    <!-- Контейнер для элементов меню -->
+    <LinearLayout
+        android:id="@+id/nav_items_container"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:orientation="horizontal"
+        android:gravity="center"
+        android:paddingHorizontal="10dp">
+
+        <!-- Элемент "Лента" -->
+        <FrameLayout
+            android:id="@+id/nav_lenta"
+            android:layout_width="0dp"
+            android:layout_height="match_parent"
+            android:layout_weight="1"
+            android:gravity="center">
+
+            <ImageView
+                android:id="@+id/icon_lenta"
+                android:layout_width="24dp"
+                android:layout_height="24dp"
+                android:src="@drawable/icon_news"/>
+
+            <TextView
+                android:id="@+id/text_lenta"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Лента"
+                android:visibility="gone"
+                android:layout_marginStart="4dp"
+                android:textColor="#000000"/>
+        </FrameLayout>
+
+        <!-- Элемент "Карта" -->
+        <FrameLayout
+            android:id="@+id/nav_karta"
+            android:layout_width="0dp"
+            android:layout_height="match_parent"
+            android:layout_weight="1"
+            android:gravity="center">
+
+            <ImageView
+                android:id="@+id/icon_karta"
+                android:layout_width="24dp"
+                android:layout_height="24dp"
+                android:src="@drawable/icon_map"/>
+
+            <TextView
+                android:id="@+id/text_karta"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Карта"
+                android:visibility="gone"
+                android:layout_marginStart="4dp"
+                android:textColor="#000000"/>
+        </FrameLayout>
+
+        <!-- Элемент "Профиль" -->
+        <FrameLayout
+            android:id="@+id/nav_profile"
+            android:layout_width="0dp"
+            android:layout_height="match_parent"
+            android:layout_weight="1"
+            android:gravity="center">
+
+            <ImageView
+                android:id="@+id/icon_profile"
+                android:layout_width="24dp"
+                android:layout_height="24dp"
+                android:src="@drawable/icon_user_profile"/>
+
+            <TextView
+                android:id="@+id/text_profile"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Профиль"
+                android:visibility="gone"
+                android:layout_marginStart="4dp"
+                android:textColor="#000000"/>
+        </FrameLayout>
+    </LinearLayout>
+</androidx.constraintlayout.widget.ConstraintLayout>
