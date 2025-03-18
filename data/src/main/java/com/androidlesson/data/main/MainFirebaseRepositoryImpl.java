@@ -8,13 +8,18 @@ import androidx.annotation.Nullable;
 
 import com.androidlesson.domain.authorization.interfaces.BooleanCallBack;
 import com.androidlesson.domain.authorization.interfaces.StringCallBack;
+import com.androidlesson.domain.main.interfaces.HeroDataCallback;
+import com.androidlesson.domain.main.interfaces.HeroDataPreviewCallback;
 import com.androidlesson.domain.main.interfaces.ListStringsCallback;
 import com.androidlesson.domain.main.interfaces.NewsPreviewCallback;
 import com.androidlesson.domain.main.interfaces.UserDataCallback;
+import com.androidlesson.domain.main.models.HeroData;
 import com.androidlesson.domain.main.models.HeroDataToDb;
 import com.androidlesson.domain.main.models.HeroImageToDb;
+import com.androidlesson.domain.main.models.HeroItemPreview;
 import com.androidlesson.domain.main.models.ImageToDb;
 import com.androidlesson.domain.main.models.NewsPreviewItem;
+import com.androidlesson.domain.main.models.ProudOnHeroModel;
 import com.androidlesson.domain.main.models.UserData;
 import com.androidlesson.domain.main.repository.MainFirebaseRepository;
 import com.google.android.gms.tasks.OnCompleteListener;
@@ -32,7 +37,9 @@ import com.google.firebase.storage.FirebaseStorage;
 import com.google.firebase.storage.StorageReference;
 
 import java.util.ArrayList;
+import java.util.HashSet;
 import java.util.List;
+import java.util.Set;
 
 public class MainFirebaseRepositoryImpl implements MainFirebaseRepository {
 
@@ -195,6 +202,79 @@ public class MainFirebaseRepositoryImpl implements MainFirebaseRepository {
 
             }
         });
+    }
+
+    Set<String> loadedHeroes = new HashSet<>();
+
+    @Override
+    public void observeCurrentUserHeroesPreview(String id, HeroDataPreviewCallback heroDataPreviewCallback) {
+        Log.d("HeroAdapter", id);
+        firebaseDatabase.getReference(DATABASE_WITH_USERS_DATA).child(id).child(USER_LIST_HEROES_IDS)
+                .addChildEventListener(new ChildEventListener() {
+                    @Override
+                    public void onChildAdded(@NonNull DataSnapshot snapshot, @Nullable String previousChildName) {
+                        String heroId = snapshot.getValue(String.class);
+                        if (heroId == null || loadedHeroes.contains(heroId)) {
+                            return;
+                        }
+                        loadedHeroes.add(heroId);
+
+                        firebaseDatabase.getReference(DATABASE_WITH_HEROES_DATA).child(heroId)
+                                .addListenerForSingleValueEvent(new ValueEventListener() {
+                                    @Override
+                                    public void onDataChange(@NonNull DataSnapshot snapshot) {
+                                        if (snapshot.exists()) {
+                                            Log.d("HeroAdapter", snapshot.getKey());
+                                            String name = snapshot.child(HERO_NAME).getValue(String.class);
+                                            String avatar = snapshot.child(HERO_AVATAR_IMAGE).getValue(String.class);
+                                            String id = snapshot.getKey();
+                                            heroDataPreviewCallback.getHeroDataPreview(new HeroItemPreview(id, name, avatar));
+                                        }
+                                    }
+
+                                    @Override
+                                    public void onCancelled(@NonNull DatabaseError error) {
+                                    }
+                                });
+                    }
+
+                    @Override
+                    public void onChildChanged(@NonNull DataSnapshot snapshot, @Nullable String previousChildName) {}
+
+                    @Override
+                    public void onChildRemoved(@NonNull DataSnapshot snapshot) {}
+
+                    @Override
+                    public void onChildMoved(@NonNull DataSnapshot snapshot, @Nullable String previousChildName) {}
+
+                    @Override
+                    public void onCancelled(@NonNull DatabaseError error) {}
+                });
+    }
+
+    @Override
+    public void observeHeroData(String heroId, HeroDataCallback heroDataCallback) {
+        firebaseDatabase.getReference(DATABASE_WITH_HEROES_DATA).child(heroId).addValueEventListener(new ValueEventListener() {
+            @Override
+            public void onDataChange(@NonNull DataSnapshot snapshot) {
+                if (snapshot.exists()){
+                    HeroData data=snapshot.getValue(HeroData.class);
+                    if (data.getListProud()==null) data.setListProud(new ArrayList<>());
+                    heroDataCallback.getHeroData(data);
+                }
+            }
+
+            @Override
+            public void onCancelled(@NonNull DatabaseError error) {
+
+            }
+        });
+    }
+
+    @Override
+    public void proudHero(ProudOnHeroModel proudOnHeroModel) {
+        firebaseDatabase.getReference(DATABASE_WITH_HEROES_DATA).child(proudOnHeroModel.getHeroId()).child(HERO_LIST_PROUD).setValue(proudOnHeroModel.getListProud());
+        firebaseDatabase.getReference(DATABASE_WITH_USERS_DATA).child(proudOnHeroModel.getUserId()).child(USER_LIST_FAVORITE_RECORDS_IDS).setValue(proudOnHeroModel.getListFavoriteRecordIds());
     }
 
 

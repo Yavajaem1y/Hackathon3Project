@@ -21,6 +21,8 @@ import com.androidlesson.domain.main.models.UserData;
 import com.androidlesson.hackathon3project.app.App;
 import com.androidlesson.hackathon3project.databinding.FragmentUserProfileBinding;
 import com.androidlesson.hackathon3project.presentation.main.adapters.HeroPreviewAdapter;
+import com.androidlesson.hackathon3project.presentation.main.ui.fragments.dialogFragments.AddHeroDialogFragment;
+import com.androidlesson.hackathon3project.presentation.main.ui.fragments.dialogFragments.AllUserHeroesDialogFragment;
 import com.androidlesson.hackathon3project.presentation.main.ui.fragments.dialogFragments.DotsMenuFragmentFromCurrnetUserActivity;
 import com.androidlesson.hackathon3project.presentation.main.viewModels.sharedViewModel.SharedViewModel;
 import com.androidlesson.hackathon3project.presentation.main.viewModels.sharedViewModel.SharedViewModelFactory;
@@ -42,7 +44,7 @@ public class UserProfileFragment extends Fragment {
     @Inject
     SharedViewModelFactory sharedViewModelFactory;
 
-    private ImageView ic_dots_menu;
+    private ImageView ic_dots_menu,ic_my_hero;
     private TextView tv_user_name_and_surname, tv_user_id;
     private CircleImageView civ_user_avatar;
     private RecyclerView rv_hero_preview_holder;
@@ -71,6 +73,7 @@ public class UserProfileFragment extends Fragment {
         tv_user_id=binding.tvLogin;
         civ_user_avatar=binding.civCurrUserAvatar;
         rv_hero_preview_holder=binding.rvHeroPreviewHolder;
+        ic_my_hero=binding.icMyHero;
 
         setAdapter();
 
@@ -111,6 +114,12 @@ public class UserProfileFragment extends Fragment {
         ic_dots_menu.setOnClickListener(v->{
             FragmentManager fragmentManager = getParentFragmentManager();
             DotsMenuFragmentFromCurrnetUserActivity dialogFragment = new DotsMenuFragmentFromCurrnetUserActivity();
+            dialogFragment.show(fragmentManager, "my_dialog");
+        });
+
+        ic_my_hero.setOnClickListener(v->{
+            FragmentManager fragmentManager = getParentFragmentManager();
+            AllUserHeroesDialogFragment dialogFragment = new AllUserHeroesDialogFragment();
             dialogFragment.show(fragmentManager, "my_dialog");
         });
     }

@@ -14,18 +14,23 @@ import com.androidlesson.domain.authorization.useCase.SaveUserDataToSPUseCase;
 import com.androidlesson.domain.authorization.useCase.SetAuthorizationDataToSPUseCase;
 import com.androidlesson.domain.main.useCase.AddNewHeroUseCase;
 import com.androidlesson.domain.main.useCase.EditUserDataUseCase;
+import com.androidlesson.domain.main.useCase.GetHeroDataUseCase;
 import com.androidlesson.domain.main.useCase.GetUserEmailUseCase;
 import com.androidlesson.domain.main.useCase.LogOutUseCase;
 import com.androidlesson.domain.main.useCase.ObserveCurrentUserDataUseCase;
+import com.androidlesson.domain.main.useCase.ObserveCurrentUserHeroesPreviewUseCase;
 import com.androidlesson.domain.main.useCase.ObserveHeroesForNewsUseCase;
+import com.androidlesson.domain.main.useCase.ProudUseCase;
 import com.androidlesson.hackathon3project.presentation.authorization.viewModels.loginViewModel.LoginFragmentViewModelFactory;
 import com.androidlesson.hackathon3project.presentation.authorization.viewModels.mainActivityViewModel.MainActivityViewModelFactory;
 import com.androidlesson.hackathon3project.presentation.authorization.viewModels.registratoinViewModel.RegistrationFragmentViewModelFactory;
 import com.androidlesson.hackathon3project.presentation.main.viewModels.addHeroFragmentViewModel.AddHeroFragmentViewModelFactory;
+import com.androidlesson.hackathon3project.presentation.main.viewModels.allUserHeroesViewModel.AllUserHeroesViewModelFactory;
 import com.androidlesson.hackathon3project.presentation.main.viewModels.editUserProfileFragmentViewModel.EditUserProfileFragmentViewModelFactory;
 import com.androidlesson.hackathon3project.presentation.main.viewModels.mainActivityViewModel.MainFragmentViewModelFactory;
 import com.androidlesson.hackathon3project.presentation.main.viewModels.newsFragmentViewModel.NewsFragmentViewModelFactory;
 import com.androidlesson.hackathon3project.presentation.main.viewModels.sharedViewModel.SharedViewModelFactory;
+import com.androidlesson.hackathon3project.presentation.main.viewModels.showHeroViewModel.ShowHeroViewModelFactory;
 
 import dagger.Module;
 import dagger.Provides;
@@ -86,6 +91,16 @@ public class AppModule {
     @Provides
     public NewsFragmentViewModelFactory provideNewsFragmentViewModelFactory(ObserveHeroesForNewsUseCase observeHeroesForNewsUseCase) {
         return new NewsFragmentViewModelFactory(observeHeroesForNewsUseCase);
+    }
+
+    @Provides
+    public AllUserHeroesViewModelFactory provideAllUserHeroesViewModelFactory(ObserveCurrentUserHeroesPreviewUseCase observeCurrentUserHeroesPreviewUseCase) {
+        return new AllUserHeroesViewModelFactory(observeCurrentUserHeroesPreviewUseCase);
+    }
+
+    @Provides
+    public ShowHeroViewModelFactory provideShowHeroViewModelFactory(GetHeroDataUseCase getHeroDataUseCase, ProudUseCase proudUseCase) {
+        return new ShowHeroViewModelFactory(getHeroDataUseCase, proudUseCase);
     }
 }
 

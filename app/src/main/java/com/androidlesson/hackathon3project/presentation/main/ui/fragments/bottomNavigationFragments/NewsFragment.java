@@ -65,7 +65,7 @@ public class NewsFragment extends Fragment {
 
     private void setAdapter(){
         List<NewsPreviewItem> news = new ArrayList<>();
-        adapter = new NewsAdapter(news,getContext());
+        adapter = new NewsAdapter(news,getContext(),getParentFragmentManager());
 
         binding.rlNewsContainer.setLayoutManager(new LinearLayoutManager(getContext(), LinearLayoutManager.VERTICAL, false));
         binding.rlNewsContainer.setAdapter(adapter);

@@ -4,16 +4,41 @@ import java.util.List;
 
 public class HeroData {
     private String heroName, heroInfo, heroAvatarImage;
-    private List<String> moreImage;
+    private List<String> heroAdditionalImages, listProud;
+    private String id;
 
     public HeroData() {
     }
 
-    public HeroData(String heroName, String heroInfo, String heroAvatarImage, List<String> moreImage) {
+    public HeroData(String heroName, String heroInfo, String heroAvatarImage, List<String> heroAdditionalImages, List<String> listProud, String id) {
         this.heroName = heroName;
         this.heroInfo = heroInfo;
         this.heroAvatarImage = heroAvatarImage;
-        this.moreImage = moreImage;
+        this.heroAdditionalImages = heroAdditionalImages;
+        this.listProud = listProud;
+        this.id = id;
+    }
+
+    public HeroData(String heroName, String heroAvatarImage, String id) {
+        this.heroName = heroName;
+        this.heroAvatarImage = heroAvatarImage;
+        this.id = id;
+    }
+
+    public List<String> getListProud() {
+        return listProud;
+    }
+
+    public void setListProud(List<String> listProud) {
+        this.listProud = listProud;
+    }
+
+    public void setId(String id) {
+        this.id = id;
+    }
+
+    public String getId() {
+        return id;
     }
 
     public String getHeroName() {
@@ -40,11 +65,11 @@ public class HeroData {
         this.heroAvatarImage = heroAvatarImage;
     }
 
-    public List<String> getMoreImage() {
-        return moreImage;
+    public List<String> getHeroAdditionalImages() {
+        return heroAdditionalImages;
     }
 
-    public void setMoreImage(List<String> moreImage) {
-        this.moreImage = moreImage;
+    public void setHeroAdditionalImages(List<String> heroAdditionalImages) {
+        this.heroAdditionalImages = heroAdditionalImages;
     }
 }

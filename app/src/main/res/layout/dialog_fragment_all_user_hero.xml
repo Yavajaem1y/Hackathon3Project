@@ -1,0 +1,37 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:background="@color/white"
+    android:backgroundTint="@color/white"
+    android:padding="24dp">
+    <ImageView
+        android:id="@+id/b_back"
+        android:layout_width="24dp"
+        android:layout_height="24dp"
+        android:src="@drawable/ic_left_arrow"/>
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Мои герои"
+        android:layout_toRightOf="@id/b_back"
+        android:textSize="16sp"
+        android:layout_marginStart="14dp"
+        android:textStyle="bold"/>
+    <androidx.recyclerview.widget.RecyclerView
+        android:id="@+id/rv_heroes_holder"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_below="@id/b_back"
+        android:layout_marginTop="16dp"
+        android:layout_marginBottom="60dp"/>
+    <ImageView
+        android:id="@+id/iv_go_to_create_new_hero"
+        android:layout_width="match_parent"
+        android:layout_height="52dp"
+        android:background="@drawable/bg_rounded_sky"
+        android:layout_alignParentBottom="true"
+        android:src="@drawable/ic_plus"/>
+</RelativeLayout>

@@ -13,8 +13,10 @@ import androidx.fragment.app.FragmentManager;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.androidlesson.domain.main.models.HeroData;
+import com.androidlesson.domain.main.models.HeroItemPreview;
 import com.androidlesson.hackathon3project.R;
 import com.androidlesson.hackathon3project.presentation.main.ui.fragments.dialogFragments.AddHeroDialogFragment;
+import com.androidlesson.hackathon3project.presentation.main.ui.fragments.dialogFragments.ShowHeroDialogFragment;
 import com.bumptech.glide.Glide;
 
 import java.util.ArrayList;
@@ -23,11 +25,28 @@ import java.util.List;
 public class HeroPreviewAdapter extends RecyclerView.Adapter<HeroPreviewAdapter.HeroViewHolder> {
 
     private List<HeroData> heroList;
+    private List<String> ids=new ArrayList<>();
     private FragmentManager fragmentManager;
 
     public HeroPreviewAdapter(List<HeroData> heroList, FragmentManager fragmentManager) {
         this.heroList = new ArrayList<>(heroList);
         this.fragmentManager = fragmentManager;
+    }
+
+    public HeroPreviewAdapter(FragmentManager fragmentManager) {
+        this.fragmentManager = fragmentManager;
+        this.heroList=new ArrayList<>();
+    }
+
+    public void setNewPreviews(List<HeroItemPreview> previews){
+        for (HeroItemPreview i:previews){
+            HeroData hero=new HeroData(i.getName(),i.getAvatar(),i.getId());
+            if (!this.ids.contains(hero.getId())){
+                this.heroList.add(hero);
+                ids.add(hero.getId());
+            }
+        }
+        notifyDataSetChanged();
     }
 
     @Override
@@ -56,8 +75,8 @@ public class HeroPreviewAdapter extends RecyclerView.Adapter<HeroPreviewAdapter.
             if (hero == null) {
                 addNewHero(holder.itemView.getContext());
             } else {
-                // Если hero != null, TODO: выполнить необходимое действие
-                // TODO: Добавить действия, которые нужно выполнить при клике
+                ShowHeroDialogFragment dialogFragment = new ShowHeroDialogFragment(hero.getId());
+                dialogFragment.show(fragmentManager, "my_dialog");
             }
         });
     }

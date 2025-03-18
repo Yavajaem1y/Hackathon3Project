@@ -7,7 +7,9 @@ import com.androidlesson.hackathon3project.presentation.main.ui.fragments.MainFr
 import com.androidlesson.hackathon3project.presentation.main.ui.fragments.bottomNavigationFragments.NewsFragment;
 import com.androidlesson.hackathon3project.presentation.main.ui.fragments.bottomNavigationFragments.UserProfileFragment;
 import com.androidlesson.hackathon3project.presentation.main.ui.fragments.dialogFragments.AddHeroDialogFragment;
+import com.androidlesson.hackathon3project.presentation.main.ui.fragments.dialogFragments.AllUserHeroesDialogFragment;
 import com.androidlesson.hackathon3project.presentation.main.ui.fragments.dialogFragments.EditUserProfileDialogFragment;
+import com.androidlesson.hackathon3project.presentation.main.ui.fragments.dialogFragments.ShowHeroDialogFragment;
 import com.androidlesson.hackathon3project.presentation.main.viewModels.editUserProfileFragmentViewModel.EditUserProfileFragmentViewModel;
 
 import dagger.Component;
@@ -35,5 +37,9 @@ public interface AppComponent {
 
     void injectAddHeroFragment(AddHeroDialogFragment addHeroDialogFragment);
 
+    void injectAllUserHeroesDialogFragment(AllUserHeroesDialogFragment allUserHeroesDialogFragment);
+
     void injectNewsFragment(NewsFragment newsFragment);
+
+    void injectShowHeroFragment(ShowHeroDialogFragment showHeroDialogFragment);
 }

@@ -11,29 +11,34 @@ import android.widget.ImageView;
 import android.widget.TextView;
 
 import androidx.annotation.NonNull;
+import androidx.fragment.app.FragmentManager;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.androidlesson.domain.main.models.NewsPreviewItem;
 import com.androidlesson.hackathon3project.R;
 import com.androidlesson.hackathon3project.presentation.main.models.TopRoundCornersTransformation;
+import com.androidlesson.hackathon3project.presentation.main.ui.fragments.dialogFragments.ShowHeroDialogFragment;
 import com.bumptech.glide.Glide;
 import com.bumptech.glide.load.resource.bitmap.RoundedCorners;
 import com.bumptech.glide.request.RequestOptions;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Objects;
 
 public class NewsAdapter extends RecyclerView.Adapter<NewsAdapter.NewsViewHolder>{
 
     private List<NewsPreviewItem> news=new ArrayList<>();
     private Context context;
+    private FragmentManager fragmentManager;
 
-    public NewsAdapter(List<NewsPreviewItem> news, Context context) {
+    public NewsAdapter(List<NewsPreviewItem> news, Context context, FragmentManager fragmentManager) {
         Log.d("NewAdapter","Size "+news.size());
         this.news = news;
 
         sortArray();
         this.context = context;
+        this.fragmentManager=fragmentManager;
     }
 
     private void sortArray(){
@@ -85,10 +90,17 @@ public class NewsAdapter extends RecyclerView.Adapter<NewsAdapter.NewsViewHolder
             holder.tv_info.setText(item.getInfo());
         }
 
-        if(item.getNewsType()=="HERO") {
+        if(Objects.equals(item.getNewsType(), "HERO")) {
             holder.iv_type.setText("Герой");
         }
         else holder.iv_type.setText("Событие");
+
+        holder.itemView.setOnClickListener(v->{
+            if (Objects.equals(item.getNewsType(), "HERO")){
+                ShowHeroDialogFragment dialogFragment = new ShowHeroDialogFragment(item.getId());
+                dialogFragment.show(fragmentManager, "my_dialog");
+            }
+        });
 
     }
 

@@ -14,10 +14,13 @@ import com.androidlesson.domain.authorization.useCase.SetAuthorizationDataToSPUs
 import com.androidlesson.domain.main.repository.MainFirebaseRepository;
 import com.androidlesson.domain.main.useCase.AddNewHeroUseCase;
 import com.androidlesson.domain.main.useCase.EditUserDataUseCase;
+import com.androidlesson.domain.main.useCase.GetHeroDataUseCase;
 import com.androidlesson.domain.main.useCase.GetUserEmailUseCase;
 import com.androidlesson.domain.main.useCase.LogOutUseCase;
 import com.androidlesson.domain.main.useCase.ObserveCurrentUserDataUseCase;
+import com.androidlesson.domain.main.useCase.ObserveCurrentUserHeroesPreviewUseCase;
 import com.androidlesson.domain.main.useCase.ObserveHeroesForNewsUseCase;
+import com.androidlesson.domain.main.useCase.ProudUseCase;
 
 import dagger.Module;
 import dagger.Provides;
@@ -95,5 +98,20 @@ public class DomainModule {
     @Provides
     public ObserveHeroesForNewsUseCase provideObserveHeroesForNewsUseCase(MainFirebaseRepository firebaseRepository){
         return new ObserveHeroesForNewsUseCase(firebaseRepository);
+    }
+
+    @Provides
+    public ObserveCurrentUserHeroesPreviewUseCase provideObserveCurrentUserHeroesPreviewUseCase(MainFirebaseRepository firebaseRepository){
+        return new ObserveCurrentUserHeroesPreviewUseCase(firebaseRepository);
+    }
+
+    @Provides
+    public GetHeroDataUseCase provideGetHeroDataUseCase(MainFirebaseRepository firebaseRepository){
+        return new GetHeroDataUseCase(firebaseRepository);
+    }
+
+    @Provides
+    public ProudUseCase provideProudUseCase(MainFirebaseRepository firebaseRepository){
+        return new ProudUseCase(firebaseRepository);
     }
 }

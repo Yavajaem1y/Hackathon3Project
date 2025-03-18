@@ -11,6 +11,7 @@ import com.androidlesson.data.main.ImageFirebaseRepository;
 import com.androidlesson.domain.authorization.interfaces.BooleanCallBack;
 import com.androidlesson.domain.authorization.interfaces.StringCallBack;
 import com.androidlesson.domain.main.interfaces.HeroDataCallback;
+import com.androidlesson.domain.main.models.HeroData;
 import com.androidlesson.domain.main.models.HeroDataToDb;
 import com.androidlesson.domain.main.models.UserData;
 import com.androidlesson.domain.main.useCase.AddNewHeroUseCase;
@@ -74,6 +75,11 @@ public class AddHeroFragmentViewModel extends ViewModel {
                     else {
                         resultMutableLiveData.setValue(true);
                     }
+                }
+
+                @Override
+                public void getHeroData(HeroData data) {
+
                 }
             }, new StringCallBack() {
                 @Override
