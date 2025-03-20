@@ -22,12 +22,23 @@
         android:layout_width="match_parent"
         android:layout_height="200dp"
         app:cardCornerRadius="8dp"
-        android:layout_below="@id/tv_type">
-        <ImageView
-            android:id="@+id/iv_preview_image"
+        android:layout_below="@id/tv_type"
+        android:background="@color/greyBG">
+        <RelativeLayout
             android:layout_width="match_parent"
-            android:layout_height="200dp"
-            android:background="@drawable/bg_rounded_sky"/>
+            android:layout_height="match_parent">
+            <ImageView
+                android:layout_width="43dp"
+                android:layout_height="43dp"
+                android:layout_marginBottom="8dp"
+                android:layout_centerHorizontal="true"
+                android:src="@drawable/ic_empty_photo"
+                android:layout_centerInParent="true"/>
+            <ImageView
+                android:id="@+id/iv_preview_image"
+                android:layout_width="match_parent"
+                android:layout_height="200dp" />
+        </RelativeLayout>
     </androidx.cardview.widget.CardView>
 
     <RelativeLayout

@@ -56,15 +56,14 @@ public class AddImageAdapter extends RecyclerView.Adapter<AddImageAdapter.AddIma
         Uri data = images.get(position);
 
         if (data != null) {
-            Glide.with(holder.itemView.getContext()).load(data).into(holder.addImageButton);
+            Glide.with(holder.itemView.getContext()).load(data).centerCrop().into(holder.addImageButton);
         }
 
         holder.itemView.setOnClickListener(v -> {
             if (data == null) {
                 onAddImageClickListener.onAddImageClick();
             } else {
-                // Если hero != null, TODO: выполнить необходимое действие
-                // TODO: Добавить действия, которые нужно выполнить при клике
+
             }
         });
     }

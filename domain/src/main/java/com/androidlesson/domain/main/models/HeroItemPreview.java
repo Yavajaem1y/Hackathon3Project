@@ -1,12 +1,30 @@
 package com.androidlesson.domain.main.models;
 
 public class HeroItemPreview {
-    private String id,name,avatar;
+    private String id,name,avatar,info, date;
 
-    public HeroItemPreview(String id, String name, String avatar) {
+    public HeroItemPreview(String id, String name, String avatar, String info, String date) {
         this.id = id;
         this.name = name;
         this.avatar = avatar;
+        this.info = info;
+        this.date=date;
+    }
+
+    public String getInfo() {
+        return info;
+    }
+
+    public void setInfo(String info) {
+        this.info = info;
+    }
+
+    public String getDate() {
+        return date;
+    }
+
+    public void setDate(String date) {
+        this.date = date;
     }
 
     public String getId() {

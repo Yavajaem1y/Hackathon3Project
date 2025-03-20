@@ -24,14 +24,9 @@ import java.util.List;
 
 public class HeroPreviewAdapter extends RecyclerView.Adapter<HeroPreviewAdapter.HeroViewHolder> {
 
-    private List<HeroData> heroList;
+    private List<HeroItemPreview> heroList;
     private List<String> ids=new ArrayList<>();
     private FragmentManager fragmentManager;
-
-    public HeroPreviewAdapter(List<HeroData> heroList, FragmentManager fragmentManager) {
-        this.heroList = new ArrayList<>(heroList);
-        this.fragmentManager = fragmentManager;
-    }
 
     public HeroPreviewAdapter(FragmentManager fragmentManager) {
         this.fragmentManager = fragmentManager;
@@ -40,10 +35,9 @@ public class HeroPreviewAdapter extends RecyclerView.Adapter<HeroPreviewAdapter.
 
     public void setNewPreviews(List<HeroItemPreview> previews){
         for (HeroItemPreview i:previews){
-            HeroData hero=new HeroData(i.getName(),i.getAvatar(),i.getId());
-            if (!this.ids.contains(hero.getId())){
-                this.heroList.add(hero);
-                ids.add(hero.getId());
+            if (!this.ids.contains(i.getId())){
+                this.heroList.add(i);
+                ids.add(i.getId());
             }
         }
         notifyDataSetChanged();
@@ -51,8 +45,7 @@ public class HeroPreviewAdapter extends RecyclerView.Adapter<HeroPreviewAdapter.
 
     @Override
     public int getItemViewType(int position) {
-        HeroData hero = heroList.get(position);
-        return hero == null ? R.layout.item_add_new_hero : R.layout.item_hero_preview;
+        return R.layout.item_hero_preview;
     }
 
     @NonNull
@@ -62,28 +55,34 @@ public class HeroPreviewAdapter extends RecyclerView.Adapter<HeroPreviewAdapter.
         return new HeroViewHolder(view);
     }
 
+    private int dpToPx(Context context, int dp) {
+        return (int) (dp * context.getResources().getDisplayMetrics().density);
+    }
+
     @Override
     public void onBindViewHolder(@NonNull HeroViewHolder holder, int position) {
-        HeroData hero = heroList.get(position);
+        int screenWidth = holder.itemView.getContext().getResources().getDisplayMetrics().widthPixels;
+        int marginPx = dpToPx(holder.itemView.getContext(), 29);
+        int itemWidth = (screenWidth / 2) - marginPx;
+
+        ViewGroup.LayoutParams layoutParams = holder.itemView.getLayoutParams();
+        layoutParams.width = itemWidth;
+        holder.itemView.setLayoutParams(layoutParams);
+
+        HeroItemPreview hero = heroList.get(position);
 
         if (hero != null) {
-            holder.heroName.setText(hero.getHeroName());
-            Glide.with(holder.itemView.getContext()).load(hero.getHeroAvatarImage()).into(holder.heroAvatar);
+            holder.heroName.setText(hero.getName());
+            if (hero.getAvatar()!=null && !hero.getAvatar().isEmpty())
+                Glide.with(holder.itemView.getContext()).load(hero.getAvatar()).centerCrop().into(holder.heroAvatar);
+
+            holder.heroDate.setText(hero.getDate());
         }
 
         holder.itemView.setOnClickListener(v -> {
-            if (hero == null) {
-                addNewHero(holder.itemView.getContext());
-            } else {
                 ShowHeroDialogFragment dialogFragment = new ShowHeroDialogFragment(hero.getId());
                 dialogFragment.show(fragmentManager, "my_dialog");
-            }
         });
-    }
-
-    private void addNewHero(Context context) {
-        AddHeroDialogFragment dialogFragment = new AddHeroDialogFragment();
-        dialogFragment.show(fragmentManager, "my_dialog");
     }
 
     @Override
@@ -92,7 +91,7 @@ public class HeroPreviewAdapter extends RecyclerView.Adapter<HeroPreviewAdapter.
     }
 
     public static class HeroViewHolder extends RecyclerView.ViewHolder {
-        TextView heroName;
+        TextView heroName,heroDate;
         ImageView heroAvatar;
 
         @SuppressLint("ResourceType")
@@ -100,6 +99,7 @@ public class HeroPreviewAdapter extends RecyclerView.Adapter<HeroPreviewAdapter.
             super(itemView);
             heroName = itemView.findViewById(R.id.tv_name_and_surname);
             heroAvatar = itemView.findViewById(R.id.iv_hero_image);
+            heroDate=itemView.findViewById(R.id.tv_date);
         }
     }
 

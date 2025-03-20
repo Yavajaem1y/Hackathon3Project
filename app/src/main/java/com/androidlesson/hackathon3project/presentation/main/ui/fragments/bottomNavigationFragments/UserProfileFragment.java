@@ -47,7 +47,6 @@ public class UserProfileFragment extends Fragment {
     private ImageView ic_dots_menu,ic_my_hero;
     private TextView tv_user_name_and_surname, tv_user_id;
     private CircleImageView civ_user_avatar;
-    private RecyclerView rv_hero_preview_holder;
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
@@ -72,10 +71,7 @@ public class UserProfileFragment extends Fragment {
         tv_user_name_and_surname=binding.tvCurrUserNameAndSurname;
         tv_user_id=binding.tvLogin;
         civ_user_avatar=binding.civCurrUserAvatar;
-        rv_hero_preview_holder=binding.rvHeroPreviewHolder;
         ic_my_hero=binding.icMyHero;
-
-        setAdapter();
 
         UserData userData = null;
         
@@ -86,14 +82,6 @@ public class UserProfileFragment extends Fragment {
         }
     }
 
-    private void setAdapter(){
-        List<HeroData> heroes = new ArrayList<>();
-        heroes.add(null);
-        HeroPreviewAdapter adapter = new HeroPreviewAdapter(heroes,getParentFragmentManager());
-
-        binding.rvHeroPreviewHolder.setLayoutManager(new LinearLayoutManager(getContext(), LinearLayoutManager.HORIZONTAL, false));
-        binding.rvHeroPreviewHolder.setAdapter(adapter);
-    }
 
     private void setObserver() {
         sharedViewModel.getCurrentUserDataLiveData().observe(getViewLifecycleOwner(), new Observer<UserData>() {

@@ -5,27 +5,30 @@
     android:background="#FFFFFF"
     android:padding="24dp">
 
-    <TextView
-        android:id="@+id/tv_main_text"
-        android:layout_width="wrap_content"
+    <RelativeLayout
+        android:id="@+id/rl_top_element"
+        android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:text="Великая победа"
-        android:textStyle="bold"
-        android:textSize="28dp"/>
-
-    <TextView
-        android:id="@+id/tv_secondary_text"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="Последние события и истории о героях Великой Отечественной войны. Узнайте больше о подвигах, которые изменили историю"
-        android:layout_below="@id/tv_main_text"
-        android:layout_marginBottom="24dp"/>
-
+        android:layout_marginBottom="24dp">
+        <TextView
+            android:id="@+id/tv_main_text"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Великая победа"
+            android:textStyle="bold"
+            android:textSize="28dp"/>
+        <TextView
+            android:id="@+id/tv_secondary_text"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Последние события и истории о героях Великой Отечественной войны. Узнайте больше о подвигах, которые изменили историю"
+            android:layout_below="@id/tv_main_text" />
+    </RelativeLayout>
     <LinearLayout
         android:id="@+id/ll_search"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_below="@id/tv_secondary_text"
+        android:layout_below="@id/rl_top_element"
         android:background="@drawable/bg_rounded_grey"
         android:padding="3dp"
         android:paddingStart="10dp"

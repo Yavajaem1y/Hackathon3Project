@@ -1,31 +1,55 @@
 <?xml version="1.0" encoding="utf-8"?>
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    android:layout_width="164dp"
-    android:layout_height="152dp"
-    android:background="@drawable/bg_rounded_sky"
-    android:layout_marginEnd="8dp"
-    android:layout_marginBottom="8dp">
+    android:layout_width="156dp"
+    android:layout_height="248dp"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:background="@drawable/bg_rounded_blak_grey"
+    android:padding="8dp"
+    android:layout_marginEnd="4dp"
+    android:layout_marginStart="4dp"
+    android:layout_marginBottom="4dp">
 
-    <ImageView
-        android:id="@+id/iv_hero_image"
-        android:layout_width="164dp"
-        android:layout_height="100dp" />
+    <androidx.cardview.widget.CardView
+        android:id="@+id/cv_image"
+        android:layout_width="140dp"
+        android:layout_height="167dp"
+        app:cardCornerRadius="12dp"
+        android:background="#F8F9FE"
+        android:layout_marginBottom="8dp"
+        android:layout_centerHorizontal="true">
+        <RelativeLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent">
+            <ImageView
+                android:layout_width="43dp"
+                android:layout_height="43dp"
+                android:layout_marginBottom="8dp"
+                android:layout_centerHorizontal="true"
+                android:src="@drawable/ic_empty_photo"
+                android:layout_centerInParent="true"/>
+            <ImageView
+                android:id="@+id/iv_hero_image"
+                android:layout_width="140dp"
+                android:layout_height="167dp" />
+        </RelativeLayout>
+    </androidx.cardview.widget.CardView>
 
-    <RelativeLayout
-        android:id="@+id/rl_with_text"
-        android:layout_width="match_parent"
-        android:layout_height="52dp"
-        android:layout_alignParentBottom="true"
-        android:background="@drawable/bg_rounded_grey_cropped"
-        android:padding="8dp">
-        <TextView
-            android:id="@+id/tv_name_and_surname"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="Имя Фамилия"
-            android:textColor="@color/black"
-            android:textStyle="bold"
-            android:textSize="14sp"/>
-    </RelativeLayout>
+    <TextView
+        android:id="@+id/tv_name_and_surname"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Имя Фамилия"
+        android:textColor="@color/black"
+        android:textStyle="bold"
+        android:textSize="15sp"
+        android:layout_below="@id/cv_image"
+        android:layout_marginBottom="4dp"/>
 
+    <TextView
+        android:id="@+id/tv_date"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="ГГГГ-ГГГГ"
+        android:textSize="11sp"
+        android:layout_below="@id/tv_name_and_surname"/>
 </RelativeLayout>

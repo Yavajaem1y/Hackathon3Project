@@ -56,6 +56,7 @@ public class MainFirebaseRepositoryImpl implements MainFirebaseRepository {
     private final String USER_LIST_FAVORITE_RECORDS_IDS="listFavoriteRecordIds";
     private final String HERO_NAME="heroName";
     private final String HERO_INFO="heroInfo";
+    private final String HERO_DATE="heroDate";
     private final String HERO_AVATAR_IMAGE="heroAvatarImage";
     private final String HERO_ADDITIONAL_IMAGES="heroAdditionalImages";
     private final String HERO_LIST_PROUD="listProud";
@@ -108,7 +109,7 @@ public class MainFirebaseRepositoryImpl implements MainFirebaseRepository {
         Log.d("data",heroDataToDb.getHeroId());
         firebaseDatabase.getReference(DATABASE_WITH_HEROES_DATA)
                 .child(heroDataToDb.getHeroId())
-                .setValue(new HeroDataToDb.InitialHero(heroDataToDb.getHeroName(),heroDataToDb.getHeroInfo(),heroDataToDb.getListProud()))
+                .setValue(new HeroDataToDb.InitialHero(heroDataToDb.getHeroName(),heroDataToDb.getHeroInfo(),heroDataToDb.getListProud(),heroDataToDb.getHeroDate()))
                 .addOnCompleteListener(new OnCompleteListener<Void>() {
                     @Override
                     public void onComplete(@NonNull Task<Void> task) {
@@ -225,10 +226,12 @@ public class MainFirebaseRepositoryImpl implements MainFirebaseRepository {
                                     public void onDataChange(@NonNull DataSnapshot snapshot) {
                                         if (snapshot.exists()) {
                                             Log.d("HeroAdapter", snapshot.getKey());
+                                            String date=snapshot.child(HERO_DATE).getValue(String.class);
                                             String name = snapshot.child(HERO_NAME).getValue(String.class);
+                                            String info = snapshot.child(HERO_INFO).getValue(String.class);
                                             String avatar = snapshot.child(HERO_AVATAR_IMAGE).getValue(String.class);
                                             String id = snapshot.getKey();
-                                            heroDataPreviewCallback.getHeroDataPreview(new HeroItemPreview(id, name, avatar));
+                                            heroDataPreviewCallback.getHeroDataPreview(new HeroItemPreview(id, name, avatar,info,date));
                                         }
                                     }
 

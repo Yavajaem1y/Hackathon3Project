@@ -124,13 +124,6 @@
                         android:src="@drawable/ic_right_arrow"
                         android:layout_alignParentEnd="true"/>
                 </RelativeLayout>
-                <androidx.recyclerview.widget.RecyclerView
-                    android:id="@+id/rv_hero_preview_holder"
-                    android:layout_width="match_parent"
-                    android:layout_height="160dp"
-                    android:layout_below="@id/rl_in_third_layout"
-                    android:background="@drawable/bg_rounded_grey">
-                </androidx.recyclerview.widget.RecyclerView>
             </RelativeLayout>
 
             <RelativeLayout

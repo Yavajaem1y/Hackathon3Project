@@ -4,24 +4,26 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class HeroDataToDb {
-    private String heroName, heroInfo,heroId;
+    private String heroName, heroInfo,heroId,heroDate;
     private byte[] heroAvatarImage;
     private List<String> heroAdditionalImages;
     private List<String> listProud;
 
-    public HeroDataToDb(String heroName, String heroInfo) {
+    public HeroDataToDb(String heroName, String heroInfo, String heroData) {
         this.heroName = heroName;
         this.heroInfo = heroInfo;
+        this.heroDate=heroData;
     }
 
     public static class InitialHero {
-        private String heroName, heroInfo;
+        private String heroName, heroInfo,heroDate;
         private List<String> listProud;
 
-        public InitialHero(String heroName, String heroInfo, List<String> listProud) {
+        public InitialHero(String heroName, String heroInfo, List<String> listProud, String heroDate) {
             this.heroName = heroName;
             this.heroInfo = heroInfo;
             this.listProud = listProud != null ? listProud : new ArrayList<>();
+            this.heroDate=heroDate;
         }
 
         public String getHeroName() {
@@ -35,6 +37,10 @@ public class HeroDataToDb {
         public List<String> getListProud() {
             return listProud;
         }
+
+        public String getHeroDate() {
+            return heroDate;
+        }
     }
 
     public List<String> getListProud() {
@@ -44,6 +50,14 @@ public class HeroDataToDb {
     public void setListProud(String id) {
         this.listProud = new ArrayList<>();
         listProud.add(id);
+    }
+
+    public String getHeroDate() {
+        return heroDate;
+    }
+
+    public void setHeroDate(String heroDate) {
+        this.heroDate = heroDate;
     }
 
     public String getHeroId() {

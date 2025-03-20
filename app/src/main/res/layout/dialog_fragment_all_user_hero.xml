@@ -25,13 +25,13 @@
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:layout_below="@id/b_back"
-        android:layout_marginTop="16dp"
-        android:layout_marginBottom="60dp"/>
+        android:layout_marginTop="16dp"/>
     <ImageView
         android:id="@+id/iv_go_to_create_new_hero"
-        android:layout_width="match_parent"
-        android:layout_height="52dp"
+        android:layout_width="54dp"
+        android:layout_height="54dp"
         android:background="@drawable/bg_rounded_sky"
         android:layout_alignParentBottom="true"
+        android:layout_alignParentEnd="true"
         android:src="@drawable/ic_plus"/>
 </RelativeLayout>

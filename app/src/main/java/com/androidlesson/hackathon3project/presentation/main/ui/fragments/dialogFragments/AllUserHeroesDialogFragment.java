@@ -25,6 +25,7 @@ import androidx.activity.result.contract.ActivityResultContracts;
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.fragment.app.DialogFragment;
+import androidx.fragment.app.FragmentManager;
 import androidx.lifecycle.Observer;
 import androidx.lifecycle.ViewModelProvider;
 import androidx.recyclerview.widget.GridLayoutManager;
@@ -64,7 +65,7 @@ public class AllUserHeroesDialogFragment extends DialogFragment {
     AllUserHeroesViewModelFactory vmFactory;
 
     private RecyclerView rv_hero_preview_holder;
-    private ImageView b_back;
+    private ImageView b_back,iv_go_to_create_new_hero;
     private HeroPreviewAdapter adapter;
 
     @Nullable
@@ -110,6 +111,7 @@ public class AllUserHeroesDialogFragment extends DialogFragment {
     private void initialization(View view){
         b_back=view.findViewById(R.id.b_back);
         rv_hero_preview_holder=view.findViewById(R.id.rv_heroes_holder);
+        iv_go_to_create_new_hero=view.findViewById(R.id.iv_go_to_create_new_hero);
         setAdapter(view);
     }
 
@@ -123,6 +125,12 @@ public class AllUserHeroesDialogFragment extends DialogFragment {
     private void setOnClickListener(){
         b_back.setOnClickListener(v->{
             dismiss();
+        });
+
+        iv_go_to_create_new_hero.setOnClickListener(v->{
+            FragmentManager fragmentManager = getParentFragmentManager();
+            AddHeroDialogFragment dialogFragment = new AddHeroDialogFragment();
+            dialogFragment.show(fragmentManager, "my_dialog");
         });
     }
 

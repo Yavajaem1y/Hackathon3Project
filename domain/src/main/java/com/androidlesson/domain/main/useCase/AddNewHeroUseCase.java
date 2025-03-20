@@ -2,6 +2,7 @@ package com.androidlesson.domain.main.useCase;
 
 import com.androidlesson.domain.authorization.interfaces.BooleanCallBack;
 import com.androidlesson.domain.authorization.interfaces.StringCallBack;
+import com.androidlesson.domain.authorization.utils.CheckDate;
 import com.androidlesson.domain.authorization.utils.CurrentTimeAndDate;
 import com.androidlesson.domain.main.interfaces.HeroDataCallback;
 import com.androidlesson.domain.main.interfaces.ListStringsCallback;
@@ -25,9 +26,16 @@ public class AddNewHeroUseCase {
 
     public void execute(HeroDataToDb data, UserData userData, HeroDataCallback heroDataCallback, StringCallBack errorCallback){
         if (data.getHeroName().isEmpty()){
-            errorCallback.getString("Заполните поле ФИО");
+            errorCallback.getString("Заполните поле \"ФИО\"");
+        }
+        else if (data.getHeroDate().isEmpty()){
+            errorCallback.getString("Заполните поле \"Годы жизни\"");
         }
         else {
+            if (!CheckDate.isValid(data.getHeroDate())){
+                errorCallback.getString("Вы неправильно заполнили поле \"Годы жизни\"");
+                return;
+            }
             if (data.getHeroInfo().isEmpty()) {
                 data.setHeroInfo("Информация отсутсвует");
             }

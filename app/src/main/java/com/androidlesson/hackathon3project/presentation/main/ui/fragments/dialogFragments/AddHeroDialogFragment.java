@@ -26,6 +26,7 @@ import androidx.activity.result.ActivityResultLauncher;
 import androidx.activity.result.contract.ActivityResultContracts;
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
+import androidx.cardview.widget.CardView;
 import androidx.fragment.app.DialogFragment;
 import androidx.lifecycle.Observer;
 import androidx.lifecycle.ViewModelProvider;
@@ -60,11 +61,12 @@ public class AddHeroDialogFragment extends DialogFragment {
     @Inject
     SharedViewModelFactory sharedVMFactory;
 
-    private EditText et_hero_name,et_hero_info;
+    private EditText et_hero_name,et_hero_info,et_date;
     private ImageView iv_hero_avatar_image,iv_cancellation;
     private RecyclerView rv_hero_additional_image_holder;
     private TextView b_add_hero;
     private RelativeLayout rl_edit_hero_avatar_image,rl_progress_bar;
+    private CardView cv_image;
 
     private AddImageAdapter adapter;
 
@@ -150,6 +152,8 @@ public class AddHeroDialogFragment extends DialogFragment {
         rl_edit_hero_avatar_image=view.findViewById(R.id.rl_with_avatar_image);
         iv_cancellation=view.findViewById(R.id.iv_cancellation);
         rl_progress_bar=view.findViewById(R.id.rl_with_progress_bar);
+        cv_image=view.findViewById(R.id.cv_image);
+        et_date=view.findViewById(R.id.et_date);
 
         setAdapter();
     }
@@ -171,10 +175,11 @@ public class AddHeroDialogFragment extends DialogFragment {
         b_add_hero.setOnClickListener(v->{
             rl_progress_bar.setVisibility(View.VISIBLE);
 
+            String date=et_date.getText().toString();
             String name=et_hero_name.getText().toString().trim();
             String info = et_hero_info.getText().toString().trim();
 
-            vm.addNewHero(new HeroDataToDb(name,info));
+            vm.addNewHero(new HeroDataToDb(name,info,date));
         });
 
         rl_edit_hero_avatar_image.setOnClickListener(v->{
@@ -191,7 +196,8 @@ public class AddHeroDialogFragment extends DialogFragment {
         vm.getHeroAvatarImageMutableLiveData().observe(getViewLifecycleOwner(), new Observer<Bitmap>() {
             @Override
             public void onChanged(Bitmap bitmap) {
-                Glide.with(getContext()).load(bitmap).override(1000).into(iv_hero_avatar_image);
+                cv_image.setVisibility(View.VISIBLE);
+                Glide.with(getContext()).load(bitmap).override(1000).centerCrop().into(iv_hero_avatar_image);
             }
         });
 
