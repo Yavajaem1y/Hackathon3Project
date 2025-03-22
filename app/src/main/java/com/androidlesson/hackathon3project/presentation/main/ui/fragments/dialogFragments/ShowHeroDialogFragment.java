@@ -2,6 +2,7 @@ package com.androidlesson.hackathon3project.presentation.main.ui.fragments.dialo
 
 import android.app.Dialog;
 import android.os.Bundle;
+import android.util.TypedValue;
 import android.view.Gravity;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -9,11 +10,13 @@ import android.view.ViewGroup;
 import android.view.Window;
 import android.view.WindowManager;
 import android.widget.ImageView;
+import android.widget.RelativeLayout;
 import android.widget.TextView;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.fragment.app.DialogFragment;
+import androidx.fragment.app.FragmentManager;
 import androidx.lifecycle.Observer;
 import androidx.lifecycle.ViewModelProvider;
 import androidx.recyclerview.widget.LinearLayoutManager;
@@ -46,8 +49,8 @@ public class ShowHeroDialogFragment extends DialogFragment {
     private String heroId;
     private ImageAdapter adapter;
 
-    private ImageView iv_hero_image,iv_cancellation;
-    private TextView tv_hero_name, tv_hero_age, tv_hero_info, tv_hero_number_of_proud, b_proud;
+    private ImageView iv_hero_image,iv_cancellation,b_proud, b_dots_menu;
+    private TextView tv_hero_name, tv_hero_age, tv_hero_info, tv_hero_number_of_proud;
     private RecyclerView rv_hero_additional_image_holder;
 
     public ShowHeroDialogFragment(String heroId) {
@@ -106,6 +109,7 @@ public class ShowHeroDialogFragment extends DialogFragment {
         iv_cancellation=view.findViewById(R.id.iv_cancellation);
         iv_hero_image=view.findViewById(R.id.iv_hero_image);
         rv_hero_additional_image_holder=view.findViewById(R.id.rv_hero_additional_image_holder);
+        b_dots_menu=view.findViewById(R.id.b_dots_menu);
 
         if (heroId!=null) vm.setHeroId(heroId);
         setAdapter();
@@ -124,6 +128,12 @@ public class ShowHeroDialogFragment extends DialogFragment {
         });
         b_proud.setOnClickListener(v->{
             vm.proud();
+        });
+
+        b_dots_menu.setOnClickListener(v -> {
+            FragmentManager fragmentManager = getParentFragmentManager();
+            DotsMenuFragmentFromShowHeroFragment dialogFragment = new DotsMenuFragmentFromShowHeroFragment(heroId);
+            dialogFragment.show(fragmentManager, "my_dialog");
         });
     }
 
@@ -154,6 +164,47 @@ public class ShowHeroDialogFragment extends DialogFragment {
                     } else {
                         rv_hero_additional_image_holder.setVisibility(View.GONE);
                     }
+                }
+                else {
+                    dismiss();
+                }
+            }
+        });
+
+        vm.getVisibilityDotsMenuMutableLiveData().observe(getViewLifecycleOwner(), new Observer<Boolean>() {
+            @Override
+            public void onChanged(Boolean aBoolean) {
+                if (aBoolean){
+                    b_dots_menu.setVisibility(View.VISIBLE);
+                    int sizeInDp = 28;
+                    int marginInDp = 8;
+
+                    int sizeInPx = (int) TypedValue.applyDimension(
+                            TypedValue.COMPLEX_UNIT_DIP, sizeInDp, b_dots_menu.getResources().getDisplayMetrics()
+                    );
+
+                    int marginInPx = (int) TypedValue.applyDimension(
+                            TypedValue.COMPLEX_UNIT_DIP, marginInDp, b_dots_menu.getResources().getDisplayMetrics()
+                    );
+
+                    RelativeLayout.LayoutParams params = new RelativeLayout.LayoutParams(sizeInPx, sizeInPx);
+                    params.addRule(RelativeLayout.ALIGN_PARENT_END);
+                    params.addRule(RelativeLayout.ALIGN_PARENT_TOP);
+                    params.setMargins(marginInPx, 0, 0, 0);
+
+                    b_dots_menu.setLayoutParams(params);
+                }
+            }
+        });
+
+        vm.getSelectedHeartMutableLiveData().observe(getViewLifecycleOwner(), new Observer<Boolean>() {
+            @Override
+            public void onChanged(Boolean aBoolean) {
+                if (aBoolean){
+                    b_proud.setImageResource(R.drawable.ic_selected_heart);
+                }
+                else{
+                    b_proud.setImageResource(R.drawable.ic_heart);
                 }
             }
         });

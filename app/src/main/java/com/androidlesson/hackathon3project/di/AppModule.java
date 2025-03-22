@@ -13,6 +13,7 @@ import com.androidlesson.domain.authorization.useCase.RegistrationUseCase;
 import com.androidlesson.domain.authorization.useCase.SaveUserDataToSPUseCase;
 import com.androidlesson.domain.authorization.useCase.SetAuthorizationDataToSPUseCase;
 import com.androidlesson.domain.main.useCase.AddNewHeroUseCase;
+import com.androidlesson.domain.main.useCase.DeleteHeroDateUseCase;
 import com.androidlesson.domain.main.useCase.EditUserDataUseCase;
 import com.androidlesson.domain.main.useCase.GetHeroDataUseCase;
 import com.androidlesson.domain.main.useCase.GetUserEmailUseCase;
@@ -26,6 +27,7 @@ import com.androidlesson.hackathon3project.presentation.authorization.viewModels
 import com.androidlesson.hackathon3project.presentation.authorization.viewModels.registratoinViewModel.RegistrationFragmentViewModelFactory;
 import com.androidlesson.hackathon3project.presentation.main.viewModels.addHeroFragmentViewModel.AddHeroFragmentViewModelFactory;
 import com.androidlesson.hackathon3project.presentation.main.viewModels.allUserHeroesViewModel.AllUserHeroesViewModelFactory;
+import com.androidlesson.hackathon3project.presentation.main.viewModels.deleteHeroFragmentViewModel.DeleteHeroFragmentViewModelFactory;
 import com.androidlesson.hackathon3project.presentation.main.viewModels.editUserProfileFragmentViewModel.EditUserProfileFragmentViewModelFactory;
 import com.androidlesson.hackathon3project.presentation.main.viewModels.mainActivityViewModel.MainFragmentViewModelFactory;
 import com.androidlesson.hackathon3project.presentation.main.viewModels.newsFragmentViewModel.NewsFragmentViewModelFactory;
@@ -101,6 +103,11 @@ public class AppModule {
     @Provides
     public ShowHeroViewModelFactory provideShowHeroViewModelFactory(GetHeroDataUseCase getHeroDataUseCase, ProudUseCase proudUseCase) {
         return new ShowHeroViewModelFactory(getHeroDataUseCase, proudUseCase);
+    }
+
+    @Provides
+    public DeleteHeroFragmentViewModelFactory provideDeleteHeroFragmentViewModelFactory(DeleteHeroDateUseCase deleteHeroDateUseCase) {
+        return new DeleteHeroFragmentViewModelFactory(deleteHeroDateUseCase);
     }
 }
 

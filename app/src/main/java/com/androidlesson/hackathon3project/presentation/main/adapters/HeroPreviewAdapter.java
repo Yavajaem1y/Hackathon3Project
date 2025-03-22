@@ -33,13 +33,9 @@ public class HeroPreviewAdapter extends RecyclerView.Adapter<HeroPreviewAdapter.
         this.heroList=new ArrayList<>();
     }
 
+    @SuppressLint("NotifyDataSetChanged")
     public void setNewPreviews(List<HeroItemPreview> previews){
-        for (HeroItemPreview i:previews){
-            if (!this.ids.contains(i.getId())){
-                this.heroList.add(i);
-                ids.add(i.getId());
-            }
-        }
+        this.heroList=previews;
         notifyDataSetChanged();
     }
 
@@ -100,12 +96,6 @@ public class HeroPreviewAdapter extends RecyclerView.Adapter<HeroPreviewAdapter.
             heroName = itemView.findViewById(R.id.tv_name_and_surname);
             heroAvatar = itemView.findViewById(R.id.iv_hero_image);
             heroDate=itemView.findViewById(R.id.tv_date);
-        }
-    }
-
-    public static class AddHeroViewHolder extends RecyclerView.ViewHolder {
-        public AddHeroViewHolder(@NonNull View itemView) {
-            super(itemView);
         }
     }
 }

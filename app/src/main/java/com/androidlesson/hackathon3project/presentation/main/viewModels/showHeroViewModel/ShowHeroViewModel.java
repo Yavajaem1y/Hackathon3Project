@@ -20,6 +20,8 @@ public class ShowHeroViewModel extends ViewModel {
 
     private MutableLiveData<UserData> currentUserMutableLiveData=new MutableLiveData<>();
     private MutableLiveData<HeroData> heroDataMutableLiveData=new MutableLiveData<>();
+    private MutableLiveData<Boolean> visibilityDotsMenuMutableLiveData =new MutableLiveData<>(false);
+    private MutableLiveData<Boolean> selectedHeartMutableLiveData=new MutableLiveData<>(false);
 
     public ShowHeroViewModel(GetHeroDataUseCase getHeroDataUseCase, ProudUseCase proudUseCase) {
         this.getHeroDataUseCase = getHeroDataUseCase;
@@ -27,11 +29,25 @@ public class ShowHeroViewModel extends ViewModel {
     }
 
     public void setCurrentUser(UserData userData){
+        if (heroId!=null && !heroId.isEmpty()){
+            if (userData.getListHeroIds().contains(heroId)){
+                visibilityDotsMenuMutableLiveData.setValue(true);
+            }
+            selectedHeartMutableLiveData.setValue(userData.getListFavoriteRecordIds().contains(heroId));
+
+
+        }
         currentUserMutableLiveData.setValue(userData);
     }
 
     public void setHeroId(String heroId){
         this.heroId=heroId;
+        if (currentUserMutableLiveData.getValue()!=null){
+            if (currentUserMutableLiveData.getValue().getListHeroIds().contains(heroId)){
+                visibilityDotsMenuMutableLiveData.setValue(true);
+            }
+            selectedHeartMutableLiveData.setValue(currentUserMutableLiveData.getValue().getListFavoriteRecordIds().contains(heroId));
+        }
         getHeroDataUseCase.execute(heroId, new HeroDataCallback() {
             @Override
             public void getHeroDataToDb(HeroDataToDb data) {
@@ -59,5 +75,13 @@ public class ShowHeroViewModel extends ViewModel {
 
     public LiveData<HeroData> getHeroDataMutableLiveData() {
         return heroDataMutableLiveData;
+    }
+
+    public LiveData<Boolean> getVisibilityDotsMenuMutableLiveData() {
+        return visibilityDotsMenuMutableLiveData;
+    }
+
+    public LiveData<Boolean> getSelectedHeartMutableLiveData() {
+        return selectedHeartMutableLiveData;
     }
 }

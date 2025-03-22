@@ -10,6 +10,7 @@ import com.androidlesson.domain.main.interfaces.UserDataCallback;
 import com.androidlesson.domain.main.models.HeroDataToDb;
 import com.androidlesson.domain.main.models.HeroImageToDb;
 import com.androidlesson.domain.main.models.ProudOnHeroModel;
+import com.androidlesson.domain.main.models.UserData;
 
 import java.util.List;
 
@@ -27,4 +28,6 @@ public interface MainFirebaseRepository {
     void observeHeroData(String heroId, HeroDataCallback heroDataCallback);
 
     void proudHero(ProudOnHeroModel proudOnHeroModel);
+
+    void deleteHeroData(String heroId, UserData userData, BooleanCallBack booleanCallBack);
 }

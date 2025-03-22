@@ -33,7 +33,7 @@ public class AddImageAdapter extends RecyclerView.Adapter<AddImageAdapter.AddIma
     @SuppressLint("NotifyDataSetChanged")
     public void setNewImages(List<Uri> images){
         this.images = images;
-        this.images.add(null);
+        this.images.add(0,null);
         notifyDataSetChanged();
     }
 

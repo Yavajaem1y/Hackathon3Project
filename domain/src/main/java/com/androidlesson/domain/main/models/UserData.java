@@ -95,4 +95,8 @@ public class UserData {
     public void setListFavoriteRecordIds(List<String> listFavoriteRecordIds) {
         this.listFavoriteRecordIds = listFavoriteRecordIds;
     }
+
+    public void removeHero(String id){
+        this.getListHeroIds().remove(id);
+    }
 }

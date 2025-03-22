@@ -15,12 +15,16 @@ import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
 import java.util.Locale;
+import java.util.Objects;
+
+import javax.inject.Inject;
 
 public class NewsFragmentViewModel extends ViewModel {
     private ObserveHeroesForNewsUseCase observeHeroesForNewsUseCase;
 
     private MutableLiveData<List<NewsPreviewItem>> heroesMutableLiveData=new MutableLiveData<>(new ArrayList<>());
     private MutableLiveData<Boolean> visibilityTopElementMutableLiveData=new MutableLiveData<>(true);
+    private MutableLiveData<Integer> filterMutableLiveData=new MutableLiveData<>(1);
 
     public NewsFragmentViewModel(ObserveHeroesForNewsUseCase observeHeroesForNewsUseCase) {
         this.observeHeroesForNewsUseCase = observeHeroesForNewsUseCase;
@@ -65,11 +69,26 @@ public class NewsFragmentViewModel extends ViewModel {
         }
     }
 
+    public void removeHeroDataById(String heroId){
+        List<NewsPreviewItem> newListPreview = new ArrayList<>(heroesMutableLiveData.getValue());
+        newListPreview.removeIf(item -> Objects.equals(item.getId(), heroId));
+        heroesMutableLiveData.setValue(newListPreview);
+    }
+
+    //Type: 1-all, 2-events, 3-heroes
+    public void setFilter(int filterType){
+        filterMutableLiveData.setValue(filterType);
+    }
+
     public LiveData<List<NewsPreviewItem>> getHeroesMutableLiveData() {
         return heroesMutableLiveData;
     }
 
     public LiveData<Boolean> getVisibilityTopElementMutableLiveData() {
         return visibilityTopElementMutableLiveData;
+    }
+
+    public LiveData<Integer> getFilterMutableLiveData() {
+        return filterMutableLiveData;
     }
 }

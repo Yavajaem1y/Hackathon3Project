@@ -148,6 +148,13 @@ public class AllUserHeroesDialogFragment extends DialogFragment {
                 adapter.setNewPreviews(heroItemPreviews);
             }
         });
+
+        sharedVM.getRemovedHeroDataIdMutableLiveData().observe(getViewLifecycleOwner(), new Observer<String>() {
+            @Override
+            public void onChanged(String string) {
+                vm.removeHeroDataById(string);
+            }
+        });
     }
 }
 

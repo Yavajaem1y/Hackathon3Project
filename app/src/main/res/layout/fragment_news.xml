@@ -2,8 +2,11 @@
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     android:background="#FFFFFF"
-    android:padding="24dp">
+    android:paddingTop="24dp"
+    android:paddingEnd="24dp"
+    android:paddingStart="24dp">
 
     <RelativeLayout
         android:id="@+id/rl_top_element"
@@ -22,85 +25,130 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:text="Последние события и истории о героях Великой Отечественной войны. Узнайте больше о подвигах, которые изменили историю"
-            android:layout_below="@id/tv_main_text" />
+            android:layout_below="@id/tv_main_text"
+            android:textSize="12sp"/>
     </RelativeLayout>
-    <LinearLayout
-        android:id="@+id/ll_search"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_below="@id/rl_top_element"
-        android:background="@drawable/bg_rounded_grey"
-        android:padding="3dp"
-        android:paddingStart="10dp"
-        android:paddingEnd="10dp"
-        android:gravity="center_vertical">
-        <ImageView
-            android:layout_width="16dp"
-            android:layout_height="16dp"
-            android:src="@drawable/ic_search"
-            android:layout_marginRight="5dp"/>
-
-        <EditText
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:hint="Поиск"
-            android:textSize="10dp" />
-    </LinearLayout>
-
     <RelativeLayout
-        android:id="@+id/rl_filter"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_below="@id/ll_search"
-        android:layout_marginTop="10dp"
-        android:padding="10dp"
-        android:background="@drawable/bg_rounded_grey">
-        <TextView
-            android:id="@+id/tv_filter_hero"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="Герои"
-            android:layout_centerInParent="true"
-            android:layout_marginStart="40dp"
-            android:layout_marginEnd="40dp"/>
-        <View
-            android:id="@+id/right_view"
-            android:layout_width="1dp"
-            android:layout_height="10dp"
-            android:layout_centerVertical="true"
-            android:background="@color/black"
-            android:layout_toEndOf="@id/tv_filter_hero"/>
-        <View
-            android:id="@+id/left_view"
-            android:layout_width="1dp"
-            android:layout_height="10dp"
-            android:layout_centerVertical="true"
-            android:background="@color/black"
-            android:layout_toStartOf="@id/tv_filter_hero"/>
-        <TextView
-            android:id="@+id/tv_filter_events"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="События"
-            android:layout_marginStart="40dp"
-            android:layout_centerVertical="true"
-            android:layout_toRightOf="@id/right_view"/>
-        <TextView
-            android:id="@+id/tv_filter_all"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="Все"
-            android:layout_centerVertical="true"
-            android:layout_toLeftOf="@id/left_view"
-            android:layout_marginEnd="40dp"/>
-    </RelativeLayout>
-
-    <androidx.recyclerview.widget.RecyclerView
-        android:id="@+id/rl_news_container"
+        android:id="@+id/rl_bottom_element"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:layout_below="@id/rl_filter"
-        android:layout_marginTop="24dp"/>
+        android:layout_below="@id/rl_top_element">
+        <LinearLayout
+            android:id="@+id/ll_search"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:background="@drawable/bg_rounded_grey"
+            android:paddingStart="16dp"
+            android:paddingEnd="16dp"
+            android:paddingTop="12dp"
+            android:paddingBottom="12dp"
+            android:gravity="center">
+            <ImageView
+                android:layout_width="16dp"
+                android:layout_height="16dp"
+                android:src="@drawable/ic_search"
+                android:layout_marginRight="5dp"/>
+
+            <EditText
+                android:id="@+id/et_search"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:hint="Поиск"
+                android:textSize="12dp"
+                android:background="@drawable/bg_rounded_null"/>
+        </LinearLayout>
+
+        <androidx.constraintlayout.widget.ConstraintLayout
+            android:id="@+id/cl_filter"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="10dp"
+            android:padding="8dp"
+            android:layout_below="@id/ll_search"
+            android:background="@drawable/bg_rounded_grey">
+
+            <TextView
+                android:id="@+id/tv_filter_all"
+                android:layout_width="0dp"
+                android:layout_height="32dp"
+                android:text="Все"
+                android:gravity="center"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintEnd_toStartOf="@id/left_view"
+                app:layout_constraintTop_toTopOf="parent"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintHorizontal_bias="0.5"
+                style="@style/SelectedFilterStyle"
+                android:textSize="12sp"/>
+
+            <View
+                android:id="@+id/left_view"
+                android:layout_width="1dp"
+                android:layout_height="10dp"
+                android:background="@color/userAvatarColor"
+                app:layout_constraintStart_toEndOf="@id/tv_filter_all"
+                app:layout_constraintEnd_toStartOf="@id/tv_filter_events"
+                app:layout_constraintTop_toTopOf="parent"
+                app:layout_constraintBottom_toBottomOf="parent"/>
+
+            <TextView
+                android:id="@+id/tv_filter_events"
+                android:layout_width="0dp"
+                android:layout_height="32dp"
+                android:text="События"
+                android:gravity="center"
+                app:layout_constraintStart_toEndOf="@id/left_view"
+                app:layout_constraintEnd_toStartOf="@id/right_view"
+                app:layout_constraintTop_toTopOf="parent"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintHorizontal_bias="0.5"
+                style="@style/UnselectedFilterStyle"
+                android:textSize="12sp"/>
+
+            <View
+                android:id="@+id/right_view"
+                android:layout_width="1dp"
+                android:layout_height="10dp"
+                android:background="@color/userAvatarColor"
+                app:layout_constraintStart_toEndOf="@id/tv_filter_events"
+                app:layout_constraintEnd_toStartOf="@id/tv_filter_hero"
+                app:layout_constraintTop_toTopOf="parent"
+                app:layout_constraintBottom_toBottomOf="parent"/>
+
+            <TextView
+                android:id="@+id/tv_filter_hero"
+                android:layout_width="0dp"
+                android:layout_height="32dp"
+                android:text="Герои"
+                android:gravity="center"
+                app:layout_constraintStart_toEndOf="@id/right_view"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintTop_toTopOf="parent"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintHorizontal_bias="0.5"
+                style="@style/UnselectedFilterStyle"
+                android:textSize="12sp"/>
+
+        </androidx.constraintlayout.widget.ConstraintLayout>
+
+
+        <RelativeLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:layout_below="@id/cl_filter">
+            <TextView
+                android:id="@+id/tv_nothing"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_centerInParent="true"
+                android:text="Ничего не найдено :("/>
+            <androidx.recyclerview.widget.RecyclerView
+                android:id="@+id/rl_news_container"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:layout_marginTop="24dp"/>
+        </RelativeLayout>
+    </RelativeLayout>
 
 
 </RelativeLayout>

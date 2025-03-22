@@ -265,6 +265,9 @@ public class MainFirebaseRepositoryImpl implements MainFirebaseRepository {
                     if (data.getListProud()==null) data.setListProud(new ArrayList<>());
                     heroDataCallback.getHeroData(data);
                 }
+                else {
+                    heroDataCallback.getHeroData(null);
+                }
             }
 
             @Override
@@ -278,6 +281,19 @@ public class MainFirebaseRepositoryImpl implements MainFirebaseRepository {
     public void proudHero(ProudOnHeroModel proudOnHeroModel) {
         firebaseDatabase.getReference(DATABASE_WITH_HEROES_DATA).child(proudOnHeroModel.getHeroId()).child(HERO_LIST_PROUD).setValue(proudOnHeroModel.getListProud());
         firebaseDatabase.getReference(DATABASE_WITH_USERS_DATA).child(proudOnHeroModel.getUserId()).child(USER_LIST_FAVORITE_RECORDS_IDS).setValue(proudOnHeroModel.getListFavoriteRecordIds());
+    }
+
+    @Override
+    public void deleteHeroData(String heroId, UserData userData, BooleanCallBack booleanCallBack) {
+        firebaseDatabase.getReference(DATABASE_WITH_HEROES_DATA).child(heroId).removeValue().addOnCompleteListener(new OnCompleteListener<Void>() {
+            @Override
+            public void onComplete(@NonNull Task<Void> task) {
+                if (task.isSuccessful()){
+                    firebaseDatabase.getReference(DATABASE_WITH_USERS_DATA).child(userData.getUserId()).child(USER_LIST_HEROES_IDS).setValue(userData.getListHeroIds());
+                    booleanCallBack.getBoolean(true);
+                }
+            }
+        });
     }
 
 

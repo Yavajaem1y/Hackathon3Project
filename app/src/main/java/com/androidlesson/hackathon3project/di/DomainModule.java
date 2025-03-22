@@ -13,6 +13,7 @@ import com.androidlesson.domain.authorization.useCase.SaveUserDataToSPUseCase;
 import com.androidlesson.domain.authorization.useCase.SetAuthorizationDataToSPUseCase;
 import com.androidlesson.domain.main.repository.MainFirebaseRepository;
 import com.androidlesson.domain.main.useCase.AddNewHeroUseCase;
+import com.androidlesson.domain.main.useCase.DeleteHeroDateUseCase;
 import com.androidlesson.domain.main.useCase.EditUserDataUseCase;
 import com.androidlesson.domain.main.useCase.GetHeroDataUseCase;
 import com.androidlesson.domain.main.useCase.GetUserEmailUseCase;
@@ -113,5 +114,10 @@ public class DomainModule {
     @Provides
     public ProudUseCase provideProudUseCase(MainFirebaseRepository firebaseRepository){
         return new ProudUseCase(firebaseRepository);
+    }
+
+    @Provides
+    public DeleteHeroDateUseCase provideDeleteHeroDateUseCase(MainFirebaseRepository firebaseRepository){
+        return new DeleteHeroDateUseCase(firebaseRepository);
     }
 }

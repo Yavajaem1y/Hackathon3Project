@@ -12,9 +12,16 @@ import androidx.lifecycle.Observer;
 import com.androidlesson.domain.authorization.interfaces.StringCallBack;
 import com.androidlesson.domain.authorization.useCase.GetUserIdUseCase;
 import com.androidlesson.domain.main.interfaces.UserDataCallback;
+import com.androidlesson.domain.main.models.HeroItemPreview;
+import com.androidlesson.domain.main.models.NewsPreviewItem;
 import com.androidlesson.domain.main.models.UserData;
 import com.androidlesson.domain.main.useCase.GetUserEmailUseCase;
 import com.androidlesson.domain.main.useCase.ObserveCurrentUserDataUseCase;
+
+import java.util.ArrayList;
+import java.util.Iterator;
+import java.util.List;
+import java.util.Objects;
 
 public class SharedViewModel extends AndroidViewModel {
     private final ObserveCurrentUserDataUseCase observeCurrentUserDataUseCase;
@@ -22,6 +29,7 @@ public class SharedViewModel extends AndroidViewModel {
 
     private final MutableLiveData<UserData> currentUserDataMutableLiveData = new MutableLiveData<>();
     private final MutableLiveData<String> userEmailMutableLiveData = new MutableLiveData<>();
+    private final MutableLiveData<String> removedHeroDataIdMutableLiveData = new MutableLiveData<>();
 
     public SharedViewModel(Application application, ObserveCurrentUserDataUseCase observeCurrentUserDataUseCase, GetUserIdUseCase getUserIdUseCase, GetUserEmailUseCase getUserEmailUseCase) {
         super(application);
@@ -56,6 +64,10 @@ public class SharedViewModel extends AndroidViewModel {
         });
     }
 
+    public void removeHeroData(String heroId) {
+        removedHeroDataIdMutableLiveData.setValue(heroId);
+    }
+
     public LiveData<UserData> getCurrentUserDataLiveData() {
         return currentUserDataMutableLiveData;
     }
@@ -64,5 +76,7 @@ public class SharedViewModel extends AndroidViewModel {
         return userEmailMutableLiveData;
     }
 
-
+    public LiveData<String> getRemovedHeroDataIdMutableLiveData() {
+        return removedHeroDataIdMutableLiveData;
+    }
 }

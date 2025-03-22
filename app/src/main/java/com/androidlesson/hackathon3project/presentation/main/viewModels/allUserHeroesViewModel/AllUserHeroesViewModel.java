@@ -13,6 +13,7 @@ import com.androidlesson.domain.main.useCase.ObserveCurrentUserHeroesPreviewUseC
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Objects;
 
 public class AllUserHeroesViewModel extends ViewModel {
     private ObserveCurrentUserHeroesPreviewUseCase observeCurrentUserHeroesPreviewUseCase;
@@ -29,15 +30,23 @@ public class AllUserHeroesViewModel extends ViewModel {
             observeCurrentUserHeroesPreviewUseCase.execute(currentUserMutableLiveData.getValue().getUserId(), new HeroDataPreviewCallback() {
                 @Override
                 public void getHeroDataPreview(HeroItemPreview hero) {
-                    Log.d("HeroAdapter",hero.getId());
-                    List<HeroItemPreview> heroes=heroesPreviewMutableLiveData.getValue();
-                    if (!heroes.contains(hero)){
-                        heroes.add(hero);
+                    if (hero!=null) {
+                        Log.d("HeroAdapter", hero.getId());
+                        List<HeroItemPreview> heroes = heroesPreviewMutableLiveData.getValue();
+                        if (!heroes.contains(hero)) {
+                            heroes.add(hero);
+                        }
+                        heroesPreviewMutableLiveData.setValue(heroes);
+                        Log.d("HeroAdapter", "Size" + heroesPreviewMutableLiveData.getValue().size());
                     }
-                    heroesPreviewMutableLiveData.setValue(heroes);
-                    Log.d("HeroAdapter","Size"+heroesPreviewMutableLiveData.getValue().size());
                 }
             });
+    }
+
+    public void removeHeroDataById(String heroId){
+        List<HeroItemPreview> newList = new ArrayList<>(heroesPreviewMutableLiveData.getValue());
+        newList.removeIf(item -> Objects.equals(item.getId(), heroId));
+        heroesPreviewMutableLiveData.setValue(newList);
     }
 
     public void setCurrentUser(UserData data) {

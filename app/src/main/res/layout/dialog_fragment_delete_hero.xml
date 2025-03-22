@@ -1,0 +1,51 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="300dp"
+    android:layout_height="wrap_content"
+    android:orientation="vertical"
+    android:background="@drawable/bg_rounded_grey"
+    android:padding="16dp">
+
+    <TextView
+        android:id="@+id/tv_tv_first"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Вы действительно хотите удалить запись о герое?"
+        android:layout_centerHorizontal="true"
+        android:textColor="@color/black"
+        android:textSize="16sp"
+        android:textStyle="bold"
+        android:layout_marginBottom="16dp"
+        android:gravity="center"/>
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_below="@id/tv_tv_first"
+        android:orientation="horizontal">
+
+        <TextView
+            android:id="@+id/b_cancellation"
+            android:layout_width="130dp"
+            android:layout_height="match_parent"
+            android:background="@drawable/bg_rounded_white_with_blue_stroke"
+            android:gravity="center"
+            android:padding="12dp"
+            android:text="Отмена"
+            android:textStyle="bold"
+            android:textColor="@color/AccentColor"
+            android:textSize="12sp"
+            android:layout_marginEnd="8dp"/>
+        <TextView
+            android:id="@+id/b_delete"
+            android:layout_width="130dp"
+            android:layout_height="match_parent"
+            android:background="@drawable/bg_rounded_accent"
+            android:gravity="center"
+            android:padding="12dp"
+            android:text="Есесес"
+            android:textStyle="bold"
+            android:textColor="@color/white"
+            android:textSize="12sp"/>
+    </LinearLayout>
+
+</RelativeLayout>

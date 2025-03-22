@@ -160,7 +160,7 @@
                 android:layout_height="wrap_content"
                 android:text="- отметьте сражения и исторические события, в которых учатсвовал ваш герой"
                 android:layout_below="@id/tv_tv_evets"
-                android:textSize="12sp" />
+                android:textSize="14sp" />
 
             <androidx.recyclerview.widget.RecyclerView
                 android:id="@+id/rv_hero_events_holder"
@@ -194,7 +194,7 @@
                 android:layout_height="wrap_content"
                 android:text="(добавьте фотографии наградных грамот, документов, писем и других важных артефактов, связанных с героем)"
                 android:layout_below="@id/tv_tv_image"
-                android:textSize="12sp"
+                android:textSize="14sp"
                 android:layout_marginBottom="4dp"/>
             
             <androidx.recyclerview.widget.RecyclerView
