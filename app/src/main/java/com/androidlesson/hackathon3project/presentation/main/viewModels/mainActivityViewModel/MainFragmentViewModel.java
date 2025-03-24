@@ -21,6 +21,7 @@ public class MainFragmentViewModel extends ViewModel {
     private final Map<Integer, Fragment> fragmentMap=new HashMap<>();
 
     private MutableLiveData<Fragment> fragmentContainerMutableLiveData=new MutableLiveData<>();
+    private MutableLiveData<Integer> bottomElementMutableLiveData=new MutableLiveData<>(R.id.navigation_news);
 
     public MainFragmentViewModel() {
         setFragmentsInfo();
@@ -49,10 +50,16 @@ public class MainFragmentViewModel extends ViewModel {
     public void replaceFragment(int id){
         if (fragmentContainerMutableLiveData!=null && fragmentContainerMutableLiveData.getValue()!=fragmentMap.get(id)){
             fragmentContainerMutableLiveData.setValue(fragmentMap.get(id));
+            bottomElementMutableLiveData.setValue(id);
         }
     }
 
     public LiveData<Fragment> getFragmentContainerLiveData(){
         return fragmentContainerMutableLiveData;
     }
+
+    public LiveData<Integer> getBottomElementMutableLiveData() {
+        return bottomElementMutableLiveData;
+    }
+
 }

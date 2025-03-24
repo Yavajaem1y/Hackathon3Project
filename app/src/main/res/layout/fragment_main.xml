@@ -14,17 +14,87 @@
         <FrameLayout
             android:id="@+id/fl_main_fragment_container"
             android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            android:layout_above="@id/bnv_main_bottom_bar"/>
+            android:layout_height="match_parent" />
 
-        <com.ismaeldivita.chipnavigation.ChipNavigationBar
-            android:id="@+id/bnv_main_bottom_bar"
-            android:layout_width="match_parent"
-            android:layout_height="60dp"
-            app:cnb_menuResource="@menu/main_bottom_navigation_menu"
-            app:itemIconSize="40dp"
-
-            android:layout_alignParentBottom="true"/>
+        <RelativeLayout
+            android:layout_width="224dp"
+            android:layout_height="52dp"
+            android:layout_alignParentBottom="true"
+            android:layout_centerHorizontal="true"
+            android:background="@drawable/bg_rounded_grey_40dp"
+            android:gravity="center_vertical"
+            android:padding="4dp"
+            android:layout_marginBottom="4dp">
+            <LinearLayout
+                android:id="@+id/ll_b_news"
+                android:layout_width="wrap_content"
+                android:layout_height="match_parent"
+                android:gravity="center"
+                android:orientation="horizontal"
+                android:background="@drawable/bg_rounded_blak_grey">
+                <ImageView
+                    android:id="@+id/iv_news_icon"
+                    android:layout_width="22dp"
+                    android:layout_height="22dp"
+                    android:src="@drawable/icon_selected_news" />
+                <TextView
+                    android:visibility="gone"
+                    android:id="@+id/tv_news_button_text"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="Лента"
+                    android:textSize="11sp"
+                    android:textColor="@color/black"
+                    android:textStyle="bold"
+                    android:layout_marginStart="10dp"/>
+            </LinearLayout>
+            <LinearLayout
+                android:id="@+id/ll_b_map"
+                android:layout_width="wrap_content"
+                android:layout_height="match_parent"
+                android:gravity="center"
+                android:orientation="horizontal"
+                android:layout_toRightOf="@id/ll_b_news">
+                <ImageView
+                    android:id="@+id/iv_map_icon"
+                    android:layout_width="22dp"
+                    android:layout_height="22dp"
+                    android:src="@drawable/icon_map"/>
+                <TextView
+                    android:id="@+id/tv_map_button_text"
+                    android:visibility="gone"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="Карта"
+                    android:textSize="11sp"
+                    android:textColor="@color/black"
+                    android:textStyle="bold"
+                    android:layout_marginStart="10dp"/>
+            </LinearLayout>
+            <LinearLayout
+                android:id="@+id/ll_b_user_profile"
+                android:layout_width="wrap_content"
+                android:layout_height="match_parent"
+                android:gravity="center"
+                android:orientation="horizontal"
+                android:layout_toRightOf="@id/ll_b_map">
+                <ImageView
+                    android:id="@+id/iv_user_profile_icon"
+                    android:layout_width="22dp"
+                    android:layout_height="22dp"
+                    android:src="@drawable/icon_user_profile" />
+                <TextView
+                    android:id="@+id/tv_user_profile_button_text"
+                    android:visibility="gone"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="Профиль"
+                    android:textSize="11sp"
+                    android:textColor="@color/black"
+                    android:textStyle="bold"
+                    android:layout_marginStart="10dp"/>
+            </LinearLayout>
+        </RelativeLayout>
     </RelativeLayout>
 
 </FrameLayout>
