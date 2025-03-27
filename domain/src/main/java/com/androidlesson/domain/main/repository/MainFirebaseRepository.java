@@ -30,4 +30,6 @@ public interface MainFirebaseRepository {
     void proudHero(ProudOnHeroModel proudOnHeroModel);
 
     void deleteHeroData(String heroId, UserData userData, BooleanCallBack booleanCallBack);
+
+    void getHeroProudList(String heroId, ListStringsCallback listStringsCallback);
 }

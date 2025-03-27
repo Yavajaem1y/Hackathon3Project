@@ -1,12 +1,13 @@
 package com.androidlesson.domain.main.models;
 
 public class NewsPreviewItem {
-    private String name, id, info, avatar, newsType;
 
-    public NewsPreviewItem(String name, String id, String info, String avatar, String newsType) {
+    private String name, id, date, avatar, newsType;
+
+    public NewsPreviewItem(String name, String id, String date, String avatar, String newsType) {
         this.name = name;
         this.id = id;
-        this.info = info;
+        this.date = date;
         this.avatar = avatar;
         this.newsType = newsType;
     }
@@ -27,12 +28,12 @@ public class NewsPreviewItem {
         this.id = id;
     }
 
-    public String getInfo() {
-        return info;
+    public String getDate() {
+        return date;
     }
 
-    public void setInfo(String info) {
-        this.info = info;
+    public void setDate(String date) {
+        this.date = date;
     }
 
     public String getAvatar() {

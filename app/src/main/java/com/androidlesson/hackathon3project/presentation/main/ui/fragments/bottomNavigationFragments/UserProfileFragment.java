@@ -6,30 +6,23 @@ import androidx.fragment.app.Fragment;
 import androidx.fragment.app.FragmentManager;
 import androidx.lifecycle.Observer;
 import androidx.lifecycle.ViewModelProvider;
-import androidx.recyclerview.widget.LinearLayoutManager;
-import androidx.recyclerview.widget.RecyclerView;
 
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageView;
 import android.widget.TextView;
-import android.widget.Toast;
 
-import com.androidlesson.domain.main.models.HeroData;
+
 import com.androidlesson.domain.main.models.UserData;
 import com.androidlesson.hackathon3project.app.App;
 import com.androidlesson.hackathon3project.databinding.FragmentUserProfileBinding;
-import com.androidlesson.hackathon3project.presentation.main.adapters.HeroPreviewAdapter;
-import com.androidlesson.hackathon3project.presentation.main.ui.fragments.dialogFragments.AddHeroDialogFragment;
 import com.androidlesson.hackathon3project.presentation.main.ui.fragments.dialogFragments.AllUserHeroesDialogFragment;
 import com.androidlesson.hackathon3project.presentation.main.ui.fragments.dialogFragments.DotsMenuFragmentFromCurrnetUserActivity;
 import com.androidlesson.hackathon3project.presentation.main.viewModels.sharedViewModel.SharedViewModel;
 import com.androidlesson.hackathon3project.presentation.main.viewModels.sharedViewModel.SharedViewModelFactory;
 import com.bumptech.glide.Glide;
 
-import java.util.ArrayList;
-import java.util.List;
 
 import javax.inject.Inject;
 

@@ -31,14 +31,24 @@
                 android:src="@drawable/ic_empty_photo"
                 android:layout_centerInParent="true"/>
             <ImageView
-                android:id="@+id/iv_hero_image"
+                android:id="@+id/iv_preview_image"
                 android:layout_width="140dp"
                 android:layout_height="167dp" />
+            <ImageView
+                android:id="@+id/iv_heart"
+                android:layout_width="29dp"
+                android:layout_height="29dp"
+                android:src="@drawable/ic_white_heart"
+                android:background="@drawable/bg_circle"
+                android:padding="4dp"
+                android:layout_alignParentRight="true"
+                android:layout_marginEnd="4dp"
+                android:layout_marginTop="4dp"/>
         </RelativeLayout>
     </androidx.cardview.widget.CardView>
 
     <TextView
-        android:id="@+id/tv_name_and_surname"
+        android:id="@+id/tv_name"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:text="Имя Фамилия"
@@ -55,5 +65,5 @@
         android:text="ГГГГ-ГГГГ"
         android:textSize="11sp"
         android:textColor="#E2E2E2"
-        android:layout_below="@id/tv_name_and_surname"/>
+        android:layout_below="@id/tv_name"/>
 </RelativeLayout>

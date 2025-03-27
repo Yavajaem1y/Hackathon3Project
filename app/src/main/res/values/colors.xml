@@ -5,7 +5,13 @@
 
     <color name="userAvatarColor">#aaaaaa</color>
     <color name="userAvatarBackground">#efefef</color>
-    <color name="secondaryBG">#F8F9FE</color>
-    <color name="greyBG">#EBEBEB</color>
-    <color name="AccentColor">#006FFD</color>
+    <color name="MainBackground">#2C2D33</color>
+    <color name="AccentColor">#F09065</color>
+    <color name="LightTextColor">#FAFFFF</color>
+    <color name="SecondaryLightGreyTextColor">#B3B3B3</color>
+    <color name="SecondaryGreyTextColor">#949399</color>
+    <color name="SelectedLightTextColor">#FFEDE5</color>
+    <color name="LightGrey">#3F4047</color>
+    <color name="secondaryBG">#3F4047</color>
+    <color name="Grey">#39383E</color>
 </resources>

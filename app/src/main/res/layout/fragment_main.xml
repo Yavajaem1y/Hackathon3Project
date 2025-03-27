@@ -15,13 +15,20 @@
             android:id="@+id/fl_main_fragment_container"
             android:layout_width="match_parent"
             android:layout_height="match_parent" />
+        
+        <View
+            android:layout_width="match_parent"
+            android:layout_height="147dp"
+            android:background="@drawable/bottom_gradient"
+            android:layout_alignParentBottom="true"/>
 
         <RelativeLayout
+            android:id="@+id/rl_bottom_navigation_view"
             android:layout_width="224dp"
             android:layout_height="52dp"
             android:layout_alignParentBottom="true"
             android:layout_centerHorizontal="true"
-            android:background="@drawable/bg_rounded_grey_40dp"
+            android:background="@drawable/bg_rounded_40dp_bottom_navigation"
             android:gravity="center_vertical"
             android:padding="4dp"
             android:layout_marginBottom="4dp">

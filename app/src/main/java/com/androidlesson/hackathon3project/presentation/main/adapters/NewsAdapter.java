@@ -2,11 +2,10 @@ package com.androidlesson.hackathon3project.presentation.main.adapters;
 
 import android.annotation.SuppressLint;
 import android.content.Context;
-import android.util.Log;
+import android.os.Handler;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.Filter;
 import android.widget.ImageView;
 import android.widget.TextView;
 
@@ -14,153 +13,258 @@ import androidx.annotation.NonNull;
 import androidx.fragment.app.FragmentManager;
 import androidx.recyclerview.widget.RecyclerView;
 
-import com.androidlesson.domain.main.models.NewsPreviewItem;
+import com.androidlesson.domain.main.models.NewsEventPreviewItem;
+import com.androidlesson.domain.main.models.NewsHeroPreviewItem;
+import com.androidlesson.domain.main.models.NewsItem;
+import com.androidlesson.domain.main.models.UserData;
 import com.androidlesson.hackathon3project.R;
 import com.androidlesson.hackathon3project.presentation.main.interfaces.AdapterElementsSize;
+import com.androidlesson.hackathon3project.presentation.main.interfaces.OnProudClickListener;
 import com.androidlesson.hackathon3project.presentation.main.ui.fragments.dialogFragments.ShowHeroDialogFragment;
 import com.bumptech.glide.Glide;
 
 import java.util.ArrayList;
 import java.util.List;
-import java.util.Objects;
+import java.util.stream.Collectors;
 
-public class NewsAdapter extends RecyclerView.Adapter<NewsAdapter.NewsViewHolder>{
 
-    private List<NewsPreviewItem> allNews =new ArrayList<>();
-    private List<NewsPreviewItem> selectedNews=new ArrayList<>();
-    private int filter=1;
-    private Context context;
-    private FragmentManager fragmentManager;
-    private AdapterElementsSize adapterElementsSize;
+public class NewsAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder> {
+    List<NewsItem> listNews=new ArrayList<>();
+    List<NewsItem> listCurrentNews=new ArrayList<>();
+    List<NewsItem> listSearchNews=new ArrayList<>();
 
-    public NewsAdapter(List<NewsPreviewItem> allNews, Context context, FragmentManager fragmentManager, AdapterElementsSize adapterElementsSize) {
-        Log.d("NewAdapter","Size "+ allNews.size());
-        this.allNews = allNews;
-        this.selectedNews=allNews;
-        filter=1;
+    private final AdapterElementsSize adapterElementsSize;
+    private final FragmentManager fragmentManager;
 
-        sortArray();
-        this.context = context;
+    private UserData currentUserData;
+    private final OnProudClickListener proudClickListener;
+    private String searchFilter="";
+
+    public NewsAdapter(AdapterElementsSize adapterElementsSize,FragmentManager fragmentManager, UserData userData, OnProudClickListener proudClickListener) {
         this.adapterElementsSize=adapterElementsSize;
         this.fragmentManager=fragmentManager;
-    }
-
-    private void sortArray(){
-        allNews.sort((item1, item2) -> {
-            long num1 = Long.parseLong(item1.getId().substring(0, 14));
-            long num2 = Long.parseLong(item2.getId().substring(0, 14));
-            return Long.compare(num2, num1);
-        });
-    }
-
-    public void setNewNews(List<NewsPreviewItem> news){
-        this.allNews=news;
-        sortArray();
-        setSelectedNews(filter);
+        currentUserData=userData;
+        this.proudClickListener=proudClickListener;
     }
 
     @SuppressLint("NotifyDataSetChanged")
-    public void search(String input){
-        setSelectedNews(filter);
-        if (!input.isEmpty()){
-            List<NewsPreviewItem> newList=new ArrayList<>();
-            for (NewsPreviewItem i:selectedNews){
-                if (i.getName().startsWith(input)){
-                    newList.add(i);
-                }
-            }
-            selectedNews=newList;
-            notifyDataSetChanged();
-        }
-
-    }
-
-    @SuppressLint("NotifyDataSetChanged")
-    public void setSelectedNews(int filterType){
-        filter=filterType;
-        if (filterType==1){
-            selectedNews=allNews;
-        }
-        else if (filterType==2){
-            selectedNews=new ArrayList<>();
-            for (NewsPreviewItem item:allNews){
-                if (Objects.equals(item.getNewsType(), "EVENT")){
-                    selectedNews.add(item);
-                }
-            }
-        }
-        else {
-            selectedNews=new ArrayList<>();
-            for (NewsPreviewItem item:allNews){
-                if (Objects.equals(item.getNewsType(), "HERO")){
-                    selectedNews.add(item);
-                }
-            }
-        }
+    public void updateUserData(UserData userData){
+        currentUserData=userData;
         notifyDataSetChanged();
     }
 
     @Override
     public int getItemViewType(int position) {
-        return R.layout.item_news_preview;
+        if (listCurrentNews.isEmpty()) {
+            return -1;
+        }
+        return listCurrentNews.get(position).getType();
+    }
+
+
+    public void setNewsList(List<NewsItem> listNews, int filter){
+        this.listNews=listNews;
+        filterItems(filter!=1);
+    }
+
+    public void filterItems(boolean showHeroes) {
+        listCurrentNews.clear();
+
+        List<NewsItem> filteredList;
+
+        if (showHeroes) {
+            filteredList = listNews.stream()
+                    .filter(item -> item instanceof NewsHeroPreviewItem)
+                    .sorted((item1, item2) -> Long.compare(
+                            extractId(item2.getNewsId()),
+                            extractId(item1.getNewsId())
+                    ))
+                    .collect(Collectors.toList());
+        } else {
+            filteredList = listNews.stream()
+                    .filter(item -> item instanceof NewsEventPreviewItem)
+                    .sorted((item1, item2) -> Long.compare(
+                            extractId(item2.getNewsId()),
+                            extractId(item1.getNewsId())
+                    ))
+                    .collect(Collectors.toList());
+        }
+
+        listCurrentNews.addAll(filteredList);
+
+        search(searchFilter,showHeroes? 2 : 1);
+    }
+
+
+    @SuppressLint("NotifyDataSetChanged")
+    public void search(String s, int filter) {
+        searchFilter=s;
+        if (s.isEmpty()) {
+            listSearchNews = listCurrentNews;
+        } else {
+            listSearchNews = new ArrayList<>();
+            if (filter == 1) {
+                listSearchNews = listCurrentNews.stream()
+                        .filter(item -> item instanceof NewsEventPreviewItem)
+                        .map(item -> (NewsEventPreviewItem) item)
+                        .filter(item -> item.getName().startsWith(s))
+                        .collect(Collectors.toList());
+            }
+            else {
+                listSearchNews = listCurrentNews.stream()
+                        .filter(item -> item instanceof NewsHeroPreviewItem)
+                        .map(item -> (NewsHeroPreviewItem) item)
+                        .filter(item -> item.getName().startsWith(s))
+                        .collect(Collectors.toList());
+            }
+        }
+        notifyDataSetChanged();
+    }
+
+
+    private long extractId(String id) {
+        try {
+            return Long.parseLong(id.substring(0, 14));
+        } catch (Exception e) {
+            return 0;
+        }
     }
 
     @NonNull
     @Override
-    public NewsViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
-        View view = LayoutInflater.from(parent.getContext()).inflate(viewType, parent, false);
-        return new NewsAdapter.NewsViewHolder(view);
+    public RecyclerView.ViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
+        LayoutInflater inflater = LayoutInflater.from(parent.getContext());
+
+        if (viewType == NewsItem.TYPE_HERO) {
+            View view = inflater.inflate(R.layout.item_news_hero_preview, parent, false);
+            int screenWidth = parent.getContext().getResources().getDisplayMetrics().widthPixels;
+            int marginPx = dpToPx(parent.getContext(), 29);
+            int marginBottomPx = dpToPx(parent.getContext(), 8);
+            int itemWidth = (screenWidth / 2) - marginPx;
+
+            ViewGroup.MarginLayoutParams layoutParams = new ViewGroup.MarginLayoutParams(itemWidth, ViewGroup.LayoutParams.WRAP_CONTENT);
+            layoutParams.setMargins(0, 0, marginPx, marginBottomPx);
+            view.setLayoutParams(layoutParams);
+
+            return new HeroViewHolder(view);
+        } else {
+            View view = inflater.inflate(R.layout.item_news_event_preview, parent, false);
+            return new EventViewHolder(view);
+        }
+    }
+
+    private int dpToPx(Context context, int dp) {
+        return (int) (dp * context.getResources().getDisplayMetrics().density);
     }
 
     @Override
-    public void onBindViewHolder(@NonNull NewsViewHolder holder, int position) {
-        NewsPreviewItem item= selectedNews.get(position);
-
-        if (item.getAvatar()!=null && !item.getAvatar().isEmpty()){
-            Glide.with(holder.itemView.getContext()).load(item.getAvatar()).centerCrop().into(holder.iv_image);
+    public void onBindViewHolder(@NonNull RecyclerView.ViewHolder holder, int position) {
+        NewsItem item = listSearchNews.get(position);
+        if (item instanceof NewsHeroPreviewItem) {
+            NewsHeroPreviewItem hero = (NewsHeroPreviewItem) item;
+            if (holder instanceof HeroViewHolder) {
+                ((HeroViewHolder) holder).name.setText(hero.getName());
+                ((HeroViewHolder) holder).date.setText(hero.getDate());
+                if (hero.getAvatar() != null && !hero.getAvatar().isEmpty()) {
+                    Glide.with(holder.itemView.getContext()).load(hero.getAvatar()).centerCrop().into(((HeroViewHolder) holder).avatar);
+                }
+                else {
+                    Glide.with(holder.itemView.getContext()).load("dasda").centerCrop().into(((HeroViewHolder) holder).avatar);
+                }
+                if (currentUserData.getListFavoriteRecordIds().contains(hero.getId())){
+                    Glide.with(holder.itemView.getContext()).load(R.drawable.ic_red_heart).into(((HeroViewHolder) holder).proud);
+                }
+                else {
+                    Glide.with(holder.itemView.getContext()).load(R.drawable.ic_white_heart).into(((HeroViewHolder) holder).proud);
+                }
+            }
+        } else if (item instanceof NewsEventPreviewItem) {
+            NewsEventPreviewItem event = (NewsEventPreviewItem) item;
+            if (holder instanceof EventViewHolder) {
+                ((EventViewHolder) holder).name.setText(event.getName());
+                ((EventViewHolder) holder).date.setText(event.getDate());
+                ((EventViewHolder) holder).info.setText(event.getInfo());
+                if (event.getAvatar() != null && !event.getAvatar().isEmpty()) {
+                    Glide.with(holder.itemView.getContext()).load(event.getAvatar()).centerCrop().into(((EventViewHolder) holder).avatar);
+                }
+            }
         }
 
-        holder.tv_name.setText(item.getName());
+        holder.itemView.setOnClickListener(v -> {
+            if (holder instanceof HeroViewHolder) {
+                assert item instanceof NewsHeroPreviewItem;
+                NewsHeroPreviewItem hero = (NewsHeroPreviewItem) item;
 
-        if (item.getInfo().length()>24){
-            String info=item.getInfo().substring(0, 24)+"...";
-            holder.tv_info.setText(info);
-        }
-        else{
-            holder.tv_info.setText(item.getInfo());
-        }
+                ShowHeroDialogFragment existingDialog = (ShowHeroDialogFragment) fragmentManager.findFragmentByTag("my_dialog");
 
-        if(Objects.equals(item.getNewsType(), "HERO")) {
-            holder.iv_type.setText("Герой");
-        }
-        else holder.iv_type.setText("Событие");
+                if (existingDialog != null && existingDialog.isVisible()) {
+                    existingDialog.dismissAllowingStateLoss();
+                }
 
-        holder.itemView.setOnClickListener(v->{
-            if (Objects.equals(item.getNewsType(), "HERO")){
-                ShowHeroDialogFragment dialogFragment = new ShowHeroDialogFragment(item.getId());
-                dialogFragment.show(fragmentManager, "my_dialog");
+                new Handler().post(() -> {
+                    ShowHeroDialogFragment dialogFragment = new ShowHeroDialogFragment(hero.getId());
+                    dialogFragment.show(fragmentManager, "my_dialog");
+                });
             }
         });
+
+        if (holder instanceof HeroViewHolder) {
+            HeroViewHolder heroViewHolder = (HeroViewHolder) holder;
+            heroViewHolder.proud.setOnClickListener(proud -> {
+                assert item instanceof NewsHeroPreviewItem;
+                NewsHeroPreviewItem hero = (NewsHeroPreviewItem) item;
+
+                boolean isFavorite = currentUserData.getListFavoriteRecordIds().contains(hero.getId());
+
+                if (isFavorite) {
+                    currentUserData.getListFavoriteRecordIds().remove(hero.getId());
+                } else {
+                    currentUserData.getListFavoriteRecordIds().add(hero.getId());
+                }
+
+                notifyItemChanged(position);
+
+                if (proudClickListener != null) {
+                    proudClickListener.onProudClick(hero.getId());
+                }
+            });
+        }
 
     }
 
     @Override
     public int getItemCount() {
-        adapterElementsSize.getSize(selectedNews.size());
-        return selectedNews.size();
+        adapterElementsSize.getSize(listSearchNews.size());
+        return listSearchNews.size();
     }
 
-    public static class NewsViewHolder extends RecyclerView.ViewHolder{
-        ImageView iv_image;
-        TextView tv_name, tv_info,iv_type;
+    // ViewHolder для NewsHeroPreviewItem
+    static class HeroViewHolder extends RecyclerView.ViewHolder {
+        TextView name, date;
+        ImageView avatar,proud;
 
-        public NewsViewHolder(@NonNull View itemView) {
+        public HeroViewHolder(@NonNull View itemView) {
             super(itemView);
+            name = itemView.findViewById(R.id.tv_name);
+            date = itemView.findViewById(R.id.tv_date);
+            avatar = itemView.findViewById(R.id.iv_preview_image);
+            proud= itemView.findViewById(R.id.iv_heart);
+        }
+    }
 
-            iv_image=itemView.findViewById(R.id.iv_preview_image);
-            tv_info=itemView.findViewById(R.id.tv_info);
-            tv_name=itemView.findViewById(R.id.tv_name);
-            iv_type=itemView.findViewById(R.id.tv_type);
+    // ViewHolder для NewsEventPreviewItem
+    static class EventViewHolder extends RecyclerView.ViewHolder {
+        TextView name, date, info;
+        ImageView avatar,proud;
+
+        public EventViewHolder(@NonNull View itemView) {
+            super(itemView);
+            name = itemView.findViewById(R.id.tv_name);
+            date = itemView.findViewById(R.id.tv_date);
+            info = itemView.findViewById(R.id.tv_info);
+            avatar = itemView.findViewById(R.id.iv_preview_image);
+            proud= itemView.findViewById(R.id.iv_heart);
         }
     }
 }
+

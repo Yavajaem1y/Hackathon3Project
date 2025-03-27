@@ -1,6 +1,5 @@
 package com.androidlesson.data.main;
 
-import android.content.Context;
 import android.util.Log;
 
 import androidx.annotation.NonNull;
@@ -17,14 +16,13 @@ import com.androidlesson.domain.main.models.HeroData;
 import com.androidlesson.domain.main.models.HeroDataToDb;
 import com.androidlesson.domain.main.models.HeroImageToDb;
 import com.androidlesson.domain.main.models.HeroItemPreview;
-import com.androidlesson.domain.main.models.ImageToDb;
+import com.androidlesson.domain.main.models.NewsHeroPreviewItem;
 import com.androidlesson.domain.main.models.NewsPreviewItem;
 import com.androidlesson.domain.main.models.ProudOnHeroModel;
 import com.androidlesson.domain.main.models.UserData;
 import com.androidlesson.domain.main.repository.MainFirebaseRepository;
 import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.Task;
-import com.google.firebase.FirebaseApp;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.database.ChildEventListener;
 import com.google.firebase.database.DataSnapshot;
@@ -176,10 +174,10 @@ public class MainFirebaseRepositoryImpl implements MainFirebaseRepository {
                 if (snapshot.exists()){
                     String id=snapshot.getKey();
                     String name=snapshot.child(HERO_NAME).getValue(String.class);
-                    String info=snapshot.child(HERO_INFO).getValue(String.class);
+                    String date=snapshot.child(HERO_DATE).getValue(String.class);
                     String avatar=snapshot.child(HERO_AVATAR_IMAGE).getValue(String.class);
 
-                    callback.getNewsPreview(new NewsPreviewItem(name,id,info,avatar,"HERO"));
+                    callback.getNewsPreview(new NewsHeroPreviewItem(name,id,date,avatar));
                 }
             }
 
@@ -292,6 +290,25 @@ public class MainFirebaseRepositoryImpl implements MainFirebaseRepository {
                     firebaseDatabase.getReference(DATABASE_WITH_USERS_DATA).child(userData.getUserId()).child(USER_LIST_HEROES_IDS).setValue(userData.getListHeroIds());
                     booleanCallBack.getBoolean(true);
                 }
+            }
+        });
+    }
+
+    @Override
+    public void getHeroProudList(String heroId, ListStringsCallback listStringsCallback) {
+        firebaseDatabase.getReference(DATABASE_WITH_HEROES_DATA).child(heroId).child(HERO_LIST_PROUD).addListenerForSingleValueEvent(new ValueEventListener() {
+            @Override
+            public void onDataChange(@NonNull DataSnapshot snapshot) {
+                if (snapshot.exists()){
+                    List<String> list=snapshot.getValue(ArrayList.class);
+                    if (list==null) list=new ArrayList<>();
+                    listStringsCallback.getList(list);
+                }
+            }
+
+            @Override
+            public void onCancelled(@NonNull DatabaseError error) {
+
             }
         });
     }

@@ -1,8 +1,8 @@
 <resources xmlns:tools="http://schemas.android.com/tools">
     <!-- Base application theme. -->
     <style name="Base.Theme.Hackathon3Project" parent="Theme.Material3.DayNight.NoActionBar">
-        <item name="android:statusBarColor">@color/userAvatarColor</item>
-        <item name="android:navigationBarColor">@color/white</item>
+        <item name="android:statusBarColor">@color/MainBackground</item>
+        <item name="android:navigationBarColor">@color/MainBackground</item>
     </style>
 
     <style name="Theme.Hackathon3Project" parent="Base.Theme.Hackathon3Project" />

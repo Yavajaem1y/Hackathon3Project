@@ -16,6 +16,7 @@ import com.androidlesson.domain.main.useCase.AddNewHeroUseCase;
 import com.androidlesson.domain.main.useCase.DeleteHeroDateUseCase;
 import com.androidlesson.domain.main.useCase.EditUserDataUseCase;
 import com.androidlesson.domain.main.useCase.GetHeroDataUseCase;
+import com.androidlesson.domain.main.useCase.GetHeroProudListUseCase;
 import com.androidlesson.domain.main.useCase.GetUserEmailUseCase;
 import com.androidlesson.domain.main.useCase.LogOutUseCase;
 import com.androidlesson.domain.main.useCase.ObserveCurrentUserDataUseCase;
@@ -91,8 +92,8 @@ public class AppModule {
     }
 
     @Provides
-    public NewsFragmentViewModelFactory provideNewsFragmentViewModelFactory(ObserveHeroesForNewsUseCase observeHeroesForNewsUseCase) {
-        return new NewsFragmentViewModelFactory(observeHeroesForNewsUseCase);
+    public NewsFragmentViewModelFactory provideNewsFragmentViewModelFactory(ObserveHeroesForNewsUseCase observeHeroesForNewsUseCase, ProudUseCase proudUseCase, GetHeroProudListUseCase getHeroProudListUseCase) {
+        return new NewsFragmentViewModelFactory(observeHeroesForNewsUseCase, proudUseCase, getHeroProudListUseCase);
     }
 
     @Provides

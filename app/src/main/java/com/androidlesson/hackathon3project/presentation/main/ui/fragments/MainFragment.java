@@ -11,8 +11,11 @@ import android.util.TypedValue;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.view.ViewTreeObserver;
+import android.view.WindowInsets;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
+import android.widget.RelativeLayout;
 import android.widget.TextView;
 
 import com.androidlesson.hackathon3project.R;
@@ -22,7 +25,6 @@ import com.androidlesson.hackathon3project.presentation.main.viewModels.mainActi
 import com.androidlesson.hackathon3project.presentation.main.viewModels.mainActivityViewModel.MainFragmentViewModelFactory;
 import com.androidlesson.hackathon3project.presentation.main.viewModels.sharedViewModel.SharedViewModel;
 import com.androidlesson.hackathon3project.presentation.main.viewModels.sharedViewModel.SharedViewModelFactory;
-import com.ismaeldivita.chipnavigation.ChipNavigationBar;
 
 import javax.inject.Inject;
 
@@ -41,6 +43,7 @@ public class MainFragment extends Fragment {
     private LinearLayout ll_b_news, ll_b_map, ll_b_user_profile;
     private ImageView iv_user_profile_icon, iv_map_icon, iv_news_icon;
     private TextView tv_news_button_text, tv_map_button_text, tv_user_profile_button_text;
+    private RelativeLayout rl_bottom_navigation_view;
 
     private Fragment currFragment;
 
@@ -78,6 +81,7 @@ public class MainFragment extends Fragment {
         tv_map_button_text=binding.tvMapButtonText;
         tv_news_button_text=binding.tvNewsButtonText;
         tv_user_profile_button_text=binding.tvUserProfileButtonText;
+        rl_bottom_navigation_view = binding.rlBottomNavigationView;
 
         currFragment = vm.getFragmentContainerLiveData().getValue();
         if (currFragment != null) {
@@ -131,7 +135,7 @@ public class MainFragment extends Fragment {
                     tv_map_button_text.setVisibility(View.GONE);
                     tv_user_profile_button_text.setVisibility(View.GONE);
 
-                    ll_b_news.setBackgroundResource(R.drawable.bg_rounded_black_grey_40dp);
+                    ll_b_news.setBackgroundResource(R.drawable.bg_rounded_40dp_selected_bottom_navigation);
                     ll_b_map.setBackgroundResource(R.drawable.bg_rounded_null);
                     ll_b_user_profile.setBackgroundResource(R.drawable.bg_rounded_null);
 
@@ -153,7 +157,7 @@ public class MainFragment extends Fragment {
                     tv_user_profile_button_text.setVisibility(View.GONE);
 
                     ll_b_news.setBackgroundResource(R.drawable.bg_rounded_null);
-                    ll_b_map.setBackgroundResource(R.drawable.bg_rounded_black_grey_40dp);
+                    ll_b_map.setBackgroundResource(R.drawable.bg_rounded_40dp_selected_bottom_navigation);
                     ll_b_user_profile.setBackgroundResource(R.drawable.bg_rounded_null);
 
                     paramsNews.width = defaultWidth;
@@ -174,7 +178,7 @@ public class MainFragment extends Fragment {
 
                     ll_b_news.setBackgroundResource(R.drawable.bg_rounded_null);
                     ll_b_map.setBackgroundResource(R.drawable.bg_rounded_null);
-                    ll_b_user_profile.setBackgroundResource(R.drawable.bg_rounded_black_grey_40dp);
+                    ll_b_user_profile.setBackgroundResource(R.drawable.bg_rounded_40dp_selected_bottom_navigation);
 
                     paramsNews.width = defaultWidth;
                     paramsMap.width = defaultWidth;

@@ -124,7 +124,7 @@ public class ShowHeroDialogFragment extends DialogFragment {
     private void setOnClickListener(){
         iv_cancellation.setOnClickListener(v->{
             vm.dismiss();
-            dismiss();
+            dismissAllowingStateLoss();
         });
         b_proud.setOnClickListener(v->{
             vm.proud();

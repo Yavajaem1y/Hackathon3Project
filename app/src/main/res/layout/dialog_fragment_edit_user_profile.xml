@@ -3,7 +3,7 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     xmlns:app="http://schemas.android.com/apk/res-auto"
-    android:background="@drawable/bg_rounded_grey"
+    android:background="@drawable/bg_rounded_24dp_light_grey"
     android:backgroundTint="@color/white">
 
     <RelativeLayout

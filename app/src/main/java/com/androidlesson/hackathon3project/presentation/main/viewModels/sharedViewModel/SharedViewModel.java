@@ -2,26 +2,17 @@ package com.androidlesson.hackathon3project.presentation.main.viewModels.sharedV
 
 
 import android.app.Application;
-import android.util.Log;
 
 import androidx.lifecycle.AndroidViewModel;
 import androidx.lifecycle.LiveData;
 import androidx.lifecycle.MutableLiveData;
-import androidx.lifecycle.Observer;
 
 import com.androidlesson.domain.authorization.interfaces.StringCallBack;
 import com.androidlesson.domain.authorization.useCase.GetUserIdUseCase;
 import com.androidlesson.domain.main.interfaces.UserDataCallback;
-import com.androidlesson.domain.main.models.HeroItemPreview;
-import com.androidlesson.domain.main.models.NewsPreviewItem;
 import com.androidlesson.domain.main.models.UserData;
 import com.androidlesson.domain.main.useCase.GetUserEmailUseCase;
 import com.androidlesson.domain.main.useCase.ObserveCurrentUserDataUseCase;
-
-import java.util.ArrayList;
-import java.util.Iterator;
-import java.util.List;
-import java.util.Objects;
 
 public class SharedViewModel extends AndroidViewModel {
     private final ObserveCurrentUserDataUseCase observeCurrentUserDataUseCase;

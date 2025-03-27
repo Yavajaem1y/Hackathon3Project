@@ -2,35 +2,38 @@ package com.androidlesson.hackathon3project.presentation.main.ui.fragments.botto
 
 import android.animation.Animator;
 import android.animation.AnimatorListenerAdapter;
-import android.animation.AnimatorSet;
-import android.animation.ObjectAnimator;
 import android.animation.ValueAnimator;
+import android.os.Build;
 import android.os.Bundle;
 
 import androidx.annotation.NonNull;
 import androidx.fragment.app.Fragment;
 import androidx.lifecycle.Observer;
 import androidx.lifecycle.ViewModelProvider;
+import androidx.recyclerview.widget.GridLayoutManager;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
 import android.text.Editable;
 import android.text.TextWatcher;
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.view.Window;
+import android.view.WindowManager;
 import android.widget.EditText;
-import android.widget.LinearLayout;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
 
+import com.androidlesson.domain.main.models.NewsItem;
 import com.androidlesson.domain.main.models.NewsPreviewItem;
+import com.androidlesson.domain.main.models.UserData;
 import com.androidlesson.hackathon3project.R;
 import com.androidlesson.hackathon3project.app.App;
 import com.androidlesson.hackathon3project.databinding.FragmentNewsBinding;
 import com.androidlesson.hackathon3project.presentation.main.adapters.NewsAdapter;
 import com.androidlesson.hackathon3project.presentation.main.interfaces.AdapterElementsSize;
+import com.androidlesson.hackathon3project.presentation.main.interfaces.OnProudClickListener;
 import com.androidlesson.hackathon3project.presentation.main.viewModels.newsFragmentViewModel.NewsFragmentViewModel;
 import com.androidlesson.hackathon3project.presentation.main.viewModels.newsFragmentViewModel.NewsFragmentViewModelFactory;
 import com.androidlesson.hackathon3project.presentation.main.viewModels.sharedViewModel.SharedViewModel;
@@ -46,8 +49,7 @@ public class NewsFragment extends Fragment {
 
     private RecyclerView rv_news_container;
     private RelativeLayout rl_top_element,rl_bottom_element;
-    private TextView tv_filter_all, tv_filter_events, tv_filter_hero,tv_nothing;
-    private View left_view,right_view;
+    private TextView tv_filter_events, tv_filter_hero,tv_nothing;
     private EditText et_search;
 
     private NewsFragmentViewModel vm;
@@ -59,6 +61,44 @@ public class NewsFragment extends Fragment {
     SharedViewModelFactory sharedVMFactory;
 
     private NewsAdapter adapter;
+
+    @Override
+    public void onStart() {
+        super.onStart();
+        makeStatusBarTransparent();
+    }
+
+    @Override
+    public void onStop() {
+        super.onStop();
+        restoreStatusBar();
+    }
+
+    private void makeStatusBarTransparent() {
+        if (getActivity() != null) {
+            Window window = getActivity().getWindow();
+            if (window != null) {
+                if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP) {
+                    window.setFlags(WindowManager.LayoutParams.FLAG_TRANSLUCENT_STATUS,
+                            WindowManager.LayoutParams.FLAG_TRANSLUCENT_STATUS);
+                    window.setStatusBarColor(getResources().getColor(android.R.color.transparent));
+                }
+            }
+        }
+    }
+
+    // Метод для восстановления дефолтного статуса
+    private void restoreStatusBar() {
+        if (getActivity() != null) {
+            Window window = getActivity().getWindow();
+            if (window != null) {
+                if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP) {
+                    window.setFlags(0, WindowManager.LayoutParams.FLAG_TRANSLUCENT_STATUS);
+                    window.setStatusBarColor(getResources().getColor(R.color.MainBackground));  // Или ваш дефолтный цвет
+                }
+            }
+        }
+    }
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
@@ -87,11 +127,8 @@ public class NewsFragment extends Fragment {
 
         rv_news_container=binding.rlNewsContainer;
         rl_top_element=binding.rlTopElement;
-        tv_filter_all=binding.tvFilterAll;
         tv_filter_events=binding.tvFilterEvents;
         tv_filter_hero=binding.tvFilterHero;
-        left_view=binding.leftView;
-        right_view=binding.rightView;
         et_search=binding.etSearch;
         tv_nothing=binding.tvNothing;
         rl_bottom_element=binding.rlBottomElement;
@@ -99,27 +136,30 @@ public class NewsFragment extends Fragment {
         setAdapter();
     }
 
-    private void setAdapter(){
-        List<NewsPreviewItem> news = new ArrayList<>();
-        adapter = new NewsAdapter(news, getContext(), getParentFragmentManager(), new AdapterElementsSize() {
+    private void setAdapter() {
+        adapter=new NewsAdapter(new AdapterElementsSize() {
             @Override
             public void getSize(int size) {
-                if (size!=0){
-                    tv_nothing.setVisibility(View.GONE);
-                }
-                else tv_nothing.setVisibility(View.VISIBLE);
+                if (size == 0) tv_nothing.setVisibility(View.VISIBLE);
+                else tv_nothing.setVisibility(View.GONE);
+            }
+        }, getParentFragmentManager(), sharedVM.getCurrentUserDataLiveData().getValue(), new OnProudClickListener() {
+            @Override
+            public void onProudClick(String heroId) {
+                vm.proudOnHero(heroId);
             }
         });
 
-        binding.rlNewsContainer.setLayoutManager(new LinearLayoutManager(getContext(), LinearLayoutManager.VERTICAL, false));
+        binding.rlNewsContainer.setLayoutManager(new LinearLayoutManager(getContext()));
         binding.rlNewsContainer.setAdapter(adapter);
     }
 
+
     private void setObserver() {
-        vm.getHeroesMutableLiveData().observe(getViewLifecycleOwner(), new Observer<List<NewsPreviewItem>>() {
+        vm.getHeroesMutableLiveData().observe(getViewLifecycleOwner(), new Observer<List<NewsItem>>() {
             @Override
-            public void onChanged(List<NewsPreviewItem> newsPreviewItems) {
-                adapter.setNewNews(newsPreviewItems);
+            public void onChanged(List<NewsItem> newsPreviewItems) {
+                adapter.setNewsList(newsPreviewItems,vm.getFilterMutableLiveData().getValue());
             }
         });
 
@@ -127,6 +167,13 @@ public class NewsFragment extends Fragment {
             @Override
             public void onChanged(String string) {
                 vm.removeHeroDataById(string);
+            }
+        });
+
+        sharedVM.getCurrentUserDataLiveData().observe(getViewLifecycleOwner(), new Observer<UserData>() {
+            @Override
+            public void onChanged(UserData userData) {
+                adapter.updateUserData(userData);
             }
         });
 
@@ -142,46 +189,24 @@ public class NewsFragment extends Fragment {
             @Override
             public void onChanged(Integer integer) {
                 if (integer==1){
-                    tv_filter_all.setTextAppearance(R.style.SelectedFilterStyle);
-                    tv_filter_events.setTextAppearance(R.style.UnselectedFilterStyle);
-                    tv_filter_hero.setTextAppearance(R.style.UnselectedFilterStyle);
-
-                    tv_filter_all.setBackgroundResource(R.drawable.bg_rounded_white);
-                    tv_filter_hero.setBackgroundResource(R.drawable.bg_rounded_null);
-                    tv_filter_events.setBackgroundResource(R.drawable.bg_rounded_null);
-
-                    right_view.setVisibility(View.VISIBLE);
-                    left_view.setVisibility(View.INVISIBLE);
-
-                    adapter.setSelectedNews(1);
-                }
-                else if (integer==2){
-                    tv_filter_all.setTextAppearance(R.style.UnselectedFilterStyle);
                     tv_filter_events.setTextAppearance(R.style.SelectedFilterStyle);
                     tv_filter_hero.setTextAppearance(R.style.UnselectedFilterStyle);
 
-                    tv_filter_all.setBackgroundResource(R.drawable.bg_rounded_null);
                     tv_filter_hero.setBackgroundResource(R.drawable.bg_rounded_null);
-                    tv_filter_events.setBackgroundResource(R.drawable.bg_rounded_white);
+                    tv_filter_events.setBackgroundResource(R.drawable.bg_rounded_accent);
 
-                    right_view.setVisibility(View.INVISIBLE);
-                    left_view.setVisibility(View.INVISIBLE);
-
-                    adapter.setSelectedNews(2);
+                    binding.rlNewsContainer.setLayoutManager(new LinearLayoutManager(getContext()));
+                    adapter.filterItems(false);
                 }
                 else{
-                    tv_filter_all.setTextAppearance(R.style.UnselectedFilterStyle);
                     tv_filter_events.setTextAppearance(R.style.UnselectedFilterStyle);
                     tv_filter_hero.setTextAppearance(R.style.SelectedFilterStyle);
 
-                    tv_filter_all.setBackgroundResource(R.drawable.bg_rounded_null);
-                    tv_filter_hero.setBackgroundResource(R.drawable.bg_rounded_white);
+                    tv_filter_hero.setBackgroundResource(R.drawable.bg_rounded_accent);
                     tv_filter_events.setBackgroundResource(R.drawable.bg_rounded_null);
 
-                    right_view.setVisibility(View.INVISIBLE);
-                    left_view.setVisibility(View.VISIBLE);
-
-                    adapter.setSelectedNews(3);
+                    binding.rlNewsContainer.setLayoutManager(new GridLayoutManager(getContext(), 2));
+                    adapter.filterItems(true);
                 }
             }
         });
@@ -264,7 +289,7 @@ public class NewsFragment extends Fragment {
 
             @Override
             public void onTextChanged(CharSequence s, int start, int before, int count) {
-                adapter.search(s.toString());
+                adapter.search(s.toString(),vm.getFilterMutableLiveData().getValue());
             }
 
             @Override
@@ -277,16 +302,12 @@ public class NewsFragment extends Fragment {
 
 
     private void setOnItemClicker() {
-        tv_filter_all.setOnClickListener(v->{
+        tv_filter_events.setOnClickListener(v->{
             vm.setFilter(1);
         });
 
-        tv_filter_events.setOnClickListener(v->{
-            vm.setFilter(2);
-        });
-
         tv_filter_hero.setOnClickListener(v->{
-            vm.setFilter(3);
+            vm.setFilter(2);
         });
     }
 }
