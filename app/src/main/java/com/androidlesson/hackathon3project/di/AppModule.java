@@ -21,8 +21,10 @@ import com.androidlesson.domain.main.useCase.GetUserEmailUseCase;
 import com.androidlesson.domain.main.useCase.LogOutUseCase;
 import com.androidlesson.domain.main.useCase.ObserveCurrentUserDataUseCase;
 import com.androidlesson.domain.main.useCase.ObserveCurrentUserHeroesPreviewUseCase;
-import com.androidlesson.domain.main.useCase.ObserveHeroesForNewsUseCase;
-import com.androidlesson.domain.main.useCase.ProudUseCase;
+import com.androidlesson.domain.main.useCase.ObserveEventDataUseCase;
+import com.androidlesson.domain.main.useCase.ObserveNewsPreviewUseCase;
+import com.androidlesson.domain.main.useCase.ProudEventUseCase;
+import com.androidlesson.domain.main.useCase.ProudHeroUseCase;
 import com.androidlesson.hackathon3project.presentation.authorization.viewModels.loginViewModel.LoginFragmentViewModelFactory;
 import com.androidlesson.hackathon3project.presentation.authorization.viewModels.mainActivityViewModel.MainActivityViewModelFactory;
 import com.androidlesson.hackathon3project.presentation.authorization.viewModels.registratoinViewModel.RegistrationFragmentViewModelFactory;
@@ -33,6 +35,8 @@ import com.androidlesson.hackathon3project.presentation.main.viewModels.editUser
 import com.androidlesson.hackathon3project.presentation.main.viewModels.mainActivityViewModel.MainFragmentViewModelFactory;
 import com.androidlesson.hackathon3project.presentation.main.viewModels.newsFragmentViewModel.NewsFragmentViewModelFactory;
 import com.androidlesson.hackathon3project.presentation.main.viewModels.sharedViewModel.SharedViewModelFactory;
+import com.androidlesson.hackathon3project.presentation.main.viewModels.showEventViewModel.ShowEventFragmentViewModel;
+import com.androidlesson.hackathon3project.presentation.main.viewModels.showEventViewModel.ShowEventFragmentViewModelFactory;
 import com.androidlesson.hackathon3project.presentation.main.viewModels.showHeroViewModel.ShowHeroViewModelFactory;
 
 import dagger.Module;
@@ -92,8 +96,8 @@ public class AppModule {
     }
 
     @Provides
-    public NewsFragmentViewModelFactory provideNewsFragmentViewModelFactory(ObserveHeroesForNewsUseCase observeHeroesForNewsUseCase, ProudUseCase proudUseCase, GetHeroProudListUseCase getHeroProudListUseCase) {
-        return new NewsFragmentViewModelFactory(observeHeroesForNewsUseCase, proudUseCase, getHeroProudListUseCase);
+    public NewsFragmentViewModelFactory provideNewsFragmentViewModelFactory(ObserveNewsPreviewUseCase observeNewsPreviewUseCase, ProudHeroUseCase proudHeroUseCase, GetHeroProudListUseCase getHeroProudListUseCase) {
+        return new NewsFragmentViewModelFactory(observeNewsPreviewUseCase, proudHeroUseCase, getHeroProudListUseCase);
     }
 
     @Provides
@@ -102,13 +106,18 @@ public class AppModule {
     }
 
     @Provides
-    public ShowHeroViewModelFactory provideShowHeroViewModelFactory(GetHeroDataUseCase getHeroDataUseCase, ProudUseCase proudUseCase) {
-        return new ShowHeroViewModelFactory(getHeroDataUseCase, proudUseCase);
+    public ShowHeroViewModelFactory provideShowHeroViewModelFactory(GetHeroDataUseCase getHeroDataUseCase, ProudHeroUseCase proudHeroUseCase) {
+        return new ShowHeroViewModelFactory(getHeroDataUseCase, proudHeroUseCase);
     }
 
     @Provides
     public DeleteHeroFragmentViewModelFactory provideDeleteHeroFragmentViewModelFactory(DeleteHeroDateUseCase deleteHeroDateUseCase) {
         return new DeleteHeroFragmentViewModelFactory(deleteHeroDateUseCase);
+    }
+
+    @Provides
+    public ShowEventFragmentViewModelFactory provideShowEventFragmentViewModelFactory(ProudEventUseCase proudEventUseCase, ObserveEventDataUseCase observeEventDataUseCase) {
+        return new ShowEventFragmentViewModelFactory(proudEventUseCase,observeEventDataUseCase);
     }
 }
 

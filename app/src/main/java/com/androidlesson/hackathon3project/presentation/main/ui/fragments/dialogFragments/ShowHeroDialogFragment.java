@@ -1,6 +1,8 @@
 package com.androidlesson.hackathon3project.presentation.main.ui.fragments.dialogFragments;
 
 import android.app.Dialog;
+import android.graphics.Color;
+import android.os.Build;
 import android.os.Bundle;
 import android.util.TypedValue;
 import android.view.Gravity;
@@ -8,6 +10,8 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.view.Window;
+import android.view.WindowInsets;
+import android.view.WindowInsetsController;
 import android.view.WindowManager;
 import android.widget.ImageView;
 import android.widget.RelativeLayout;
@@ -27,9 +31,10 @@ import com.androidlesson.domain.main.models.UserData;
 import com.androidlesson.hackathon3project.R;
 import com.androidlesson.hackathon3project.app.App;
 import com.androidlesson.hackathon3project.presentation.main.adapters.ImageAdapter;
+import com.androidlesson.hackathon3project.presentation.main.interfaces.VisibilityTopElement;
 import com.androidlesson.hackathon3project.presentation.main.viewModels.sharedViewModel.SharedViewModel;
 import com.androidlesson.hackathon3project.presentation.main.viewModels.sharedViewModel.SharedViewModelFactory;
-import com.androidlesson.hackathon3project.presentation.main.viewModels.showHeroViewModel.ShowHeroViewModel;
+import com.androidlesson.hackathon3project.presentation.main.viewModels.showHeroViewModel.ShowHeroFragmentViewModel;
 import com.androidlesson.hackathon3project.presentation.main.viewModels.showHeroViewModel.ShowHeroViewModelFactory;
 import com.bumptech.glide.Glide;
 
@@ -42,19 +47,22 @@ public class ShowHeroDialogFragment extends DialogFragment {
     @Inject
     SharedViewModelFactory sharedVMFactory;
 
-    private ShowHeroViewModel vm;
+    private ShowHeroFragmentViewModel vm;
     @Inject
     ShowHeroViewModelFactory vmFactory;
 
     private String heroId;
+    private VisibilityTopElement visibilityTopElement;
+
     private ImageAdapter adapter;
 
     private ImageView iv_hero_image,iv_cancellation,b_proud, b_dots_menu;
     private TextView tv_hero_name, tv_hero_age, tv_hero_info, tv_hero_number_of_proud;
     private RecyclerView rv_hero_additional_image_holder;
 
-    public ShowHeroDialogFragment(String heroId) {
+    public ShowHeroDialogFragment(String heroId, VisibilityTopElement visibilityTopElement) {
         this.heroId = heroId;
+        this.visibilityTopElement=visibilityTopElement;
     }
 
     public ShowHeroDialogFragment() {
@@ -67,11 +75,18 @@ public class ShowHeroDialogFragment extends DialogFragment {
     }
 
     @Override
+    public void onStop() {
+        if (visibilityTopElement!=null)
+            visibilityTopElement.getVisibility(true);
+        super.onStop();
+    }
+
+    @Override
     public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
 
         ((App) requireActivity().getApplication()).appComponent.injectShowHeroFragment(this);
         sharedVM=new ViewModelProvider(requireActivity(),sharedVMFactory).get(SharedViewModel.class);
-        vm=new ViewModelProvider(requireActivity(),vmFactory).get(ShowHeroViewModel.class);
+        vm=new ViewModelProvider(requireActivity(),vmFactory).get(ShowHeroFragmentViewModel.class);
 
         initialization(view);
 
@@ -100,6 +115,8 @@ public class ShowHeroDialogFragment extends DialogFragment {
     }
 
 
+
+
     private void initialization(View view){
         tv_hero_age=view.findViewById(R.id.tv_hero_age);
         tv_hero_name=view.findViewById(R.id.tv_hero_name);
@@ -123,7 +140,6 @@ public class ShowHeroDialogFragment extends DialogFragment {
 
     private void setOnClickListener(){
         iv_cancellation.setOnClickListener(v->{
-            vm.dismiss();
             dismissAllowingStateLoss();
         });
         b_proud.setOnClickListener(v->{

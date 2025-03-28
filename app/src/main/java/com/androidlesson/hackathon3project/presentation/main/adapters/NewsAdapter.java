@@ -20,6 +20,8 @@ import com.androidlesson.domain.main.models.UserData;
 import com.androidlesson.hackathon3project.R;
 import com.androidlesson.hackathon3project.presentation.main.interfaces.AdapterElementsSize;
 import com.androidlesson.hackathon3project.presentation.main.interfaces.OnProudClickListener;
+import com.androidlesson.hackathon3project.presentation.main.interfaces.VisibilityTopElement;
+import com.androidlesson.hackathon3project.presentation.main.ui.fragments.dialogFragments.ShowEventDialogFragment;
 import com.androidlesson.hackathon3project.presentation.main.ui.fragments.dialogFragments.ShowHeroDialogFragment;
 import com.bumptech.glide.Glide;
 
@@ -39,11 +41,13 @@ public class NewsAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder> {
     private UserData currentUserData;
     private final OnProudClickListener proudClickListener;
     private String searchFilter="";
+    private final VisibilityTopElement visibilityTopElement;
 
-    public NewsAdapter(AdapterElementsSize adapterElementsSize,FragmentManager fragmentManager, UserData userData, OnProudClickListener proudClickListener) {
+    public NewsAdapter(AdapterElementsSize adapterElementsSize,FragmentManager fragmentManager, UserData userData, OnProudClickListener proudClickListener,VisibilityTopElement visibilityTopElement) {
         this.adapterElementsSize=adapterElementsSize;
         this.fragmentManager=fragmentManager;
         currentUserData=userData;
+        this.visibilityTopElement=visibilityTopElement;
         this.proudClickListener=proudClickListener;
     }
 
@@ -64,7 +68,10 @@ public class NewsAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder> {
 
     public void setNewsList(List<NewsItem> listNews, int filter){
         this.listNews=listNews;
-        filterItems(filter!=1);
+
+        int defaultFilter = (filter == 0) ? 1 : filter;
+
+        filterItems(defaultFilter!=1);
     }
 
     public void filterItems(boolean showHeroes) {
@@ -187,6 +194,9 @@ public class NewsAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder> {
                 if (event.getAvatar() != null && !event.getAvatar().isEmpty()) {
                     Glide.with(holder.itemView.getContext()).load(event.getAvatar()).centerCrop().into(((EventViewHolder) holder).avatar);
                 }
+                else {
+                    Glide.with(holder.itemView.getContext()).load("dasda").centerCrop().into(((EventViewHolder) holder).avatar);
+                }
             }
         }
 
@@ -202,10 +212,22 @@ public class NewsAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder> {
                 }
 
                 new Handler().post(() -> {
-                    ShowHeroDialogFragment dialogFragment = new ShowHeroDialogFragment(hero.getId());
+                    ShowHeroDialogFragment dialogFragment = new ShowHeroDialogFragment(hero.getId(),visibilityTopElement);
                     dialogFragment.show(fragmentManager, "my_dialog");
+                    fragmentManager.executePendingTransactions();
+                    dialogFragment.getDialog().setOnDismissListener(dialog -> visibilityTopElement.getVisibility(true));
                 });
             }
+            else {
+                NewsEventPreviewItem event= (NewsEventPreviewItem) item;
+
+                ShowEventDialogFragment dialogFragment = new ShowEventDialogFragment(event.getNewsId(),visibilityTopElement);
+                dialogFragment.show(fragmentManager, "my_dialog");
+                fragmentManager.executePendingTransactions();
+                dialogFragment.getDialog().setOnDismissListener(dialog -> visibilityTopElement.getVisibility(true));
+            }
+
+            visibilityTopElement.getVisibility(false);
         });
 
         if (holder instanceof HeroViewHolder) {

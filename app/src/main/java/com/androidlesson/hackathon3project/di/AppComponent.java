@@ -10,6 +10,7 @@ import com.androidlesson.hackathon3project.presentation.main.ui.fragments.dialog
 import com.androidlesson.hackathon3project.presentation.main.ui.fragments.dialogFragments.AllUserHeroesDialogFragment;
 import com.androidlesson.hackathon3project.presentation.main.ui.fragments.dialogFragments.DeleteHeroDialogFragment;
 import com.androidlesson.hackathon3project.presentation.main.ui.fragments.dialogFragments.EditUserProfileDialogFragment;
+import com.androidlesson.hackathon3project.presentation.main.ui.fragments.dialogFragments.ShowEventDialogFragment;
 import com.androidlesson.hackathon3project.presentation.main.ui.fragments.dialogFragments.ShowHeroDialogFragment;
 import com.androidlesson.hackathon3project.presentation.main.viewModels.editUserProfileFragmentViewModel.EditUserProfileFragmentViewModel;
 
@@ -45,4 +46,6 @@ public interface AppComponent {
     void injectShowHeroFragment(ShowHeroDialogFragment showHeroDialogFragment);
 
     void injectDeleteHeroDialogFragment(DeleteHeroDialogFragment deleteHeroDialogFragment);
+
+    void injectShowEventDialogFragment(ShowEventDialogFragment ShowEventDialogFragment);
 }

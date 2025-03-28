@@ -21,8 +21,10 @@ import com.androidlesson.domain.main.useCase.GetUserEmailUseCase;
 import com.androidlesson.domain.main.useCase.LogOutUseCase;
 import com.androidlesson.domain.main.useCase.ObserveCurrentUserDataUseCase;
 import com.androidlesson.domain.main.useCase.ObserveCurrentUserHeroesPreviewUseCase;
-import com.androidlesson.domain.main.useCase.ObserveHeroesForNewsUseCase;
-import com.androidlesson.domain.main.useCase.ProudUseCase;
+import com.androidlesson.domain.main.useCase.ObserveEventDataUseCase;
+import com.androidlesson.domain.main.useCase.ObserveNewsPreviewUseCase;
+import com.androidlesson.domain.main.useCase.ProudEventUseCase;
+import com.androidlesson.domain.main.useCase.ProudHeroUseCase;
 
 import dagger.Module;
 import dagger.Provides;
@@ -98,8 +100,8 @@ public class DomainModule {
     }
 
     @Provides
-    public ObserveHeroesForNewsUseCase provideObserveHeroesForNewsUseCase(MainFirebaseRepository firebaseRepository){
-        return new ObserveHeroesForNewsUseCase(firebaseRepository);
+    public ObserveNewsPreviewUseCase provideObserveHeroesForNewsUseCase(MainFirebaseRepository firebaseRepository){
+        return new ObserveNewsPreviewUseCase(firebaseRepository);
     }
 
     @Provides
@@ -113,8 +115,8 @@ public class DomainModule {
     }
 
     @Provides
-    public ProudUseCase provideProudUseCase(MainFirebaseRepository firebaseRepository){
-        return new ProudUseCase(firebaseRepository);
+    public ProudHeroUseCase provideProudUseCase(MainFirebaseRepository firebaseRepository){
+        return new ProudHeroUseCase(firebaseRepository);
     }
 
     @Provides
@@ -125,5 +127,15 @@ public class DomainModule {
     @Provides
     public GetHeroProudListUseCase provideGetHeroProudListUseCase(MainFirebaseRepository firebaseRepository){
         return new GetHeroProudListUseCase(firebaseRepository);
+    }
+
+    @Provides
+    public ObserveEventDataUseCase provideObserveEventDataUseCase(MainFirebaseRepository firebaseRepository){
+        return new ObserveEventDataUseCase(firebaseRepository);
+    }
+
+    @Provides
+    public ProudEventUseCase provideProudEventUseCase(MainFirebaseRepository firebaseRepository){
+        return new ProudEventUseCase(firebaseRepository);
     }
 }

@@ -34,6 +34,7 @@ import com.androidlesson.hackathon3project.databinding.FragmentNewsBinding;
 import com.androidlesson.hackathon3project.presentation.main.adapters.NewsAdapter;
 import com.androidlesson.hackathon3project.presentation.main.interfaces.AdapterElementsSize;
 import com.androidlesson.hackathon3project.presentation.main.interfaces.OnProudClickListener;
+import com.androidlesson.hackathon3project.presentation.main.interfaces.VisibilityTopElement;
 import com.androidlesson.hackathon3project.presentation.main.viewModels.newsFragmentViewModel.NewsFragmentViewModel;
 import com.androidlesson.hackathon3project.presentation.main.viewModels.newsFragmentViewModel.NewsFragmentViewModelFactory;
 import com.androidlesson.hackathon3project.presentation.main.viewModels.sharedViewModel.SharedViewModel;
@@ -63,44 +64,6 @@ public class NewsFragment extends Fragment {
     private NewsAdapter adapter;
 
     @Override
-    public void onStart() {
-        super.onStart();
-        makeStatusBarTransparent();
-    }
-
-    @Override
-    public void onStop() {
-        super.onStop();
-        restoreStatusBar();
-    }
-
-    private void makeStatusBarTransparent() {
-        if (getActivity() != null) {
-            Window window = getActivity().getWindow();
-            if (window != null) {
-                if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP) {
-                    window.setFlags(WindowManager.LayoutParams.FLAG_TRANSLUCENT_STATUS,
-                            WindowManager.LayoutParams.FLAG_TRANSLUCENT_STATUS);
-                    window.setStatusBarColor(getResources().getColor(android.R.color.transparent));
-                }
-            }
-        }
-    }
-
-    // Метод для восстановления дефолтного статуса
-    private void restoreStatusBar() {
-        if (getActivity() != null) {
-            Window window = getActivity().getWindow();
-            if (window != null) {
-                if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP) {
-                    window.setFlags(0, WindowManager.LayoutParams.FLAG_TRANSLUCENT_STATUS);
-                    window.setStatusBarColor(getResources().getColor(R.color.MainBackground));  // Или ваш дефолтный цвет
-                }
-            }
-        }
-    }
-
-    @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
 
@@ -124,7 +87,6 @@ public class NewsFragment extends Fragment {
     }
 
     private void initialization() {
-
         rv_news_container=binding.rlNewsContainer;
         rl_top_element=binding.rlTopElement;
         tv_filter_events=binding.tvFilterEvents;
@@ -147,6 +109,16 @@ public class NewsFragment extends Fragment {
             @Override
             public void onProudClick(String heroId) {
                 vm.proudOnHero(heroId);
+            }
+        }, new VisibilityTopElement() {
+            @Override
+            public void getVisibility(Boolean bool) {
+                if (!bool){
+                    rl_top_element.setVisibility(View.INVISIBLE);
+                }
+                else {
+                    rl_top_element.setVisibility(View.VISIBLE);
+                }
             }
         });
 

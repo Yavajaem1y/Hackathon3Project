@@ -5,24 +5,24 @@ import androidx.lifecycle.ViewModel;
 import androidx.lifecycle.ViewModelProvider;
 
 import com.androidlesson.domain.main.useCase.GetHeroProudListUseCase;
-import com.androidlesson.domain.main.useCase.ObserveHeroesForNewsUseCase;
-import com.androidlesson.domain.main.useCase.ProudUseCase;
+import com.androidlesson.domain.main.useCase.ObserveNewsPreviewUseCase;
+import com.androidlesson.domain.main.useCase.ProudHeroUseCase;
 
 public class NewsFragmentViewModelFactory implements ViewModelProvider.Factory {
-    private ObserveHeroesForNewsUseCase observeHeroesForNewsUseCase;
-    private ProudUseCase proudUseCase;
+    private ObserveNewsPreviewUseCase observeNewsPreviewUseCase;
+    private ProudHeroUseCase proudHeroUseCase;
     private GetHeroProudListUseCase getHeroProudListUseCase;
 
-    public NewsFragmentViewModelFactory(ObserveHeroesForNewsUseCase observeHeroesForNewsUseCase, ProudUseCase proudUseCase, GetHeroProudListUseCase getHeroProudListUseCase) {
-        this.observeHeroesForNewsUseCase = observeHeroesForNewsUseCase;
-        this.proudUseCase=proudUseCase;
+    public NewsFragmentViewModelFactory(ObserveNewsPreviewUseCase observeNewsPreviewUseCase, ProudHeroUseCase proudHeroUseCase, GetHeroProudListUseCase getHeroProudListUseCase) {
+        this.observeNewsPreviewUseCase = observeNewsPreviewUseCase;
+        this.proudHeroUseCase = proudHeroUseCase;
         this.getHeroProudListUseCase=getHeroProudListUseCase;
     }
 
     @NonNull
     @Override
     public <T extends ViewModel> T create(@NonNull Class<T> modelClass) {
-        return (T) new NewsFragmentViewModel(observeHeroesForNewsUseCase, proudUseCase, getHeroProudListUseCase);
+        return (T) new NewsFragmentViewModel(observeNewsPreviewUseCase, proudHeroUseCase, getHeroProudListUseCase);
     }
 
 

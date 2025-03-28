@@ -3,12 +3,10 @@ package com.androidlesson.domain.main.useCase;
 import com.androidlesson.domain.main.models.ProudOnHeroModel;
 import com.androidlesson.domain.main.repository.MainFirebaseRepository;
 
-import java.util.List;
-
-public class ProudUseCase {
+public class ProudHeroUseCase {
     private MainFirebaseRepository mainFirebaseRepository;
 
-    public ProudUseCase(MainFirebaseRepository mainFirebaseRepository) {
+    public ProudHeroUseCase(MainFirebaseRepository mainFirebaseRepository) {
         this.mainFirebaseRepository = mainFirebaseRepository;
     }
 

@@ -7,17 +7,19 @@ import androidx.annotation.Nullable;
 
 import com.androidlesson.domain.authorization.interfaces.BooleanCallBack;
 import com.androidlesson.domain.authorization.interfaces.StringCallBack;
+import com.androidlesson.domain.main.interfaces.EventDataCallback;
 import com.androidlesson.domain.main.interfaces.HeroDataCallback;
 import com.androidlesson.domain.main.interfaces.HeroDataPreviewCallback;
 import com.androidlesson.domain.main.interfaces.ListStringsCallback;
 import com.androidlesson.domain.main.interfaces.NewsPreviewCallback;
 import com.androidlesson.domain.main.interfaces.UserDataCallback;
+import com.androidlesson.domain.main.models.EventDataFromDB;
 import com.androidlesson.domain.main.models.HeroData;
 import com.androidlesson.domain.main.models.HeroDataToDb;
 import com.androidlesson.domain.main.models.HeroImageToDb;
 import com.androidlesson.domain.main.models.HeroItemPreview;
+import com.androidlesson.domain.main.models.NewsEventPreviewItem;
 import com.androidlesson.domain.main.models.NewsHeroPreviewItem;
-import com.androidlesson.domain.main.models.NewsPreviewItem;
 import com.androidlesson.domain.main.models.ProudOnHeroModel;
 import com.androidlesson.domain.main.models.UserData;
 import com.androidlesson.domain.main.repository.MainFirebaseRepository;
@@ -47,6 +49,7 @@ public class MainFirebaseRepositoryImpl implements MainFirebaseRepository {
     private final String DATABASE_WITH_USERS_DATA ="USERS_DATA_DATABASE";
     private final String DATABASE_SYSTEM_ID_TO_APP_ID="DATABASE_SYSTEM_ID_TO_APP_ID";
     private final String DATABASE_WITH_HEROES_DATA="DATABASE_WITH_HEROES_DATA";
+    private final String DATABASE_WITH_EVENTS_DATA="DATABASE_WITH_EVENTS_DATA";
 
     private final String USER_SYSTEM_ID="userSystemId";
     private final String USER_ID="userId";
@@ -58,6 +61,12 @@ public class MainFirebaseRepositoryImpl implements MainFirebaseRepository {
     private final String HERO_AVATAR_IMAGE="heroAvatarImage";
     private final String HERO_ADDITIONAL_IMAGES="heroAdditionalImages";
     private final String HERO_LIST_PROUD="listProud";
+    private final String EVENT_AVATAR_IMAGE="eventAvatarImage";
+    private final String EVENT_DATE="eventDate";
+    private final String EVENT_INFO="eventInfo";
+    private final String EVENT_NAME="eventName";
+    private final String EVENT_PREVIEW_INFO="eventPreviewInfo";
+    private final String EVENT_PROUD_LIST="eventProudList";
 
 
     private String userSystemId;
@@ -168,6 +177,41 @@ public class MainFirebaseRepositoryImpl implements MainFirebaseRepository {
 
     @Override
     public void observeNewsPreview(NewsPreviewCallback callback) {
+        firebaseDatabase.getReference(DATABASE_WITH_EVENTS_DATA).addChildEventListener(new ChildEventListener() {
+            @Override
+            public void onChildAdded(@NonNull DataSnapshot snapshot, @Nullable String previousChildName) {
+                if (snapshot.exists()){
+                    String id=snapshot.getKey();
+                    String name=snapshot.child(EVENT_NAME).getValue(String.class);
+                    String date=snapshot.child(EVENT_DATE).getValue(String.class);
+                    String avatar=snapshot.child(EVENT_AVATAR_IMAGE).getValue(String.class);
+                    String info=snapshot.child(EVENT_PREVIEW_INFO).getValue(String.class);
+
+                    callback.getEventPreview(new NewsEventPreviewItem(name,id,date,info,avatar));
+                }
+            }
+
+            @Override
+            public void onChildChanged(@NonNull DataSnapshot snapshot, @Nullable String previousChildName) {
+
+            }
+
+            @Override
+            public void onChildRemoved(@NonNull DataSnapshot snapshot) {
+
+            }
+
+            @Override
+            public void onChildMoved(@NonNull DataSnapshot snapshot, @Nullable String previousChildName) {
+
+            }
+
+            @Override
+            public void onCancelled(@NonNull DatabaseError error) {
+
+            }
+        });
+
         firebaseDatabase.getReference(DATABASE_WITH_HEROES_DATA).addChildEventListener(new ChildEventListener() {
             @Override
             public void onChildAdded(@NonNull DataSnapshot snapshot, @Nullable String previousChildName) {
@@ -177,7 +221,7 @@ public class MainFirebaseRepositoryImpl implements MainFirebaseRepository {
                     String date=snapshot.child(HERO_DATE).getValue(String.class);
                     String avatar=snapshot.child(HERO_AVATAR_IMAGE).getValue(String.class);
 
-                    callback.getNewsPreview(new NewsHeroPreviewItem(name,id,date,avatar));
+                    callback.getHeroPreview(new NewsHeroPreviewItem(name,id,date,avatar));
                 }
             }
 
@@ -313,6 +357,28 @@ public class MainFirebaseRepositoryImpl implements MainFirebaseRepository {
         });
     }
 
+    @Override
+    public void observeEventData(String eventId, EventDataCallback eventDataCallback) {
+        firebaseDatabase.getReference(DATABASE_WITH_EVENTS_DATA).child(eventId).addValueEventListener(new ValueEventListener() {
+            @Override
+            public void onDataChange(@NonNull DataSnapshot snapshot) {
+                if (snapshot.exists()){
+                    String date=snapshot.child(EVENT_DATE).getValue(String.class);
+                    String name=snapshot.child(EVENT_NAME).getValue(String.class);
+                    String info=snapshot.child(EVENT_INFO).getValue(String.class);
+                    String avatar=snapshot.child(EVENT_AVATAR_IMAGE).getValue(String.class);
+                    List<String> list=snapshot.child(EVENT_PROUD_LIST).getValue(ArrayList.class);
+
+                    eventDataCallback.getEventDate(new EventDataFromDB(date,name,info,avatar,list));
+                }
+            }
+
+            @Override
+            public void onCancelled(@NonNull DatabaseError error) {
+
+            }
+        });
+    }
 
     private void saveHeroImageAvatarUrl(String imageId, String heroId, BooleanCallBack booleanCallBack) {
         DatabaseReference databaseRef = FirebaseDatabase.getInstance().getReference().child(DATABASE_WITH_HEROES_DATA).child(heroId).child(HERO_AVATAR_IMAGE);

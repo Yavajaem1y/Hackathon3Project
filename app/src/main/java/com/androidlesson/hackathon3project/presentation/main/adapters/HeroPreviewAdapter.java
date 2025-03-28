@@ -76,10 +76,11 @@ public class HeroPreviewAdapter extends RecyclerView.Adapter<HeroPreviewAdapter.
         }
 
         holder.itemView.setOnClickListener(v -> {
-                ShowHeroDialogFragment dialogFragment = new ShowHeroDialogFragment(hero.getId());
+                ShowHeroDialogFragment dialogFragment = new ShowHeroDialogFragment(hero.getId(),null);
                 dialogFragment.show(fragmentManager, "my_dialog");
         });
     }
+
 
     @Override
     public int getItemCount() {

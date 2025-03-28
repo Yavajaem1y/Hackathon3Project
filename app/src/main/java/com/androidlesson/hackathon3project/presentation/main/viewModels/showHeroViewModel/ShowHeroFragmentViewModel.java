@@ -10,11 +10,11 @@ import com.androidlesson.domain.main.models.HeroDataToDb;
 import com.androidlesson.domain.main.models.ProudOnHeroModel;
 import com.androidlesson.domain.main.models.UserData;
 import com.androidlesson.domain.main.useCase.GetHeroDataUseCase;
-import com.androidlesson.domain.main.useCase.ProudUseCase;
+import com.androidlesson.domain.main.useCase.ProudHeroUseCase;
 
-public class ShowHeroViewModel extends ViewModel {
+public class ShowHeroFragmentViewModel extends ViewModel {
     private GetHeroDataUseCase getHeroDataUseCase;
-    private ProudUseCase proudUseCase;
+    private ProudHeroUseCase proudHeroUseCase;
 
     private String heroId;
 
@@ -23,9 +23,9 @@ public class ShowHeroViewModel extends ViewModel {
     private MutableLiveData<Boolean> visibilityDotsMenuMutableLiveData =new MutableLiveData<>(false);
     private MutableLiveData<Boolean> selectedHeartMutableLiveData=new MutableLiveData<>(false);
 
-    public ShowHeroViewModel(GetHeroDataUseCase getHeroDataUseCase, ProudUseCase proudUseCase) {
+    public ShowHeroFragmentViewModel(GetHeroDataUseCase getHeroDataUseCase, ProudHeroUseCase proudHeroUseCase) {
         this.getHeroDataUseCase = getHeroDataUseCase;
-        this.proudUseCase = proudUseCase;
+        this.proudHeroUseCase = proudHeroUseCase;
     }
 
     public void setCurrentUser(UserData userData){
@@ -63,14 +63,8 @@ public class ShowHeroViewModel extends ViewModel {
 
     public void proud(){
         if (heroDataMutableLiveData.getValue()!=null && currentUserMutableLiveData.getValue()!=null){
-            proudUseCase.execute(new ProudOnHeroModel(heroId,currentUserMutableLiveData.getValue().getUserId(),heroDataMutableLiveData.getValue().getListProud(),currentUserMutableLiveData.getValue().getListFavoriteRecordIds()));
+            proudHeroUseCase.execute(new ProudOnHeroModel(heroId,currentUserMutableLiveData.getValue().getUserId(),heroDataMutableLiveData.getValue().getListProud(),currentUserMutableLiveData.getValue().getListFavoriteRecordIds()));
         }
-    }
-
-    public void dismiss(){
-        heroDataMutableLiveData.setValue(null);
-        currentUserMutableLiveData.setValue(null);
-        heroId = null;
     }
 
     public LiveData<HeroData> getHeroDataMutableLiveData() {

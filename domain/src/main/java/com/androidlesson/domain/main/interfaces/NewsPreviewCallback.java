@@ -1,8 +1,9 @@
 package com.androidlesson.domain.main.interfaces;
 
+import com.androidlesson.domain.main.models.NewsEventPreviewItem;
 import com.androidlesson.domain.main.models.NewsHeroPreviewItem;
-import com.androidlesson.domain.main.models.NewsPreviewItem;
 
 public interface NewsPreviewCallback {
-    public void getNewsPreview(NewsHeroPreviewItem newsHeroPreviewItem);
+    public void getHeroPreview(NewsHeroPreviewItem newsHeroPreviewItem);
+    public void getEventPreview(NewsEventPreviewItem newsEventPreviewItem);
 }

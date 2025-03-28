@@ -10,12 +10,11 @@ import com.androidlesson.domain.main.interfaces.NewsPreviewCallback;
 import com.androidlesson.domain.main.models.NewsEventPreviewItem;
 import com.androidlesson.domain.main.models.NewsHeroPreviewItem;
 import com.androidlesson.domain.main.models.NewsItem;
-import com.androidlesson.domain.main.models.NewsPreviewItem;
 import com.androidlesson.domain.main.models.ProudOnHeroModel;
 import com.androidlesson.domain.main.models.UserData;
 import com.androidlesson.domain.main.useCase.GetHeroProudListUseCase;
-import com.androidlesson.domain.main.useCase.ObserveHeroesForNewsUseCase;
-import com.androidlesson.domain.main.useCase.ProudUseCase;
+import com.androidlesson.domain.main.useCase.ObserveNewsPreviewUseCase;
+import com.androidlesson.domain.main.useCase.ProudHeroUseCase;
 
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
@@ -26,8 +25,8 @@ import java.util.Locale;
 import java.util.Objects;
 
 public class NewsFragmentViewModel extends ViewModel {
-    private ObserveHeroesForNewsUseCase observeHeroesForNewsUseCase;
-    private ProudUseCase proudUseCase;
+    private ObserveNewsPreviewUseCase observeNewsPreviewUseCase;
+    private ProudHeroUseCase proudHeroUseCase;
     private GetHeroProudListUseCase getHeroProudListUseCase;
 
     private MutableLiveData<List<NewsItem>> heroesMutableLiveData=new MutableLiveData<>(new ArrayList<>());
@@ -36,29 +35,28 @@ public class NewsFragmentViewModel extends ViewModel {
 
     private UserData userData;
 
-    public NewsFragmentViewModel(ObserveHeroesForNewsUseCase observeHeroesForNewsUseCase, ProudUseCase proudUseCase, GetHeroProudListUseCase getHeroProudListUseCase) {
-        this.observeHeroesForNewsUseCase = observeHeroesForNewsUseCase;
-        this.proudUseCase=proudUseCase;
+    public NewsFragmentViewModel(ObserveNewsPreviewUseCase observeNewsPreviewUseCase, ProudHeroUseCase proudHeroUseCase, GetHeroProudListUseCase getHeroProudListUseCase) {
+        this.observeNewsPreviewUseCase = observeNewsPreviewUseCase;
+        this.proudHeroUseCase = proudHeroUseCase;
         this.getHeroProudListUseCase=getHeroProudListUseCase;
-
-        List<NewsItem> items=new ArrayList<>();
-        items.add(new NewsEventPreviewItem("Название","id", "1900-1111","Информация","вфывф"));
-        items.add(new NewsEventPreviewItem("Название 2","id2", "1300-122","Информация2","вфывф2"));
-        items.add(new NewsEventPreviewItem("Название 3","id3", "1500-1133","Информация3","вфывф3"));
-
-        heroesMutableLiveData.setValue(items);
 
         observe();
     }
 
+    private List<NewsItem> currentList=new ArrayList<>();
+
     private void observe(){
-        observeHeroesForNewsUseCase.execute(new NewsPreviewCallback() {
+        observeNewsPreviewUseCase.execute(new NewsPreviewCallback() {
             @Override
-            public void getNewsPreview(NewsHeroPreviewItem hero) {
-                List<NewsItem> items=heroesMutableLiveData.getValue();
-                assert items != null;
-                items.add(hero);
-                heroesMutableLiveData.setValue(items);
+            public void getHeroPreview(NewsHeroPreviewItem hero) {
+                currentList.add(hero);
+                heroesMutableLiveData.postValue(currentList);
+            }
+
+            @Override
+            public void getEventPreview(NewsEventPreviewItem event) {
+                currentList.add(event);
+                heroesMutableLiveData.postValue(currentList);
             }
         });
     }
@@ -108,7 +106,7 @@ public class NewsFragmentViewModel extends ViewModel {
         getHeroProudListUseCase.execute(heroId, new ListStringsCallback() {
             @Override
             public void getList(List<String> list) {
-                proudUseCase.execute(new ProudOnHeroModel(heroId,userData.getUserId(),list,userData.getListFavoriteRecordIds()));
+                proudHeroUseCase.execute(new ProudOnHeroModel(heroId,userData.getUserId(),list,userData.getListFavoriteRecordIds()));
             }
         });
     }
