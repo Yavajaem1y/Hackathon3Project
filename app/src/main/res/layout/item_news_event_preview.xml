@@ -43,6 +43,28 @@
                 android:layout_alignParentRight="true"
                 android:layout_marginEnd="4dp"
                 android:layout_marginTop="4dp"/>
+
+            <LinearLayout
+                android:id="@+id/ll_article_of_the_day"
+                android:layout_width="100dp"
+                android:layout_height="22dp"
+                android:background="@drawable/bg_rounded_18dp_white"
+                android:gravity="center"
+                android:layout_marginStart="8dp"
+                android:layout_marginTop="10dp">
+                <ImageView
+                    android:layout_width="14dp"
+                    android:layout_height="14dp"
+                    android:src="@drawable/ic_fire"
+                    android:layout_marginEnd="2dp"/>
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="Статья дня"
+                    android:textSize="11sp"
+                    android:textStyle="bold"
+                    android:textColor="@color/black"/>
+            </LinearLayout>
         </RelativeLayout>
     </androidx.cardview.widget.CardView>
     <TextView

@@ -10,6 +10,7 @@ import com.androidlesson.domain.main.interfaces.NewsPreviewCallback;
 import com.androidlesson.domain.main.interfaces.UserDataCallback;
 import com.androidlesson.domain.main.models.HeroDataToDb;
 import com.androidlesson.domain.main.models.HeroImageToDb;
+import com.androidlesson.domain.main.models.ProudOnEventModel;
 import com.androidlesson.domain.main.models.ProudOnHeroModel;
 import com.androidlesson.domain.main.models.UserData;
 
@@ -33,4 +34,6 @@ public interface MainFirebaseRepository {
     void getHeroProudList(String heroId, ListStringsCallback listStringsCallback);
 
     void observeEventData(String eventId, EventDataCallback eventDataCallback);
+
+    void proudEvent(ProudOnEventModel proudOnEventModel);
 }

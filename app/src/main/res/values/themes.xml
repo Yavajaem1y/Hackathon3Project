@@ -2,7 +2,8 @@
     <!-- Base application theme. -->
     <style name="Base.Theme.Hackathon3Project" parent="Theme.Material3.DayNight.NoActionBar">
         <item name="android:statusBarColor">#403328</item>
-        <item name="android:navigationBarColor">@color/MainBackground</item>
+        <item name="android:navigationBarColor">#202124</item>
+        <item name="android:colorPrimaryDark">@color/MainBackground</item>
     </style>
 
     <style name="Theme.Hackathon3Project" parent="Base.Theme.Hackathon3Project" />

@@ -3,7 +3,9 @@ package com.androidlesson.hackathon3project.di;
 import com.androidlesson.hackathon3project.presentation.authorization.activities.MainActivity;
 import com.androidlesson.hackathon3project.presentation.authorization.fragments.LoginFragment;
 import com.androidlesson.hackathon3project.presentation.authorization.fragments.RegistrationFragment;
+import com.androidlesson.hackathon3project.presentation.main.ui.activities.PointDetailsActivity;
 import com.androidlesson.hackathon3project.presentation.main.ui.fragments.MainFragment;
+import com.androidlesson.hackathon3project.presentation.main.ui.fragments.bottomNavigationFragments.MapFragment;
 import com.androidlesson.hackathon3project.presentation.main.ui.fragments.bottomNavigationFragments.NewsFragment;
 import com.androidlesson.hackathon3project.presentation.main.ui.fragments.bottomNavigationFragments.UserProfileFragment;
 import com.androidlesson.hackathon3project.presentation.main.ui.fragments.dialogFragments.AddHeroDialogFragment;
@@ -48,4 +50,8 @@ public interface AppComponent {
     void injectDeleteHeroDialogFragment(DeleteHeroDialogFragment deleteHeroDialogFragment);
 
     void injectShowEventDialogFragment(ShowEventDialogFragment ShowEventDialogFragment);
+
+    void injectMapFragment(MapFragment MapFragment);
+
+    void injectPointDetailsActivity(PointDetailsActivity pointDetailsActivity);
 }

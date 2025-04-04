@@ -3,7 +3,6 @@ package com.androidlesson.hackathon3project.presentation.main.ui.fragments.botto
 import android.animation.Animator;
 import android.animation.AnimatorListenerAdapter;
 import android.animation.ValueAnimator;
-import android.os.Build;
 import android.os.Bundle;
 
 import androidx.annotation.NonNull;
@@ -19,14 +18,11 @@ import android.text.TextWatcher;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.view.Window;
-import android.view.WindowManager;
 import android.widget.EditText;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
 
 import com.androidlesson.domain.main.models.NewsItem;
-import com.androidlesson.domain.main.models.NewsPreviewItem;
 import com.androidlesson.domain.main.models.UserData;
 import com.androidlesson.hackathon3project.R;
 import com.androidlesson.hackathon3project.app.App;
@@ -40,7 +36,6 @@ import com.androidlesson.hackathon3project.presentation.main.viewModels.newsFrag
 import com.androidlesson.hackathon3project.presentation.main.viewModels.sharedViewModel.SharedViewModel;
 import com.androidlesson.hackathon3project.presentation.main.viewModels.sharedViewModel.SharedViewModelFactory;
 
-import java.util.ArrayList;
 import java.util.List;
 
 import javax.inject.Inject;
@@ -49,7 +44,7 @@ public class NewsFragment extends Fragment {
     private FragmentNewsBinding binding;
 
     private RecyclerView rv_news_container;
-    private RelativeLayout rl_top_element,rl_bottom_element;
+    private RelativeLayout rl_top_element,rl_bottom_element,rl_all_rl;
     private TextView tv_filter_events, tv_filter_hero,tv_nothing;
     private EditText et_search;
 
@@ -94,6 +89,7 @@ public class NewsFragment extends Fragment {
         et_search=binding.etSearch;
         tv_nothing=binding.tvNothing;
         rl_bottom_element=binding.rlBottomElement;
+        rl_all_rl=binding.rlAllRl;
 
         setAdapter();
     }
@@ -107,17 +103,22 @@ public class NewsFragment extends Fragment {
             }
         }, getParentFragmentManager(), sharedVM.getCurrentUserDataLiveData().getValue(), new OnProudClickListener() {
             @Override
-            public void onProudClick(String heroId) {
+            public void onProudHeroClick(String heroId) {
                 vm.proudOnHero(heroId);
+            }
+
+            @Override
+            public void onProudEventClick(String eventId) {
+                vm.proudOnEvent(eventId);
             }
         }, new VisibilityTopElement() {
             @Override
             public void getVisibility(Boolean bool) {
                 if (!bool){
-                    rl_top_element.setVisibility(View.INVISIBLE);
+                    rl_all_rl.setVisibility(View.INVISIBLE);
                 }
                 else {
-                    rl_top_element.setVisibility(View.VISIBLE);
+                    rl_all_rl.setVisibility(View.VISIBLE);
                 }
             }
         });

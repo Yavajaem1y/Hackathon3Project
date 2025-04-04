@@ -1,10 +1,12 @@
 package com.androidlesson.domain.main.models;
 
+import java.util.ArrayList;
 import java.util.List;
 
 public class UserData {
     private String userName, userSurname, userSystemId, userId, imageData;
-    private List<String> listAwardsReceivedIds, listHeroIds, listFavoriteRecordIds;
+    private List<String> listAwardsReceivedIds= new ArrayList<>(), listHeroIds= new ArrayList<>(), listFavoriteRecordIds= new ArrayList<>();
+    private int currentPoint,isFirstTime;
 
     public UserData() {
     }
@@ -30,6 +32,22 @@ public class UserData {
         this.userName = userName;
         this.userSurname = userSurname;
         this.userId = userId;
+    }
+
+    public int getCurrentPoint() {
+        return currentPoint;
+    }
+
+    public void setCurrentPoint(int currentPoint) {
+        this.currentPoint = currentPoint;
+    }
+
+    public int getIsFirstTime() {
+        return isFirstTime;
+    }
+
+    public void setIsFirstTime(int isFirstTime) {
+        this.isFirstTime = isFirstTime;
     }
 
     public String getImageData() {

@@ -12,11 +12,13 @@ import com.androidlesson.domain.authorization.useCase.RegistrationUseCase;
 import com.androidlesson.domain.authorization.useCase.SaveUserDataToSPUseCase;
 import com.androidlesson.domain.authorization.useCase.SetAuthorizationDataToSPUseCase;
 import com.androidlesson.domain.main.repository.MainFirebaseRepository;
+import com.androidlesson.domain.main.repository.MapFirebaseRepository;
 import com.androidlesson.domain.main.useCase.AddNewHeroUseCase;
 import com.androidlesson.domain.main.useCase.DeleteHeroDateUseCase;
 import com.androidlesson.domain.main.useCase.EditUserDataUseCase;
 import com.androidlesson.domain.main.useCase.GetHeroDataUseCase;
 import com.androidlesson.domain.main.useCase.GetHeroProudListUseCase;
+import com.androidlesson.domain.main.useCase.GetMapModuleUseCase;
 import com.androidlesson.domain.main.useCase.GetUserEmailUseCase;
 import com.androidlesson.domain.main.useCase.LogOutUseCase;
 import com.androidlesson.domain.main.useCase.ObserveCurrentUserDataUseCase;
@@ -25,6 +27,8 @@ import com.androidlesson.domain.main.useCase.ObserveEventDataUseCase;
 import com.androidlesson.domain.main.useCase.ObserveNewsPreviewUseCase;
 import com.androidlesson.domain.main.useCase.ProudEventUseCase;
 import com.androidlesson.domain.main.useCase.ProudHeroUseCase;
+import com.androidlesson.domain.main.useCase.SetIsFirstTimeUseCase;
+import com.androidlesson.domain.main.useCase.UnlockTheNextPointUseCase;
 
 import dagger.Module;
 import dagger.Provides;
@@ -137,5 +141,20 @@ public class DomainModule {
     @Provides
     public ProudEventUseCase provideProudEventUseCase(MainFirebaseRepository firebaseRepository){
         return new ProudEventUseCase(firebaseRepository);
+    }
+
+    @Provides
+    public GetMapModuleUseCase provideGetMapModuleUseCase(MapFirebaseRepository firebaseRepository){
+        return new  GetMapModuleUseCase(firebaseRepository);
+    }
+
+    @Provides
+    public SetIsFirstTimeUseCase provideSetIsFirstTimeUseCase(AuthorizationFirebaseRepository firebaseRepository){
+        return new SetIsFirstTimeUseCase(firebaseRepository);
+    }
+
+    @Provides
+    public UnlockTheNextPointUseCase provideUnlockTheNextPointUseCase(MapFirebaseRepository firebaseRepository){
+        return new UnlockTheNextPointUseCase(firebaseRepository);
     }
 }

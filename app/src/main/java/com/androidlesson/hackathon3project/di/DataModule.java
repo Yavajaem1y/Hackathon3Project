@@ -6,9 +6,11 @@ import com.androidlesson.data.authorization.AuthorizationFirebaseRepositoryImpl;
 import com.androidlesson.data.authorization.AuthorizationSharedPreferencesRepositoryImpl;
 import com.androidlesson.data.main.ImageFirebaseRepository;
 import com.androidlesson.data.main.MainFirebaseRepositoryImpl;
+import com.androidlesson.data.main.MapFirebaseRepositoryImpl;
 import com.androidlesson.domain.authorization.repository.AuthorizationFirebaseRepository;
 import com.androidlesson.domain.authorization.repository.AuthorizationSharedPreferencesRepository;
 import com.androidlesson.domain.main.repository.MainFirebaseRepository;
+import com.androidlesson.domain.main.repository.MapFirebaseRepository;
 
 import dagger.Module;
 import dagger.Provides;
@@ -36,5 +38,10 @@ public class DataModule {
     @Provides
     public ImageFirebaseRepository providesImageFirebaseRepository(){
         return new ImageFirebaseRepository();
+    }
+
+    @Provides
+    public MapFirebaseRepository providesMapFirebaseRepository(){
+        return new MapFirebaseRepositoryImpl();
     }
 }

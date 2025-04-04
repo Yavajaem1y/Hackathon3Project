@@ -7,6 +7,7 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageView;
+import android.widget.LinearLayout;
 import android.widget.TextView;
 
 import androidx.annotation.NonNull;
@@ -41,6 +42,7 @@ public class NewsAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder> {
     private UserData currentUserData;
     private final OnProudClickListener proudClickListener;
     private String searchFilter="";
+    private String lastEventId="";
     private final VisibilityTopElement visibilityTopElement;
 
     public NewsAdapter(AdapterElementsSize adapterElementsSize,FragmentManager fragmentManager, UserData userData, OnProudClickListener proudClickListener,VisibilityTopElement visibilityTopElement) {
@@ -125,6 +127,11 @@ public class NewsAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder> {
                         .collect(Collectors.toList());
             }
         }
+
+        if (!listSearchNews.isEmpty() && listSearchNews.get(0) instanceof NewsEventPreviewItem) {
+            lastEventId = ((NewsEventPreviewItem) listSearchNews.get(0)).getId();
+        }
+
         notifyDataSetChanged();
     }
 
@@ -197,6 +204,18 @@ public class NewsAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder> {
                 else {
                     Glide.with(holder.itemView.getContext()).load("dasda").centerCrop().into(((EventViewHolder) holder).avatar);
                 }
+                if (currentUserData!=null && currentUserData.getListFavoriteRecordIds()!=null) {
+                    if (currentUserData.getListFavoriteRecordIds().contains(event.getId())) {
+                        Glide.with(holder.itemView.getContext()).load(R.drawable.ic_red_heart).into(((EventViewHolder) holder).proud);
+                    } else {
+                        Glide.with(holder.itemView.getContext()).load(R.drawable.ic_white_heart).into(((EventViewHolder) holder).proud);
+                    }
+                }
+
+                if (!lastEventId.isEmpty()){
+                    if (event.getId().equals(lastEventId)) ((EventViewHolder) holder).ll_article_of_the_day.setVisibility(View.VISIBLE);
+                    else ((EventViewHolder) holder).ll_article_of_the_day.setVisibility(View.GONE);
+                }
             }
         }
 
@@ -221,7 +240,7 @@ public class NewsAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder> {
             else {
                 NewsEventPreviewItem event= (NewsEventPreviewItem) item;
 
-                ShowEventDialogFragment dialogFragment = new ShowEventDialogFragment(event.getNewsId(),visibilityTopElement);
+                ShowEventDialogFragment dialogFragment = new ShowEventDialogFragment(event.getNewsId(),visibilityTopElement,getLastEventId());
                 dialogFragment.show(fragmentManager, "my_dialog");
                 fragmentManager.executePendingTransactions();
                 dialogFragment.getDialog().setOnDismissListener(dialog -> visibilityTopElement.getVisibility(true));
@@ -247,11 +266,37 @@ public class NewsAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder> {
                 notifyItemChanged(position);
 
                 if (proudClickListener != null) {
-                    proudClickListener.onProudClick(hero.getId());
+                    proudClickListener.onProudHeroClick(hero.getId());
+                }
+            });
+        }
+        else {
+            assert holder instanceof EventViewHolder;
+            EventViewHolder eventViewHolder = (EventViewHolder) holder;
+            eventViewHolder.proud.setOnClickListener(proud -> {
+                assert item instanceof NewsEventPreviewItem;
+                NewsEventPreviewItem event = (NewsEventPreviewItem) item;
+
+                boolean isFavorite = currentUserData.getListFavoriteRecordIds().contains(event.getId());
+
+                if (isFavorite) {
+                    currentUserData.getListFavoriteRecordIds().remove(event.getId());
+                } else {
+                    currentUserData.getListFavoriteRecordIds().add(event.getId());
+                }
+
+                notifyItemChanged(position);
+
+                if (proudClickListener != null) {
+                    proudClickListener.onProudEventClick(event.getId());
                 }
             });
         }
 
+    }
+
+    public String getLastEventId() {
+        return lastEventId;
     }
 
     @Override
@@ -278,6 +323,7 @@ public class NewsAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder> {
     static class EventViewHolder extends RecyclerView.ViewHolder {
         TextView name, date, info;
         ImageView avatar,proud;
+        LinearLayout ll_article_of_the_day;
 
         public EventViewHolder(@NonNull View itemView) {
             super(itemView);
@@ -286,6 +332,7 @@ public class NewsAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder> {
             info = itemView.findViewById(R.id.tv_info);
             avatar = itemView.findViewById(R.id.iv_preview_image);
             proud= itemView.findViewById(R.id.iv_heart);
+            ll_article_of_the_day=itemView.findViewById(R.id.ll_article_of_the_day);
         }
     }
 }

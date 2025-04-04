@@ -10,7 +10,6 @@ import android.widget.ImageView;
 import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
 
-import com.androidlesson.domain.main.models.HeroData;
 import com.androidlesson.hackathon3project.R;
 import com.bumptech.glide.Glide;
 

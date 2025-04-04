@@ -1,6 +1,7 @@
 package com.androidlesson.hackathon3project.presentation.authorization.activities;
 
 import android.content.Intent;
+import android.graphics.Color;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
@@ -41,6 +42,8 @@ public class MainActivity extends AppCompatActivity implements OnDataPass {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+        getWindow().setStatusBarColor(Color.parseColor("#403328"));
+
         setContentView(R.layout.activity_main);
 
         initialization();

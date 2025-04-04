@@ -22,4 +22,5 @@ public interface AuthorizationFirebaseRepository {
     public void editUserData(UserDataToEdit userDataToEdit, UserDataCallback userDataCallback);
     public void getUserEmail(StringCallBack stringCallBack);
     public void addImageAvatar(ImageToDb imageToDb, BooleanCallBack booleanCallBack);
+    public void setIsFirstTime(UserData userData);
 }

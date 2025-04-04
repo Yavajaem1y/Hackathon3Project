@@ -5,16 +5,10 @@ import com.androidlesson.domain.authorization.interfaces.StringCallBack;
 import com.androidlesson.domain.authorization.utils.CheckDate;
 import com.androidlesson.domain.authorization.utils.CurrentTimeAndDate;
 import com.androidlesson.domain.main.interfaces.HeroDataCallback;
-import com.androidlesson.domain.main.interfaces.ListStringsCallback;
 import com.androidlesson.domain.main.models.HeroDataToDb;
 import com.androidlesson.domain.main.models.HeroImageToDb;
-import com.androidlesson.domain.main.models.ImageToDb;
-import com.androidlesson.domain.main.models.StringImageToDb;
 import com.androidlesson.domain.main.models.UserData;
 import com.androidlesson.domain.main.repository.MainFirebaseRepository;
-
-import java.util.ArrayList;
-import java.util.List;
 
 public class AddNewHeroUseCase {
 

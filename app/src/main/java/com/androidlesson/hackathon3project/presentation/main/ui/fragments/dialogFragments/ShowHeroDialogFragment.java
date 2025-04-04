@@ -1,8 +1,6 @@
 package com.androidlesson.hackathon3project.presentation.main.ui.fragments.dialogFragments;
 
 import android.app.Dialog;
-import android.graphics.Color;
-import android.os.Build;
 import android.os.Bundle;
 import android.util.TypedValue;
 import android.view.Gravity;
@@ -10,8 +8,6 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.view.Window;
-import android.view.WindowInsets;
-import android.view.WindowInsetsController;
 import android.view.WindowManager;
 import android.widget.ImageView;
 import android.widget.RelativeLayout;

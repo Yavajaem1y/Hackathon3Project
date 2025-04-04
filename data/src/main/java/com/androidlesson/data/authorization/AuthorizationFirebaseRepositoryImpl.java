@@ -32,6 +32,7 @@ import com.google.firebase.database.ValueEventListener;
 import com.google.firebase.storage.FirebaseStorage;
 import com.google.firebase.storage.StorageReference;
 
+import java.util.ArrayList;
 import java.util.Objects;
 
 public class AuthorizationFirebaseRepositoryImpl implements AuthorizationFirebaseRepository {
@@ -120,13 +121,15 @@ public class AuthorizationFirebaseRepositoryImpl implements AuthorizationFirebas
     String userId;
     @Override
     public void saveUserData(UserData userData, UserDataCallback userDataCallback) {
-        Log.d("User id to db",userData.getUserId());
         firebaseDatabase.getReference(DATABASE_SYSTEM_ID_TO_APP_ID).child(userSystemId).child(USER_ID).setValue(userData.getUserId()).addOnCompleteListener(new OnCompleteListener<Void>() {
             @Override
             public void onComplete(@NonNull Task<Void> task) {
                 if (task.isSuccessful()) {
                     userId=userData.getUserId();
-                    firebaseDatabase.getReference(DATABASE_WITH_USERS_DATA).child(userId).setValue(new UserDataToDB(userSystemId,userData.getUserName(),userData.getUserSurname())).addOnCompleteListener(new OnCompleteListener<Void>() {
+                    UserDataToDB data=new UserDataToDB(userSystemId,userData.getUserName(),userData.getUserSurname());
+                    data.setCurrentPoint(1);
+                    data.setIsFirstTime(1);
+                    firebaseDatabase.getReference(DATABASE_WITH_USERS_DATA).child(userId).setValue(data).addOnCompleteListener(new OnCompleteListener<Void>() {
                         @Override
                         public void onComplete(@NonNull Task<Void> task) {
                             if (task.isSuccessful()) {
@@ -194,6 +197,9 @@ public class AuthorizationFirebaseRepositoryImpl implements AuthorizationFirebas
                                                 if (dataSnapshot.exists()) {
                                                     UserData userData = dataSnapshot.getValue(UserData.class);
                                                     if (userData != null) {
+                                                        if (userData.getListFavoriteRecordIds()==null) {
+                                                            userData.setListFavoriteRecordIds(new ArrayList<>());
+                                                        }
                                                         userData.setUserId(dataSnapshot.getKey());
                                                         userDataCallback.getUserData(userData);
                                                     } else {
@@ -302,6 +308,11 @@ public class AuthorizationFirebaseRepositoryImpl implements AuthorizationFirebas
                     saveImageAvatarUrl(uri.toString(),imageToDb.getUserId(),booleanCallBack);
                 }))
                 .addOnFailureListener(e -> Log.e("Firebase", "Ошибка загрузки", e));
+    }
+
+    @Override
+    public void setIsFirstTime(UserData userData) {
+        firebaseDatabase.getReference(DATABASE_WITH_USERS_DATA).child(userData.getUserId()).child("isFirstTime").setValue(0);
     }
 
     private void saveImageAvatarUrl(String imageId, String userId, BooleanCallBack booleanCallBack) {

@@ -20,6 +20,7 @@ import com.androidlesson.domain.main.models.HeroImageToDb;
 import com.androidlesson.domain.main.models.HeroItemPreview;
 import com.androidlesson.domain.main.models.NewsEventPreviewItem;
 import com.androidlesson.domain.main.models.NewsHeroPreviewItem;
+import com.androidlesson.domain.main.models.ProudOnEventModel;
 import com.androidlesson.domain.main.models.ProudOnHeroModel;
 import com.androidlesson.domain.main.models.UserData;
 import com.androidlesson.domain.main.repository.MainFirebaseRepository;
@@ -362,22 +363,32 @@ public class MainFirebaseRepositoryImpl implements MainFirebaseRepository {
         firebaseDatabase.getReference(DATABASE_WITH_EVENTS_DATA).child(eventId).addValueEventListener(new ValueEventListener() {
             @Override
             public void onDataChange(@NonNull DataSnapshot snapshot) {
-                if (snapshot.exists()){
-                    String date=snapshot.child(EVENT_DATE).getValue(String.class);
-                    String name=snapshot.child(EVENT_NAME).getValue(String.class);
-                    String info=snapshot.child(EVENT_INFO).getValue(String.class);
-                    String avatar=snapshot.child(EVENT_AVATAR_IMAGE).getValue(String.class);
-                    List<String> list=snapshot.child(EVENT_PROUD_LIST).getValue(ArrayList.class);
+                if (snapshot.exists()) {
+                    String date = snapshot.child(EVENT_DATE).getValue(String.class);
+                    String name = snapshot.child(EVENT_NAME).getValue(String.class);
+                    String info = snapshot.child(EVENT_INFO).getValue(String.class);
+                    String avatar = snapshot.child(EVENT_AVATAR_IMAGE).getValue(String.class);
 
-                    eventDataCallback.getEventDate(new EventDataFromDB(date,name,info,avatar,list));
+                    // Используем GenericTypeIndicator для списка
+                    GenericTypeIndicator<ArrayList<String>> t = new GenericTypeIndicator<ArrayList<String>>() {};
+                    List<String> list = snapshot.child(EVENT_PROUD_LIST).getValue(t);
+
+                    eventDataCallback.getEventDate(new EventDataFromDB(date, name, info, avatar, list));
                 }
             }
 
             @Override
             public void onCancelled(@NonNull DatabaseError error) {
-
+                Log.e("FirebaseError", error.getMessage());
             }
         });
+    }
+
+
+    @Override
+    public void proudEvent(ProudOnEventModel model) {
+        firebaseDatabase.getReference(DATABASE_WITH_EVENTS_DATA).child(model.getEventId()).child(EVENT_PROUD_LIST).setValue(model.getListProud());
+        firebaseDatabase.getReference(DATABASE_WITH_USERS_DATA).child(model.getUserId()).child(USER_LIST_FAVORITE_RECORDS_IDS).setValue(model.getListFavoriteRecordIds());
     }
 
     private void saveHeroImageAvatarUrl(String imageId, String heroId, BooleanCallBack booleanCallBack) {

@@ -5,7 +5,7 @@
     android:layout_height="match_parent"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     tools:context=".presentation.main.ui.fragments.bottomNavigationFragments.UserProfileFragment"
-    android:background="@color/white">
+    android:background="@color/MainBackground">
 
     <ScrollView
         android:id="@+id/sv_main_layout"
@@ -26,12 +26,11 @@
                     android:layout_width="80dp"
                     android:layout_height="80dp"
                     android:layout_gravity="center_horizontal"
-                    android:layout_marginStart="24dp"
-                    android:layout_marginTop="24dp"
+                    android:layout_marginStart="20dp"
+                    android:layout_marginTop="30dp"
                     android:clickable="true"
                     android:focusable="true"
-                    android:src="@drawable/ic_user_avatar"
-                    app:civ_circle_background_color="@color/userAvatarBackground" />
+                    android:src="@drawable/ic_empty_avatar" />
 
                 <TextView
                     android:id="@+id/tv_curr_user_name_and_surname"
@@ -43,7 +42,7 @@
                     android:layout_marginTop="37dp"
                     android:layout_toRightOf="@id/civ_curr_user_avatar"
                     android:text="name surname"
-                    android:textColor="@color/black"
+                    android:textColor="@color/white"
                     android:textSize="16sp"
                     android:textStyle="bold" />
 
@@ -58,7 +57,7 @@
                     android:layout_marginBottom="10dp"
                     android:layout_toRightOf="@id/civ_curr_user_avatar"
                     android:text="\@login"
-                    android:textColor="@color/userAvatarColor"
+                    android:textColor="#71727A"
                     android:textSize="12sp"
                     android:textStyle="bold" />
             </RelativeLayout>
@@ -70,7 +69,9 @@
                 android:src="@drawable/ic_dots_menu"
                 android:layout_alignParentRight="true"
                 android:layout_marginTop="20dp"
-                android:layout_marginEnd="24dp"/>
+                android:layout_marginEnd="24dp"
+                android:background="@drawable/bg_circle_grey"
+                android:padding="10dp"/>
 
             <RelativeLayout
                 android:id="@+id/rl_second_layout"

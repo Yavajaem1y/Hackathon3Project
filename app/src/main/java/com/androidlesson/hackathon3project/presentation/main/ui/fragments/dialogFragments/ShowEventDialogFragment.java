@@ -24,6 +24,7 @@ import androidx.lifecycle.Observer;
 import androidx.lifecycle.ViewModelProvider;
 
 import com.androidlesson.domain.main.models.EventDataFromDB;
+import com.androidlesson.domain.main.models.UserData;
 import com.androidlesson.hackathon3project.R;
 import com.androidlesson.hackathon3project.app.App;
 import com.androidlesson.hackathon3project.presentation.main.interfaces.VisibilityTopElement;
@@ -51,22 +52,16 @@ public class ShowEventDialogFragment extends DialogFragment {
     private TextView tv_name, tv_info, tv_date;
     private LinearLayout ll_article_of_the_day;
 
-    private String eventId;
+    private String eventId, lastEventId;
     private VisibilityTopElement visibilityTopElement;
 
-    public ShowEventDialogFragment(String eventId, VisibilityTopElement visibilityTopElement) {
+    public ShowEventDialogFragment(String eventId, VisibilityTopElement visibilityTopElement, String lastEventId) {
         this.eventId = eventId;
         this.visibilityTopElement=visibilityTopElement;
+        this.lastEventId=lastEventId;
     }
 
     public ShowEventDialogFragment() {
-    }
-
-    @Override
-    public void onStop() {
-        if (visibilityTopElement!=null)
-            visibilityTopElement.getVisibility(true);
-        super.onStop();
     }
 
     @Nullable
@@ -97,7 +92,7 @@ public class ShowEventDialogFragment extends DialogFragment {
             Dialog dialog = getDialog();
             Window window = dialog.getWindow();
             if (window != null) {
-                window.setLayout(ViewGroup.LayoutParams.MATCH_PARENT, ViewGroup.LayoutParams.MATCH_PARENT);
+                window.setLayout(ViewGroup.LayoutParams.MATCH_PARENT, ViewGroup.LayoutParams.WRAP_CONTENT);
                 window.setBackgroundDrawableResource(android.R.color.transparent);
 
                 WindowManager.LayoutParams params = window.getAttributes();
@@ -111,7 +106,7 @@ public class ShowEventDialogFragment extends DialogFragment {
 
     private void initialization(View view){
         if(eventId!=null && !eventId.isEmpty()){
-            vm.setEventData(eventId);
+            vm.setEventData(eventId,lastEventId);
         }
 
         iv_back=view.findViewById(R.id.iv_back);
@@ -126,6 +121,10 @@ public class ShowEventDialogFragment extends DialogFragment {
     private void setOnClickListener(){
         iv_back.setOnClickListener(v->{
             dismiss();
+        });
+
+        iv_proud.setOnClickListener(v->{
+            vm.proud();
         });
     }
 
@@ -144,24 +143,38 @@ public class ShowEventDialogFragment extends DialogFragment {
                 }
             }
         });
-    }
 
-    private OnDialogDismissListener dismissListener;
+        sharedVM.getCurrentUserDataLiveData().observe(getViewLifecycleOwner(), new Observer<UserData>() {
+            @Override
+            public void onChanged(UserData userData) {
+                vm.setCurrentUser(userData);
+            }
+        });
 
-    public interface OnDialogDismissListener {
-        void onDialogDismiss();
-    }
+        vm.getProudMutableLiveData().observe(getViewLifecycleOwner(), new Observer<Boolean>() {
+            @Override
+            public void onChanged(Boolean aBoolean) {
+                if (aBoolean){
+                    iv_proud.setImageResource(R.drawable.ic_red_heart);
+                }
+                else iv_proud.setImageResource(R.drawable.ic_white_heart);
+            }
+        });
 
-    public void setOnDialogDismissListener(OnDialogDismissListener listener) {
-        this.dismissListener = listener;
+        vm.getVisibilityArticleDayMutableLiveData().observe(getViewLifecycleOwner(), new Observer<Boolean>() {
+            @Override
+            public void onChanged(Boolean aBoolean) {
+                if (aBoolean) ll_article_of_the_day.setVisibility(View.VISIBLE);
+                else ll_article_of_the_day.setVisibility(View.GONE);
+            }
+        });
     }
 
     @Override
-    public void onDismiss(@NonNull DialogInterface dialog) {
-        super.onDismiss(dialog);
-        if (dismissListener != null) {
-            dismissListener.onDialogDismiss();
-        }
+    public void onStop() {
+        if (visibilityTopElement!=null)
+            visibilityTopElement.getVisibility(true);
+        super.onStop();
     }
 
 }

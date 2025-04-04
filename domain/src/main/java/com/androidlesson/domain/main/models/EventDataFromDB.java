@@ -15,6 +15,9 @@ public class EventDataFromDB {
         this.eventProudList = eventProudList!=null ? eventProudList: new ArrayList<>();
     }
 
+    public EventDataFromDB() {
+    }
+
     public String getEventDate() {
         return eventDate;
     }

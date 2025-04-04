@@ -7,9 +7,8 @@ import androidx.lifecycle.LiveData;
 import androidx.lifecycle.MutableLiveData;
 import androidx.lifecycle.ViewModel;
 
-import com.androidlesson.domain.main.useCase.LogOutUseCase;
 import com.androidlesson.hackathon3project.R;
-import com.androidlesson.hackathon3project.presentation.main.ui.fragments.bottomNavigationFragments.MainMapFragment;
+import com.androidlesson.hackathon3project.presentation.main.ui.fragments.bottomNavigationFragments.MapFragment;
 import com.androidlesson.hackathon3project.presentation.main.ui.fragments.bottomNavigationFragments.NewsFragment;
 import com.androidlesson.hackathon3project.presentation.main.ui.fragments.bottomNavigationFragments.UserProfileFragment;
 
@@ -36,7 +35,7 @@ public class MainFragmentViewModel extends ViewModel {
             fragmentMap.put(R.id.navigation_news,newsFragment);
 
             //Creating all users fragment
-            Fragment mapFragment=new MainMapFragment();
+            Fragment mapFragment=new MapFragment();
             fragmentMap.put(R.id.navigation_map,mapFragment);
 
             //Creating other models

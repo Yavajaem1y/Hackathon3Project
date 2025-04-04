@@ -53,6 +53,9 @@ dependencies {
     implementation(libs.firebase.storage)
     annotationProcessor("com.google.dagger:dagger-compiler:2.52")
 
+    implementation ("androidx.viewpager2:viewpager2:1.0.0")
+    implementation ("com.tbuonomo:dotsindicator:4.3")
+
 
     //Fragment navigation
     implementation ("androidx.navigation:navigation-fragment-ktx:2.6.0")

@@ -1,9 +1,7 @@
 package com.androidlesson.hackathon3project.presentation.main.adapters;
 
 import android.annotation.SuppressLint;
-import android.graphics.Bitmap;
 import android.net.Uri;
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -12,12 +10,9 @@ import android.widget.ImageView;
 import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
 
-import com.androidlesson.domain.main.models.HeroData;
 import com.androidlesson.hackathon3project.R;
 import com.bumptech.glide.Glide;
 
-import java.io.File;
-import java.util.ArrayList;
 import java.util.List;
 
 public class AddImageAdapter extends RecyclerView.Adapter<AddImageAdapter.AddImageViewHolder>{

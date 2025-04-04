@@ -17,6 +17,7 @@ import com.androidlesson.domain.main.useCase.DeleteHeroDateUseCase;
 import com.androidlesson.domain.main.useCase.EditUserDataUseCase;
 import com.androidlesson.domain.main.useCase.GetHeroDataUseCase;
 import com.androidlesson.domain.main.useCase.GetHeroProudListUseCase;
+import com.androidlesson.domain.main.useCase.GetMapModuleUseCase;
 import com.androidlesson.domain.main.useCase.GetUserEmailUseCase;
 import com.androidlesson.domain.main.useCase.LogOutUseCase;
 import com.androidlesson.domain.main.useCase.ObserveCurrentUserDataUseCase;
@@ -25,6 +26,8 @@ import com.androidlesson.domain.main.useCase.ObserveEventDataUseCase;
 import com.androidlesson.domain.main.useCase.ObserveNewsPreviewUseCase;
 import com.androidlesson.domain.main.useCase.ProudEventUseCase;
 import com.androidlesson.domain.main.useCase.ProudHeroUseCase;
+import com.androidlesson.domain.main.useCase.SetIsFirstTimeUseCase;
+import com.androidlesson.domain.main.useCase.UnlockTheNextPointUseCase;
 import com.androidlesson.hackathon3project.presentation.authorization.viewModels.loginViewModel.LoginFragmentViewModelFactory;
 import com.androidlesson.hackathon3project.presentation.authorization.viewModels.mainActivityViewModel.MainActivityViewModelFactory;
 import com.androidlesson.hackathon3project.presentation.authorization.viewModels.registratoinViewModel.RegistrationFragmentViewModelFactory;
@@ -33,7 +36,9 @@ import com.androidlesson.hackathon3project.presentation.main.viewModels.allUserH
 import com.androidlesson.hackathon3project.presentation.main.viewModels.deleteHeroFragmentViewModel.DeleteHeroFragmentViewModelFactory;
 import com.androidlesson.hackathon3project.presentation.main.viewModels.editUserProfileFragmentViewModel.EditUserProfileFragmentViewModelFactory;
 import com.androidlesson.hackathon3project.presentation.main.viewModels.mainActivityViewModel.MainFragmentViewModelFactory;
+import com.androidlesson.hackathon3project.presentation.main.viewModels.mapFragmentViewModel.MapFragmentViewModelFactory;
 import com.androidlesson.hackathon3project.presentation.main.viewModels.newsFragmentViewModel.NewsFragmentViewModelFactory;
+import com.androidlesson.hackathon3project.presentation.main.viewModels.pointDetailsActivityViewModel.PointDetailsActivityViewModelFactory;
 import com.androidlesson.hackathon3project.presentation.main.viewModels.sharedViewModel.SharedViewModelFactory;
 import com.androidlesson.hackathon3project.presentation.main.viewModels.showEventViewModel.ShowEventFragmentViewModel;
 import com.androidlesson.hackathon3project.presentation.main.viewModels.showEventViewModel.ShowEventFragmentViewModelFactory;
@@ -96,8 +101,8 @@ public class AppModule {
     }
 
     @Provides
-    public NewsFragmentViewModelFactory provideNewsFragmentViewModelFactory(ObserveNewsPreviewUseCase observeNewsPreviewUseCase, ProudHeroUseCase proudHeroUseCase, GetHeroProudListUseCase getHeroProudListUseCase) {
-        return new NewsFragmentViewModelFactory(observeNewsPreviewUseCase, proudHeroUseCase, getHeroProudListUseCase);
+    public NewsFragmentViewModelFactory provideNewsFragmentViewModelFactory(ObserveNewsPreviewUseCase observeNewsPreviewUseCase, ProudHeroUseCase proudHeroUseCase, GetHeroProudListUseCase getHeroProudListUseCase,ObserveEventDataUseCase observeEventDataUseCase,ProudEventUseCase proudEventUseCase) {
+        return new NewsFragmentViewModelFactory(observeNewsPreviewUseCase, proudHeroUseCase, getHeroProudListUseCase,observeEventDataUseCase,proudEventUseCase);
     }
 
     @Provides
@@ -118,6 +123,16 @@ public class AppModule {
     @Provides
     public ShowEventFragmentViewModelFactory provideShowEventFragmentViewModelFactory(ProudEventUseCase proudEventUseCase, ObserveEventDataUseCase observeEventDataUseCase) {
         return new ShowEventFragmentViewModelFactory(proudEventUseCase,observeEventDataUseCase);
+    }
+
+    @Provides
+    public MapFragmentViewModelFactory provideMapFragmentViewModelFactory(GetMapModuleUseCase getMapModuleUseCase, SetIsFirstTimeUseCase setIsFirstTimeUseCase) {
+        return new MapFragmentViewModelFactory(getMapModuleUseCase,setIsFirstTimeUseCase);
+    }
+
+    @Provides
+    public PointDetailsActivityViewModelFactory providePointDetailsActivityViewModelFactory(UnlockTheNextPointUseCase unlockTheNextPointUseCase) {
+        return new PointDetailsActivityViewModelFactory(unlockTheNextPointUseCase);
     }
 }
 
