@@ -103,6 +103,7 @@ public class MapFragment extends Fragment {
             public void onChanged(UserData userData) {
                 if (userData != null) {
                     if (userData.getIsFirstTime() == 1) {
+                        vm.setCurrentUserData(userData);
                         vm.setIsFirstTime();
                         startActivity(new Intent(getActivity(), OnboardingActivity.class));
                     }

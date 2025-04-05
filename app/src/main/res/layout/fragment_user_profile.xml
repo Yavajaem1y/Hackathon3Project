@@ -64,8 +64,8 @@
 
             <ImageView
                 android:id="@+id/ic_dots_menu"
-                android:layout_width="40dp"
-                android:layout_height="40dp"
+                android:layout_width="44dp"
+                android:layout_height="44dp"
                 android:src="@drawable/ic_dots_menu"
                 android:layout_alignParentRight="true"
                 android:layout_marginTop="20dp"
@@ -78,26 +78,36 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_below="@id/rl_main_user_info"
-                android:layout_marginTop="24dp">
+                android:layout_marginTop="20dp">
                 <RelativeLayout
                     android:id="@+id/rl_in_second_layout"
                     android:layout_width="match_parent"
-                    android:layout_height="wrap_content">
+                    android:layout_height="wrap_content"
+                    android:layout_marginBottom="10dp">
                     <TextView
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:text="Мои достижения"
-                        android:layout_centerVertical="true"/>
-                    <ImageView
-                        android:id="@+id/ic_right_arrow"
-                        android:layout_width="40dp"
-                        android:layout_height="40dp"
-                        android:src="@drawable/ic_right_arrow"
-                        android:layout_alignParentEnd="true" />
+                        android:layout_marginStart="22dp"
+                        android:layout_centerVertical="true"
+                        android:textColor="@color/white"
+                        android:textStyle="bold"
+                        android:textSize="16dp"/>
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="Мои достижения"
+                        android:textSize="10dp"
+                        android:layout_marginEnd="22dp"
+                        android:layout_alignParentEnd="true"
+                        android:textColor="#D2D2D2"
+                        android:layout_centerVertical="true" />
                 </RelativeLayout>
                 <RelativeLayout
                     android:layout_width="match_parent"
-                    android:layout_height="80dp"
+                    android:layout_height="92dp"
+                    android:layout_marginStart="24dp"
+                    android:layout_marginEnd="24dp"
                     android:layout_below="@id/rl_in_second_layout"
                     android:background="@drawable/bg_rounded_24dp_light_grey">
                 </RelativeLayout>
@@ -108,44 +118,71 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_below="@id/rl_second_layout"
-                android:layout_marginTop="24dp">
+                android:layout_marginTop="28dp">
                 <RelativeLayout
                     android:id="@+id/rl_in_third_layout"
                     android:layout_width="match_parent"
-                    android:layout_height="wrap_content">
+                    android:layout_height="wrap_content"
+                    android:layout_marginBottom="10dp">
                     <TextView
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:text="Мои герои"
-                        android:layout_centerVertical="true"/>
-                    <ImageView
-                        android:id="@+id/ic_my_hero"
-                        android:layout_width="40dp"
-                        android:layout_height="40dp"
-                        android:src="@drawable/ic_right_arrow"
-                        android:layout_alignParentEnd="true"/>
+                        android:text="Статистика"
+                        android:layout_marginStart="22dp"
+                        android:layout_centerVertical="true"
+                        android:textColor="@color/white"
+                        android:textSize="16dp"
+                        android:textStyle="bold"/>
+                </RelativeLayout>
+                <RelativeLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="110dp"
+                    android:layout_marginStart="24dp"
+                    android:layout_marginEnd="24dp"
+                    android:layout_below="@id/rl_in_third_layout"
+                    android:background="@drawable/bg_rounded_24dp_light_grey">
                 </RelativeLayout>
             </RelativeLayout>
 
             <RelativeLayout
-                android:id="@+id/rl_fourth_layout"
+                android:id="@+id/b_my_heroes"
                 android:layout_width="match_parent"
-                android:layout_height="wrap_content"
+                android:layout_height="80dp"
+                android:background="@drawable/bg_rounded_16dp_button"
                 android:layout_below="@id/rl_third_layout"
-                android:layout_marginTop="24dp">
+                android:layout_marginTop="28dp"
+                android:layout_marginEnd="24dp"
+                android:layout_marginStart="24dp">
                 <TextView
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:text="Избранное"
-                    android:layout_centerVertical="true"/>
-                <ImageView
-                    android:id="@+id/ic_favorite"
-                    android:layout_width="40dp"
-                    android:layout_height="40dp"
-                    android:src="@drawable/ic_right_arrow"
+                    android:layout_centerVertical="true"
+                    android:text="Мои герои"
+                    android:textColor="#363636"
+                    android:textStyle="bold"
+                    android:textSize="20dp"
+                    android:layout_marginStart="42dp"/>
+            </RelativeLayout>
+            <RelativeLayout
+                android:id="@+id/b_my_proud_list"
+                android:layout_width="match_parent"
+                android:layout_height="80dp"
+                android:background="@drawable/bg_rounded_16dp_button"
+                android:layout_below="@id/b_my_heroes"
+                android:layout_marginTop="28dp"
+                android:layout_marginEnd="24dp"
+                android:layout_marginStart="24dp">
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_centerVertical="true"
+                    android:text="Горжусь"
+                    android:textColor="#363636"
+                    android:textStyle="bold"
+                    android:textSize="20dp"
+                    android:layout_marginEnd="42dp"
                     android:layout_alignParentEnd="true"/>
             </RelativeLayout>
-
         </RelativeLayout>
 
 

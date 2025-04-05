@@ -54,16 +54,17 @@
         android:text="Имя Фамилия"
         android:textColor="@color/white"
         android:textStyle="bold"
-        android:textSize="15sp"
+        android:textSize="16sp"
         android:layout_below="@id/cv_image"
-        android:layout_marginBottom="4dp"/>
+        android:layout_marginBottom="4dp"
+        android:fontFamily="@font/rubik_medium"/>
 
     <TextView
         android:id="@+id/tv_date"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:text="ГГГГ-ГГГГ"
-        android:textSize="11sp"
+        android:textSize="12sp"
         android:textColor="#E2E2E2"
-        android:layout_below="@id/tv_name"/>
+        android:layout_below="@id/tv_name" />
 </RelativeLayout>

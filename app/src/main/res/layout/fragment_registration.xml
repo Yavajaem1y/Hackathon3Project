@@ -3,7 +3,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="@color/white"
+    android:background="@color/MainBackground"
     tools:context=".presentation.authorization.fragments.RegistrationFragment">
 
     <RelativeLayout
@@ -16,7 +16,8 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:text="Регистрация"
-            android:textSize="16sp"
+            android:textSize="20sp"
+            android:textColor="@color/white"
             android:textStyle="bold"
             android:layout_marginTop="24dp"
             />
@@ -26,7 +27,7 @@
             android:layout_height="wrap_content"
             android:text="Создайте аккаунт, чтобы начать работу"
             android:textSize="12sp"
-            android:textStyle="bold"
+            android:textColor="#B3B3B3"
             android:layout_below="@id/tv_tv_registration"
             android:layout_marginBottom="24dp"/>
         <TextView
@@ -37,7 +38,7 @@
             android:layout_below="@id/tv_tv_create_account"
             android:textSize="12sp"
             android:textStyle="bold"
-
+            android:textColor="#B3B3B3"
             android:layout_marginBottom="8dp"/>
         <EditText
             android:id="@+id/et_name"
@@ -51,7 +52,9 @@
             android:paddingBottom="12dp"
             android:hint="Ваше имя"
             android:layout_marginBottom="16dp"
-            android:textSize="14sp"/>
+            android:textSize="14sp"
+            android:textColor="@color/white"
+            android:textColorHint="#8F9098"/>
 
         <TextView
             android:id="@+id/tv_tv_surname"
@@ -60,6 +63,7 @@
             android:text="Фамилия пользователя"
             android:layout_below="@id/et_name"
             android:textSize="12sp"
+            android:textColor="#B3B3B3"
             android:textStyle="bold"
             android:layout_marginBottom="8dp"/>
         <EditText
@@ -74,7 +78,9 @@
             android:paddingBottom="12dp"
             android:hint="Ваша фамилия"
             android:layout_marginBottom="16dp"
-            android:textSize="14sp"/>
+            android:textSize="14sp"
+            android:textColor="@color/white"
+            android:textColorHint="#8F9098"/>
 
         <TextView
             android:id="@+id/tv_tv_id"
@@ -83,8 +89,10 @@
             android:text="Имя пользователя"
             android:layout_below="@id/et_surname"
             android:textSize="12sp"
+            android:textColor="#B3B3B3"
             android:textStyle="bold"
-            android:layout_marginBottom="8dp"/>
+            android:layout_marginBottom="8dp"
+            />
         <EditText
             android:id="@+id/et_id"
             android:layout_width="match_parent"
@@ -97,7 +105,9 @@
             android:paddingBottom="12dp"
             android:hint="Ваш уникальный id"
             android:layout_marginBottom="16dp"
-            android:textSize="14sp"/>
+            android:textSize="14sp"
+            android:textColor="@color/white"
+            android:textColorHint="#8F9098"/>
 
         <TextView
         android:id="@+id/tv_tv_email"
@@ -106,6 +116,7 @@
         android:text="Адрес электронной почты"
         android:layout_below="@id/et_id"
         android:textSize="12sp"
+            android:textColor="#B3B3B3"
         android:textStyle="bold"
         android:layout_marginBottom="8dp"/>
         <EditText
@@ -120,7 +131,9 @@
             android:paddingBottom="12dp"
             android:hint="name@email.ru"
             android:layout_marginBottom="16dp"
-            android:textSize="14sp"/>
+            android:textSize="14sp"
+            android:textColor="@color/white"
+            android:textColorHint="#8F9098"/>
 
         <TextView
             android:id="@+id/tv_tv_password"
@@ -129,6 +142,7 @@
             android:text="Пароль"
             android:layout_below="@id/et_email"
             android:textSize="12sp"
+            android:textColor="#B3B3B3"
             android:textStyle="bold"
             android:layout_marginBottom="8dp"/>
         <RelativeLayout
@@ -154,11 +168,13 @@
                 android:id="@+id/et_password"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:background="@color/white"
+                android:background="@color/MainBackground"
                 android:hint="Создайте пароль"
                 android:inputType="textPassword"
                 android:textSize="14sp"
-                android:layout_toLeftOf="@id/iv_show_password"/>
+                android:layout_toLeftOf="@id/iv_show_password"
+                android:textColor="@color/white"
+                android:textColorHint="#8F9098"/>
         </RelativeLayout>
         <RelativeLayout
             android:id="@+id/ll_repassword"
@@ -183,11 +199,13 @@
                 android:id="@+id/et_repassword"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:background="@color/white"
+                android:background="@color/MainBackground"
                 android:hint="Повторите пароль"
                 android:inputType="textPassword"
                 android:textSize="14sp"
-                android:layout_toLeftOf="@id/iv_show_repassword"/>
+                android:layout_toLeftOf="@id/iv_show_repassword"
+                android:textColor="@color/white"
+                android:textColorHint="#8F9098"/>
         </RelativeLayout>
         <TextView
             android:id="@+id/tv_password_error"
@@ -223,7 +241,7 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:text="Уже есть аккаунт?"
-                android:textStyle="bold"
+                android:textColor="#B3B3B3"
                 android:textSize="12sp"/>
             <TextView
                 android:layout_width="wrap_content"

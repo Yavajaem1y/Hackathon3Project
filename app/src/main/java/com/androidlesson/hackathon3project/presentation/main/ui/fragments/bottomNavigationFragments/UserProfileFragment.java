@@ -11,6 +11,7 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageView;
+import android.widget.RelativeLayout;
 import android.widget.TextView;
 
 
@@ -37,7 +38,8 @@ public class UserProfileFragment extends Fragment {
     @Inject
     SharedViewModelFactory sharedViewModelFactory;
 
-    private ImageView ic_dots_menu,ic_my_hero;
+    private ImageView ic_dots_menu;
+    private RelativeLayout b_my_heroes;
     private TextView tv_user_name_and_surname, tv_user_id;
     private CircleImageView civ_user_avatar;
 
@@ -64,7 +66,7 @@ public class UserProfileFragment extends Fragment {
         tv_user_name_and_surname=binding.tvCurrUserNameAndSurname;
         tv_user_id=binding.tvLogin;
         civ_user_avatar=binding.civCurrUserAvatar;
-        ic_my_hero=binding.icMyHero;
+        b_my_heroes=binding.bMyHeroes;
 
         UserData userData = null;
         
@@ -98,7 +100,7 @@ public class UserProfileFragment extends Fragment {
             dialogFragment.show(fragmentManager, "my_dialog");
         });
 
-        ic_my_hero.setOnClickListener(v->{
+        b_my_heroes.setOnClickListener(v->{
             FragmentManager fragmentManager = getParentFragmentManager();
             AllUserHeroesDialogFragment dialogFragment = new AllUserHeroesDialogFragment();
             dialogFragment.show(fragmentManager, "my_dialog");

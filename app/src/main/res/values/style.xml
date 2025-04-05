@@ -14,13 +14,11 @@
 
     <style name="SelectedFilterStyle">
         <item name="android:textColor"> @color/SelectedLightTextColor</item>
-        <item name="android:textStyle"> bold</item>
         <item name="android:textSize"> 14sp</item>
     </style>
 
     <style name="UnselectedFilterStyle">
         <item name="android:textColor"> @color/SecondaryGreyTextColor</item>
-        <item name="android:textStyle"> normal</item>
         <item name="android:textSize"> 12sp</item>
     </style>
 </resources>

@@ -5,7 +5,7 @@
     android:id="@+id/main"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="@color/white"
+    android:background="@color/MainBackground"
     tools:context=".presentation.authorization.activities.MainActivity">
 
     <FrameLayout
@@ -27,23 +27,25 @@
             <TextView
                 android:id="@+id/b_reg"
                 android:layout_width="match_parent"
-                android:layout_height="48dp"
+                android:layout_height="54dp"
                 android:text="Давайте начнем"
                 android:gravity="center"
                 android:layout_marginBottom="16dp"
                 android:background="@drawable/bg_rounded_accent"
-                android:textColor="@color/white"
-                android:textSize="12dp"/>
+                android:textColor="#FFEBE2"
+                android:textSize="16dp"
+                android:fontFamily="@font/inter_18pt_semibold"/>
             <TextView
                 android:id="@+id/b_log"
                 android:layout_width="match_parent"
-                android:layout_height="48dp"
+                android:layout_height="54dp"
                 android:text="У меня уже есть аккаунт"
                 android:gravity="center"
                 android:background="@drawable/bg_rounded_white_with_blue_stroke"
-                android:textColor="@color/AccentColor"
+                android:textColor="#FFEBE2"
                 android:layout_marginBottom="16dp"
-                android:textSize="12dp"/>
+                android:textSize="16dp"
+                android:fontFamily="@font/inter_18pt_semibold"/>
         </LinearLayout>
         <RelativeLayout
             android:layout_width="match_parent"
@@ -55,7 +57,8 @@
                 android:layout_centerInParent="true"
                 android:text="Заставка"
                 android:textSize="32dp"
-                android:textStyle="bold"/>
+                android:textStyle="bold"
+                android:textColor="@color/white"/>
         </RelativeLayout>
     </RelativeLayout>
 

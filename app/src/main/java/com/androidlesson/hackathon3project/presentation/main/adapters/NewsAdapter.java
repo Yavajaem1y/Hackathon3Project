@@ -152,7 +152,7 @@ public class NewsAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder> {
         if (viewType == NewsItem.TYPE_HERO) {
             View view = inflater.inflate(R.layout.item_news_hero_preview, parent, false);
             int screenWidth = parent.getContext().getResources().getDisplayMetrics().widthPixels;
-            int marginPx = dpToPx(parent.getContext(), 29);
+            int marginPx = dpToPx(parent.getContext(), 24);
             int marginBottomPx = dpToPx(parent.getContext(), 8);
             int itemWidth = (screenWidth / 2) - marginPx;
 

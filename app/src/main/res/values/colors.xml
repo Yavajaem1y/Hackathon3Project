@@ -5,7 +5,7 @@
 
     <color name="userAvatarColor">#aaaaaa</color>
     <color name="userAvatarBackground">#efefef</color>
-    <color name="MainBackground">#2C2D33</color>
+    <color name="MainBackground">#21222d</color>
     <color name="AccentColor">#F09065</color>
     <color name="LightTextColor">#FAFFFF</color>
     <color name="SecondaryLightGreyTextColor">#B3B3B3</color>
