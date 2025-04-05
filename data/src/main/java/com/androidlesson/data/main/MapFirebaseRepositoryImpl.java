@@ -82,7 +82,8 @@ public class MapFirebaseRepositoryImpl implements MapFirebaseRepository {
     }
 
     @Override
-    public void UnlockTheNextPointUseCase(String userId, int unlockPointId) {
+    public void UnlockTheNextPointUseCase(String userId, int unlockPointId,int pointsCompleted) {
         FirebaseDatabase.getInstance().getReference("USERS_DATA_DATABASE").child(userId).child("currentPoint").setValue(unlockPointId);
+        FirebaseDatabase.getInstance().getReference("USERS_DATA_DATABASE").child(userId).child("pointsCompleted").setValue(pointsCompleted);
     }
 }

@@ -9,13 +9,14 @@ public class UnlockTheNextPointUseCase {
         this.firebaseRepository = firebaseRepository;
     }
 
-    public void execute(String userId, int currentPointId, int moduleSize){
+    public void execute(String userId, int currentPointId, int moduleSize,int pointsCompleted){
         if (currentPointId%10==moduleSize){
             currentPointId=(currentPointId/10+1)*10+1;
         }
         else {
             currentPointId++;
         }
-        firebaseRepository.UnlockTheNextPointUseCase(userId,currentPointId);
+        pointsCompleted++;
+        firebaseRepository.UnlockTheNextPointUseCase(userId,currentPointId,pointsCompleted);
     }
 }

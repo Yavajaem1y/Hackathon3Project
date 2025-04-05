@@ -80,8 +80,9 @@ public class PointDetailsActivity extends AppCompatActivity {
         int pointId=getIntent().getIntExtra("POINT_ID",0);
         int userLastPoint=getIntent().getIntExtra("USER_LAST_POINT",0);
         int moduleSize=getIntent().getIntExtra("MODULE_SIZE",0);
+        int pointsCompleted=getIntent().getIntExtra("USER_POINTS_COMPLETED",0);
 
-        vm.setValues(pointName,pointItems,pointId,moduleSize,userId,userLastPoint);
+        vm.setValues(pointName,pointItems,pointId,moduleSize,userId,userLastPoint,pointsCompleted);
         tv_name.setText((pointName!=null && !pointName.isEmpty())? pointName : vm.pointName);
 
         recyclerView.setLayoutManager(new LinearLayoutManager(this));

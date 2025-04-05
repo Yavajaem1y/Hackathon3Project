@@ -40,7 +40,7 @@ public class UserProfileFragment extends Fragment {
 
     private ImageView ic_dots_menu;
     private RelativeLayout b_my_heroes;
-    private TextView tv_user_name_and_surname, tv_user_id;
+    private TextView tv_user_name_and_surname, tv_user_id,tv_count_points_completed,tv_tv_count_points_completed,tv_count_modules_completed,tv_tv_count_modules_completed,tv_count_tests_completed,tv_tv_count_tests_completed;
     private CircleImageView civ_user_avatar;
 
     @Override
@@ -67,6 +67,12 @@ public class UserProfileFragment extends Fragment {
         tv_user_id=binding.tvLogin;
         civ_user_avatar=binding.civCurrUserAvatar;
         b_my_heroes=binding.bMyHeroes;
+        tv_count_tests_completed=binding.tvCountTestsCompleted;
+        tv_count_modules_completed=binding.tvCountModulesCompleted;
+        tv_count_points_completed=binding.tvCountPointsCompleted;
+        tv_tv_count_tests_completed=binding.tvTvCountTestsCompleted;
+        tv_tv_count_modules_completed=binding.tvTvCountModulesCompleted;
+        tv_tv_count_points_completed=binding.tvTvCountPointsCompleted;
 
         UserData userData = null;
         
@@ -87,6 +93,27 @@ public class UserProfileFragment extends Fragment {
                     tv_user_id.setText("@"+userData.getUserId());
                     if (userData.getImageData()!=null && !userData.getImageData().isEmpty()){
                         Glide.with(getContext()).load(userData.getImageData()).into(civ_user_avatar);
+                    }
+                    tv_count_points_completed.setText(String.valueOf(userData.getPointsCompleted()));
+                    tv_count_modules_completed.setText(String.valueOf(userData.getCurrentPoint()/10));
+                    tv_count_tests_completed.setText(String.valueOf(userData.getTestsCompleted()));
+                    if (userData.getPointsCompleted()%10==1 && userData.getPointsCompleted()!=11){
+                        tv_tv_count_points_completed.setText("Статья\nпрочитана");
+                    }
+                    else {
+                        tv_tv_count_points_completed.setText("Статей\nпрочитано");
+                    }
+                    if ((userData.getCurrentPoint()/10)%10==1 && (userData.getCurrentPoint()/10)!=11){
+                        tv_tv_count_modules_completed.setText("Раздел\nпройден");
+                    }
+                    else {
+                        tv_tv_count_modules_completed.setText("Разделов\nпройдено");
+                    }
+                    if (userData.getTestsCompleted()%10==1 && userData.getTestsCompleted()!=11){
+                        tv_tv_count_tests_completed.setText("Тест\nпройден");
+                    }
+                    else {
+                        tv_tv_count_tests_completed.setText("Тестов\nпройдено");
                     }
                 }
             }

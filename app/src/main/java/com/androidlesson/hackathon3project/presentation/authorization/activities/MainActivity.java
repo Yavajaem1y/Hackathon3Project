@@ -33,6 +33,12 @@ import com.androidlesson.hackathon3project.presentation.main.interfaces.OnDataPa
 import com.androidlesson.hackathon3project.presentation.main.ui.fragments.MainFragment;
 import com.androidlesson.hackathon3project.presentation.main.viewModels.sharedViewModel.SharedViewModel;
 import com.androidlesson.hackathon3project.presentation.main.viewModels.sharedViewModel.SharedViewModelFactory;
+import com.google.android.exoplayer2.ExoPlayer;
+import com.google.android.exoplayer2.MediaItem;
+import com.google.android.exoplayer2.Player;
+import com.google.android.exoplayer2.ui.AspectRatioFrameLayout;
+import com.google.android.exoplayer2.ui.PlayerView;
+import com.google.android.exoplayer2.ui.StyledPlayerView;
 
 import javax.inject.Inject;
 
@@ -40,7 +46,8 @@ public class MainActivity extends AppCompatActivity implements OnDataPass {
 
     private MainActivityViewModel vm;
     private SharedViewModel sharedViewModel;
-    private VideoView vv_app_preview;
+    private ExoPlayer exoPlayer;
+    private StyledPlayerView playerView;
 
     @Inject
     MainActivityViewModelFactory vmFactory;
@@ -66,45 +73,40 @@ public class MainActivity extends AppCompatActivity implements OnDataPass {
         setClickListener();
     }
 
-    private void initialization(){
+    private void initialization() {
+        // Инициализация экрана
         ((App) this.getApplication()).appComponent.injectUserSessionCheckerActivity(this);
 
-        vm= new ViewModelProvider(this,vmFactory).get(MainActivityViewModel.class);
-        sharedViewModel=new ViewModelProvider(this,sharedViewModelFactory).get(SharedViewModel.class);
+        vm = new ViewModelProvider(this, vmFactory).get(MainActivityViewModel.class);
+        sharedViewModel = new ViewModelProvider(this, sharedViewModelFactory).get(SharedViewModel.class);
 
-        mainRelativeLayout=findViewById(R.id.rl_main_in_layout);
-        tv_go_to_login=findViewById(R.id.b_log);
-        tv_go_to_registration=findViewById(R.id.b_reg);
+        mainRelativeLayout = findViewById(R.id.rl_main_in_layout);
+        tv_go_to_login = findViewById(R.id.b_log);
+        tv_go_to_registration = findViewById(R.id.b_reg);
 
-        vv_app_preview = findViewById(R.id.vv_app_preview);
 
-        Uri uri = Uri.parse("android.resource://" + getPackageName() + "/" + R.raw.main_preview);
-        vv_app_preview.setVideoURI(uri);
+        playerView = findViewById(R.id.player_view);
+        exoPlayer = new ExoPlayer.Builder(this).build();
 
-        DisplayMetrics displayMetrics = new DisplayMetrics();
-        getWindowManager().getDefaultDisplay().getMetrics(displayMetrics);
-        int screenWidth = displayMetrics.widthPixels;
-        int screenHeight = displayMetrics.heightPixels;
+        playerView.setUseController(false);
+        playerView.setPlayer(exoPlayer);
 
-        vv_app_preview.setOnPreparedListener(mp -> {
-            int videoWidth = mp.getVideoWidth();
-            int videoHeight = mp.getVideoHeight();
+        playerView.setResizeMode(AspectRatioFrameLayout.RESIZE_MODE_FILL);
+        Uri videoUri = Uri.parse("android.resource://" + getPackageName() + "/" + R.raw.main_preview);
+        MediaItem mediaItem = MediaItem.fromUri(videoUri);
 
-            // Подстраиваем размер видео в зависимости от пропорций экрана
-            float scaleX = (float) screenWidth / videoWidth;
-            float scaleY = (float) screenHeight / videoHeight;
+        exoPlayer.setMediaItem(mediaItem);
+        exoPlayer.prepare();
+        exoPlayer.setPlayWhenReady(true);
 
-            // Масштабируем видео
-            vv_app_preview.setLayoutParams(new RelativeLayout.LayoutParams(
-                    (int) (videoWidth * scaleX),
-                    (int) (videoHeight * scaleY)
-            ));
-
-            vv_app_preview.start();
+        exoPlayer.addListener(new Player.Listener() {
+            @Override
+            public void onPlaybackStateChanged(int state) {
+                if (state == ExoPlayer.STATE_ENDED) {
+                    exoPlayer.setPlayWhenReady(false);
+                }
+            }
         });
-
-        vv_app_preview.setMediaController(null);
-        vv_app_preview.requestFocus();
 
         new Handler().postDelayed(() -> {
             tv_go_to_login.setVisibility(View.VISIBLE);

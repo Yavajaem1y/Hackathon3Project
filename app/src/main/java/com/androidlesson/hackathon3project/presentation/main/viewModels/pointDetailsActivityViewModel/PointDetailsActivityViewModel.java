@@ -13,27 +13,28 @@ public class PointDetailsActivityViewModel extends ViewModel {
     private UnlockTheNextPointUseCase unlockTheNextPointUseCase;
 
     public String pointName,userId;
-    private int pointId, moduleSize,userLastPoint;
+    private int pointId, moduleSize,userLastPoint,pointsCompleted;
     public List<MapArticleItem> pointItems;
 
     public PointDetailsActivityViewModel(UnlockTheNextPointUseCase unlockTheNextPointUseCase) {
         this.unlockTheNextPointUseCase = unlockTheNextPointUseCase;
     }
 
-    public void setValues(String pointName, List<MapArticleItem> pointItems, int pointId, int moduleSize, String userId,int userLastPoint){
+    public void setValues(String pointName, List<MapArticleItem> pointItems, int pointId, int moduleSize, String userId,int userLastPoint, int pointsCompleted){
         this.pointName=pointName;
         this.moduleSize=moduleSize;
         this.pointId=pointId;
         this.pointItems=pointItems;
         this.userId=userId;
         this.userLastPoint=userLastPoint;
+        this.pointsCompleted=pointsCompleted;
     }
 
     public void unlockNextPoint(){
         if (pointId!=0 && moduleSize!=0 && userId!=null){
             if (userLastPoint==pointId) {
                 Log.d("Points","unlock");
-                unlockTheNextPointUseCase.execute(userId, pointId, moduleSize);
+                unlockTheNextPointUseCase.execute(userId, pointId, moduleSize, pointsCompleted);
             }
         }
     }

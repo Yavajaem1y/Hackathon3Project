@@ -75,6 +75,7 @@ public class MapPointsAdapter extends RecyclerView.Adapter<MapPointsAdapter.Poin
                 intent.putExtra("POINT_ITEMS", (Serializable) point.getItems());
                 intent.putExtra("POINT_ID",point.getId());
                 intent.putExtra("MODULE_SIZE",moduleSize);
+                intent.putExtra("USER_POINTS_COMPLETED",userData.getPointsCompleted());
                 context.startActivity(intent);
             }
         });

@@ -53,6 +53,9 @@ dependencies {
     implementation(libs.firebase.storage)
     annotationProcessor("com.google.dagger:dagger-compiler:2.52")
 
+    implementation ("com.google.android.exoplayer:exoplayer-core:2.17.0")
+    implementation ("com.google.android.exoplayer:exoplayer-ui:2.17.0")
+
     implementation ("androidx.viewpager2:viewpager2:1.0.0")
     implementation ("com.tbuonomo:dotsindicator:4.3")
 

@@ -72,7 +72,7 @@
                 android:background="@drawable/bg_rounded_null"
                 android:textColorHint="#D2D2D2"
                 android:textColor="#D2D2D2"
-                android:fontFamily="@font/inter_28pt_regular"/>
+                android:fontFamily="@font/inter_28pt_regular" />
         </LinearLayout>
 
         <androidx.constraintlayout.widget.ConstraintLayout

@@ -6,7 +6,7 @@ import java.util.List;
 public class UserData {
     private String userName, userSurname, userSystemId, userId, imageData;
     private List<String> listAwardsReceivedIds= new ArrayList<>(), listHeroIds= new ArrayList<>(), listFavoriteRecordIds= new ArrayList<>();
-    private int currentPoint,isFirstTime;
+    private int currentPoint,isFirstTime,testsCompleted,pointsCompleted;
 
     public UserData() {
     }
@@ -32,6 +32,22 @@ public class UserData {
         this.userName = userName;
         this.userSurname = userSurname;
         this.userId = userId;
+    }
+
+    public int getTestsCompleted() {
+        return testsCompleted;
+    }
+
+    public void setTestsCompleted(int testsCompleted) {
+        this.testsCompleted = testsCompleted;
+    }
+
+    public int getPointsCompleted() {
+        return pointsCompleted;
+    }
+
+    public void setPointsCompleted(int pointsCompleted) {
+        this.pointsCompleted = pointsCompleted;
     }
 
     public int getCurrentPoint() {
