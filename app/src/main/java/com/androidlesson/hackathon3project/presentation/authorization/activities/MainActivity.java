@@ -2,13 +2,18 @@ package com.androidlesson.hackathon3project.presentation.authorization.activitie
 
 import android.content.Intent;
 import android.graphics.Color;
+import android.net.Uri;
 import android.os.Bundle;
+import android.os.Handler;
+import android.util.DisplayMetrics;
 import android.util.Log;
 import android.view.View;
+import android.view.animation.AlphaAnimation;
 import android.widget.ProgressBar;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
 import android.widget.Toast;
+import android.widget.VideoView;
 
 import androidx.activity.OnBackPressedCallback;
 import androidx.annotation.NonNull;
@@ -35,6 +40,8 @@ public class MainActivity extends AppCompatActivity implements OnDataPass {
 
     private MainActivityViewModel vm;
     private SharedViewModel sharedViewModel;
+    private VideoView vv_app_preview;
+
     @Inject
     MainActivityViewModelFactory vmFactory;
     @Inject
@@ -65,11 +72,50 @@ public class MainActivity extends AppCompatActivity implements OnDataPass {
         vm= new ViewModelProvider(this,vmFactory).get(MainActivityViewModel.class);
         sharedViewModel=new ViewModelProvider(this,sharedViewModelFactory).get(SharedViewModel.class);
 
-
         mainRelativeLayout=findViewById(R.id.rl_main_in_layout);
         tv_go_to_login=findViewById(R.id.b_log);
         tv_go_to_registration=findViewById(R.id.b_reg);
 
+        vv_app_preview = findViewById(R.id.vv_app_preview);
+
+        Uri uri = Uri.parse("android.resource://" + getPackageName() + "/" + R.raw.main_preview);
+        vv_app_preview.setVideoURI(uri);
+
+        DisplayMetrics displayMetrics = new DisplayMetrics();
+        getWindowManager().getDefaultDisplay().getMetrics(displayMetrics);
+        int screenWidth = displayMetrics.widthPixels;
+        int screenHeight = displayMetrics.heightPixels;
+
+        vv_app_preview.setOnPreparedListener(mp -> {
+            int videoWidth = mp.getVideoWidth();
+            int videoHeight = mp.getVideoHeight();
+
+            // Подстраиваем размер видео в зависимости от пропорций экрана
+            float scaleX = (float) screenWidth / videoWidth;
+            float scaleY = (float) screenHeight / videoHeight;
+
+            // Масштабируем видео
+            vv_app_preview.setLayoutParams(new RelativeLayout.LayoutParams(
+                    (int) (videoWidth * scaleX),
+                    (int) (videoHeight * scaleY)
+            ));
+
+            vv_app_preview.start();
+        });
+
+        vv_app_preview.setMediaController(null);
+        vv_app_preview.requestFocus();
+
+        new Handler().postDelayed(() -> {
+            tv_go_to_login.setVisibility(View.VISIBLE);
+            tv_go_to_registration.setVisibility(View.VISIBLE);
+
+            AlphaAnimation fadeIn = new AlphaAnimation(0.0f, 1.0f);
+            fadeIn.setDuration(1000);
+
+            tv_go_to_login.startAnimation(fadeIn);
+            tv_go_to_registration.startAnimation(fadeIn);
+        }, 5000);
     }
 
     private void observe(){
