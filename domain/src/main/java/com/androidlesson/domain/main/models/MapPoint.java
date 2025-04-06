@@ -6,9 +6,18 @@ public class MapPoint {
     private int id;
     private String name;
     private List<MapArticleItem> items;
+    private List<Question> questions;
     private String type;
 
     public MapPoint() {
+    }
+
+    public List<Question> getQuestions() {
+        return questions;
+    }
+
+    public void setQuestions(List<Question> questions) {
+        this.questions = questions;
     }
 
     public int getId() {

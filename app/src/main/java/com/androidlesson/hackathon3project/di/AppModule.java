@@ -12,6 +12,7 @@ import com.androidlesson.domain.authorization.useCase.LoginUseCase;
 import com.androidlesson.domain.authorization.useCase.RegistrationUseCase;
 import com.androidlesson.domain.authorization.useCase.SaveUserDataToSPUseCase;
 import com.androidlesson.domain.authorization.useCase.SetAuthorizationDataToSPUseCase;
+import com.androidlesson.domain.main.useCase.AddMedalToUserUseCase;
 import com.androidlesson.domain.main.useCase.AddNewHeroUseCase;
 import com.androidlesson.domain.main.useCase.DeleteHeroDateUseCase;
 import com.androidlesson.domain.main.useCase.EditUserDataUseCase;
@@ -40,9 +41,9 @@ import com.androidlesson.hackathon3project.presentation.main.viewModels.mapFragm
 import com.androidlesson.hackathon3project.presentation.main.viewModels.newsFragmentViewModel.NewsFragmentViewModelFactory;
 import com.androidlesson.hackathon3project.presentation.main.viewModels.pointDetailsActivityViewModel.PointDetailsActivityViewModelFactory;
 import com.androidlesson.hackathon3project.presentation.main.viewModels.sharedViewModel.SharedViewModelFactory;
-import com.androidlesson.hackathon3project.presentation.main.viewModels.showEventViewModel.ShowEventFragmentViewModel;
 import com.androidlesson.hackathon3project.presentation.main.viewModels.showEventViewModel.ShowEventFragmentViewModelFactory;
 import com.androidlesson.hackathon3project.presentation.main.viewModels.showHeroViewModel.ShowHeroViewModelFactory;
+import com.androidlesson.hackathon3project.presentation.main.viewModels.testActivityViewModel.TestActivityViewModelFactory;
 
 import dagger.Module;
 import dagger.Provides;
@@ -133,6 +134,11 @@ public class AppModule {
     @Provides
     public PointDetailsActivityViewModelFactory providePointDetailsActivityViewModelFactory(UnlockTheNextPointUseCase unlockTheNextPointUseCase) {
         return new PointDetailsActivityViewModelFactory(unlockTheNextPointUseCase);
+    }
+
+    @Provides
+    public TestActivityViewModelFactory provideTestActivityViewModelFactory(AddMedalToUserUseCase addMedalToUserUseCase, UnlockTheNextPointUseCase unlockTheNextPointUseCase) {
+        return new TestActivityViewModelFactory(addMedalToUserUseCase,unlockTheNextPointUseCase);
     }
 }
 

@@ -33,7 +33,6 @@ public class PointDetailsActivityViewModel extends ViewModel {
     public void unlockNextPoint(){
         if (pointId!=0 && moduleSize!=0 && userId!=null){
             if (userLastPoint==pointId) {
-                Log.d("Points","unlock");
                 unlockTheNextPointUseCase.execute(userId, pointId, moduleSize, pointsCompleted);
             }
         }

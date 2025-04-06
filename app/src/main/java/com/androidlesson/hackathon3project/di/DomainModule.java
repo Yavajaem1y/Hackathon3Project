@@ -27,6 +27,7 @@ import com.androidlesson.domain.main.useCase.ObserveEventDataUseCase;
 import com.androidlesson.domain.main.useCase.ObserveNewsPreviewUseCase;
 import com.androidlesson.domain.main.useCase.ProudEventUseCase;
 import com.androidlesson.domain.main.useCase.ProudHeroUseCase;
+import com.androidlesson.domain.main.useCase.AddMedalToUserUseCase;
 import com.androidlesson.domain.main.useCase.SetIsFirstTimeUseCase;
 import com.androidlesson.domain.main.useCase.UnlockTheNextPointUseCase;
 
@@ -156,5 +157,10 @@ public class DomainModule {
     @Provides
     public UnlockTheNextPointUseCase provideUnlockTheNextPointUseCase(MapFirebaseRepository firebaseRepository){
         return new UnlockTheNextPointUseCase(firebaseRepository);
+    }
+
+    @Provides
+    public AddMedalToUserUseCase provideSaveTestResultUseCase(MapFirebaseRepository firebaseRepository){
+        return new AddMedalToUserUseCase(firebaseRepository);
     }
 }

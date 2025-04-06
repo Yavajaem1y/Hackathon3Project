@@ -17,9 +17,11 @@ import com.androidlesson.domain.main.models.MapPoint;
 import com.androidlesson.domain.main.models.UserData;
 import com.androidlesson.hackathon3project.R;
 import com.androidlesson.hackathon3project.presentation.main.ui.activities.PointDetailsActivity;
+import com.androidlesson.hackathon3project.presentation.main.ui.activities.TestActivity;
 
 import java.io.Serializable;
 import java.util.List;
+import java.util.Objects;
 
 public class MapPointsAdapter extends RecyclerView.Adapter<MapPointsAdapter.PointViewHolder>{
     private final Context context;
@@ -39,7 +41,6 @@ public class MapPointsAdapter extends RecyclerView.Adapter<MapPointsAdapter.Poin
     @SuppressLint("NotifyDataSetChanged")
     public void updateUserData(UserData newUserData) {
         this.userData = newUserData;
-        Log.d("MapPoint", String.valueOf(userData.getCurrentPoint()));
         notifyDataSetChanged();
     }
 
@@ -53,30 +54,62 @@ public class MapPointsAdapter extends RecyclerView.Adapter<MapPointsAdapter.Poin
     @Override
     public void onBindViewHolder(@NonNull PointViewHolder holder, int position) {
         MapPoint point = pointList.get(position);
-        Log.d("MapPoint", String.valueOf(userData==null));
         if (userData != null) {
             int currentId = userData.getCurrentPoint();
-            Log.d("MapPoint", String.valueOf(userData.getCurrentPoint()));
-            if (point.getId() < currentId) {
-                holder.imageView.setImageResource(R.drawable.point);
-            } else if (point.getId() == currentId) {
-                holder.imageView.setImageResource(R.drawable.point);
-            } else {
-                holder.imageView.setImageResource(R.drawable.ic_lock_point);
+
+            if (Objects.equals(point.getType(), "ARTICLE")){
+                if (point.getId() < currentId) {
+                    holder.imageView.setImageResource(R.drawable.ic_point_article);
+                }
+                else
+                    holder.imageView.setImageResource(R.drawable.ic_lock_point_article);
+            }
+            else if (Objects.equals(point.getType(), "HERO")){
+                if (point.getId() < currentId) {
+                    holder.imageView.setImageResource(R.drawable.ic_point_hero);
+                }
+                else
+                    holder.imageView.setImageResource(R.drawable.ic_lock_point_hero);
+            }
+            else if (Objects.equals(point.getType(), "WEAPON")){
+                if (point.getId() < currentId) {
+                    holder.imageView.setImageResource(R.drawable.ic_point_weapon);
+                }
+                else
+                    holder.imageView.setImageResource(R.drawable.ic_lock_point_weapon);
+            }
+            else{
+                if (point.getId() < currentId) {
+                    holder.imageView.setImageResource(R.drawable.ic_point_test);
+                }
+                else
+                    holder.imageView.setImageResource(R.drawable.ic_lock_point_weapon);
             }
         }
 
         holder.imageView.setOnClickListener(v -> {
             if (userData != null && point.getId() <= userData.getCurrentPoint()) {
-                Intent intent = new Intent(context, PointDetailsActivity.class);
-                intent.putExtra("POINT_NAME", point.getName());
-                intent.putExtra("USER_ID", userData.getUserId());
-                intent.putExtra("USER_LAST_POINT", userData.getCurrentPoint());
-                intent.putExtra("POINT_ITEMS", (Serializable) point.getItems());
-                intent.putExtra("POINT_ID",point.getId());
-                intent.putExtra("MODULE_SIZE",moduleSize);
-                intent.putExtra("USER_POINTS_COMPLETED",userData.getPointsCompleted());
-                context.startActivity(intent);
+                if (!Objects.equals(point.getType(), "TEST")) {
+                    Intent intent = new Intent(context, PointDetailsActivity.class);
+                    intent.putExtra("POINT_NAME", point.getName());
+                    intent.putExtra("USER_ID", userData.getUserId());
+                    intent.putExtra("USER_LAST_POINT", userData.getCurrentPoint());
+                    intent.putExtra("POINT_ITEMS", (Serializable) point.getItems());
+                    intent.putExtra("POINT_ID", point.getId());
+                    intent.putExtra("MODULE_SIZE", moduleSize);
+                    intent.putExtra("USER_POINTS_COMPLETED", userData.getPointsCompleted());
+                    context.startActivity(intent);
+                }
+                else {
+                    Intent intent = new Intent(context, TestActivity.class);
+                    intent.putExtra("POINT_QUESTIONS", (Serializable) point.getQuestions());
+                    intent.putExtra("USER_ID", userData.getUserId());
+                    intent.putExtra("USER_LAST_POINT", userData.getCurrentPoint());
+                    intent.putExtra("POINT_ID", point.getId());
+                    intent.putExtra("MODULE_SIZE", moduleSize);
+                    intent.putExtra("USER_POINTS_COMPLETED", userData.getPointsCompleted());
+                    context.startActivity(intent);
+                }
             }
         });
     }

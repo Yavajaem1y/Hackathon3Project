@@ -8,6 +8,7 @@ import com.androidlesson.domain.main.interfaces.MapModulesCallback;
 import com.androidlesson.domain.main.models.MapArticleItem;
 import com.androidlesson.domain.main.models.MapModule;
 import com.androidlesson.domain.main.models.MapPoint;
+import com.androidlesson.domain.main.models.Question;
 import com.androidlesson.domain.main.repository.MapFirebaseRepository;
 import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.Task;
@@ -19,6 +20,7 @@ import com.google.firebase.database.ValueEventListener;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Objects;
 
 public class MapFirebaseRepositoryImpl implements MapFirebaseRepository {
     private DatabaseReference databaseReference;
@@ -47,19 +49,45 @@ public class MapFirebaseRepositoryImpl implements MapFirebaseRepository {
 
                                 // Применяем фильтрацию и инициализацию списка items
                                 List<MapArticleItem> items = new ArrayList<>();
-                                DataSnapshot itemsSnapshot = pointSnapshot.child("items");
+                                List<Question> questions = new ArrayList<>();
 
-                                if (itemsSnapshot.exists()) {
-                                    for (DataSnapshot itemSnapshot : itemsSnapshot.getChildren()) {
-                                        MapArticleItem item = itemSnapshot.getValue(MapArticleItem.class);
+                                if (!Objects.equals(point.getType(), "TEST")) {
+                                    DataSnapshot itemsSnapshot = pointSnapshot.child("items");
+                                    if (itemsSnapshot.exists()) {
+                                        for (DataSnapshot itemSnapshot : itemsSnapshot.getChildren()) {
+                                            MapArticleItem item = itemSnapshot.getValue(MapArticleItem.class);
 
-                                        // Проверяем, что данные не пустые
-                                        if (item != null) {
-                                            if (item.getText() != null || item.getImage() != null) {
-                                                items.add(item);  // Добавляем только те элементы, которые содержат данные
+                                            // Проверяем, что данные не пустые
+                                            if (item != null) {
+                                                if (item.getText() != null || item.getImage() != null) {
+                                                    items.add(item);
+                                                }
                                             }
                                         }
                                     }
+                                }
+                                else {
+                                    DataSnapshot itemsSnapshot = pointSnapshot.child("questions");
+                                    if (itemsSnapshot.exists()) {
+                                        for (DataSnapshot itemSnapshot : itemsSnapshot.getChildren()) {
+                                            Question item = itemSnapshot.getValue(Question.class);
+                                            if (item != null && item.getQuestionText() != null) {
+                                                DataSnapshot optionsSnapshot = itemSnapshot.child("options");
+                                                List<String> options = new ArrayList<>();
+                                                if (optionsSnapshot.exists()) {
+                                                    for (DataSnapshot optionsSnap : optionsSnapshot.getChildren()) {
+                                                        String option = optionsSnap.getValue(String.class);
+                                                        options.add(option);
+                                                    }
+                                                    item.setOptions(options);
+                                                }
+
+                                                questions.add(item);
+                                            }
+                                        }
+                                    }
+
+                                    point.setQuestions(questions);
                                 }
 
                                 point.setItems(items);
@@ -69,7 +97,7 @@ public class MapFirebaseRepositoryImpl implements MapFirebaseRepository {
                         }
 
                         MapModule mapModule = new MapModule(child.getKey(), name, points);
-                        callback.getMapModule(mapModule);  // Передаем данные через callback
+                        callback.getMapModule(mapModule);
                     }
                 }
             }
@@ -86,4 +114,40 @@ public class MapFirebaseRepositoryImpl implements MapFirebaseRepository {
         FirebaseDatabase.getInstance().getReference("USERS_DATA_DATABASE").child(userId).child("currentPoint").setValue(unlockPointId);
         FirebaseDatabase.getInstance().getReference("USERS_DATA_DATABASE").child(userId).child("pointsCompleted").setValue(pointsCompleted);
     }
+
+    @Override
+    public void AddMedalToUser(String userId, int medalId) {
+        DatabaseReference medalsRef = FirebaseDatabase.getInstance()
+                .getReference("USERS_DATA_DATABASE")
+                .child(userId)
+                .child("medalsId");
+
+        medalsRef.addListenerForSingleValueEvent(new ValueEventListener() {
+            @Override
+            public void onDataChange(@NonNull DataSnapshot snapshot) {
+                List<Integer> medalsId = new ArrayList<>();
+
+                if (snapshot.exists()) {
+                    for (DataSnapshot dataSnapshot : snapshot.getChildren()) {
+                        Integer existingMedal = dataSnapshot.getValue(Integer.class);
+                        if (existingMedal != null) {
+                            medalsId.add(existingMedal);
+                        }
+                    }
+                }
+
+                // Добавляем новый medalId только если его ещё нет
+                if (!medalsId.contains(medalId)) {
+                    medalsId.add(medalId);
+                    medalsRef.setValue(medalsId);
+                }
+            }
+
+            @Override
+            public void onCancelled(@NonNull DatabaseError error) {
+                Log.e("AddMedalToUser", "Database error: " + error.getMessage());
+            }
+        });
+    }
+
 }

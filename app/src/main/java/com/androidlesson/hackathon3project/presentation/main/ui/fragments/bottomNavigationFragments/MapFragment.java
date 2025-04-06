@@ -23,6 +23,7 @@ import com.androidlesson.hackathon3project.app.App;
 import com.androidlesson.hackathon3project.databinding.FragmentMainBinding;
 import com.androidlesson.hackathon3project.presentation.main.adapters.MapModulesAdapter;
 import com.androidlesson.hackathon3project.presentation.main.ui.activities.OnboardingActivity;
+import com.androidlesson.hackathon3project.presentation.main.ui.activities.TestActivity;
 import com.androidlesson.hackathon3project.presentation.main.viewModels.mapFragmentViewModel.MapFragmentViewModel;
 import com.androidlesson.hackathon3project.presentation.main.viewModels.mapFragmentViewModel.MapFragmentViewModelFactory;
 import com.androidlesson.hackathon3project.presentation.main.viewModels.sharedViewModel.SharedViewModel;
