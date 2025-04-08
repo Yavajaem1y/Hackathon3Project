@@ -6,6 +6,7 @@ import java.util.List;
 public class UserData {
     private String userName, userSurname, userSystemId, userId, imageData;
     private List<String> listAwardsReceivedIds= new ArrayList<>(), listHeroIds= new ArrayList<>(), listFavoriteRecordIds= new ArrayList<>();
+    private List<Integer> medalsId=new ArrayList<>();
     private int currentPoint,isFirstTime,testsCompleted,pointsCompleted;
 
     public UserData() {
@@ -128,6 +129,14 @@ public class UserData {
 
     public void setListFavoriteRecordIds(List<String> listFavoriteRecordIds) {
         this.listFavoriteRecordIds = listFavoriteRecordIds;
+    }
+
+    public List<Integer> getMedalsId() {
+        return medalsId;
+    }
+
+    public void setMedalsId(List<Integer> medalsId) {
+        this.medalsId = medalsId;
     }
 
     public void removeHero(String id){

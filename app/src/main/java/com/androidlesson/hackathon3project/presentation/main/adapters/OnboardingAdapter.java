@@ -27,14 +27,14 @@ public class OnboardingAdapter extends FragmentStateAdapter {
                 );
             case 1:
                 return OnboardingFragment.newInstance(
-                        R.drawable.ic_red_heart, "Изучайте истории героев",
+                        R.drawable.statiastateika, "Изучайте истории героев",
                         "их подвиги навсегда остались в памяти народа",
                         null,
                         isLastPage
                 );
             case 2:
                 return OnboardingFragment.newInstance(
-                        R.drawable.ic_red_heart, "Финальный экзамен",
+                        R.drawable.hitakakayato, "Финальный экзамен",
                         "после изучения всех материалов раздела сдайте тест из 10 вопросов, чтобы открыть следующий этап",
                         null,
                         isLastPage

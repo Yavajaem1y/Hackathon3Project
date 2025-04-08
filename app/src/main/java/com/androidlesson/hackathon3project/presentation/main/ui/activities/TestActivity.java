@@ -3,6 +3,7 @@ package com.androidlesson.hackathon3project.presentation.main.ui.activities;
 import android.animation.ObjectAnimator;
 import android.animation.ValueAnimator;
 import android.content.Intent;
+import android.graphics.Color;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
@@ -50,6 +51,8 @@ public class TestActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_test);
+
+        getWindow().setStatusBarColor(Color.parseColor("#403328"));
 
         ((App) getApplication()).appComponent.injectTestActivity(this);
         vm = new ViewModelProvider(this, vmFactory).get(TestActivityViewModel.class);

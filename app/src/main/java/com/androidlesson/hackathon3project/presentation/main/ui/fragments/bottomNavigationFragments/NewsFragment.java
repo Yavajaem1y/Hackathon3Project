@@ -3,6 +3,7 @@ package com.androidlesson.hackathon3project.presentation.main.ui.fragments.botto
 import android.animation.Animator;
 import android.animation.AnimatorListenerAdapter;
 import android.animation.ValueAnimator;
+import android.graphics.Color;
 import android.os.Bundle;
 
 import androidx.annotation.NonNull;
@@ -115,9 +116,11 @@ public class NewsFragment extends Fragment {
             @Override
             public void getVisibility(Boolean bool) {
                 if (!bool){
+                    requireActivity().getWindow().setStatusBarColor(Color.parseColor("#2c2d33"));
                     rl_all_rl.setVisibility(View.INVISIBLE);
                 }
                 else {
+                    requireActivity().getWindow().setStatusBarColor(Color.parseColor("#403328"));
                     rl_all_rl.setVisibility(View.VISIBLE);
                 }
             }

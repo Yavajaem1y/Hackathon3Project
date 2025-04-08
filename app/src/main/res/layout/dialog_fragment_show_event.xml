@@ -92,7 +92,8 @@
                                     android:text="Статья дня"
                                     android:textSize="11sp"
                                     android:textStyle="bold"
-                                    android:textColor="@color/black"/>
+                                    android:textColor="@color/black"
+                                    android:fontFamily="@font/montserrat_semi_bold"/>
                             </LinearLayout>
                             <LinearLayout
                                 android:id="@+id/ll_date"
@@ -119,7 +120,8 @@
                                     android:textColor="@color/white"
                                     android:gravity="center"
                                     android:text="6-9 апреля 1945"
-                                    tools:ignore="SmallSp">
+                                    tools:ignore="SmallSp"
+                                    android:fontFamily="@font/dmsans_18pt_medium">
                                 </TextView>
                             </LinearLayout>
                             <TextView
@@ -128,17 +130,18 @@
                                 android:layout_height="wrap_content"
                                 android:text="Name"
                                 android:layout_below="@id/ll_date"
-                                android:layout_marginTop="12dp"
+                                android:layout_marginTop="4dp"
                                 android:textColor="@color/white"
                                 android:textStyle="bold"
-                                android:textSize="22sp"/>
+                                android:textSize="22sp"
+                                android:fontFamily="@font/fustat_bold"/>
                             <TextView
                                 android:id="@+id/tv_info"
                                 android:layout_width="wrap_content"
                                 android:layout_height="wrap_content"
                                 android:text="info"
                                 android:layout_below="@id/tv_name"
-                                android:layout_marginTop="12dp"
+                                android:layout_marginTop="4dp"
                                 android:textColor="#E2E2E2"
                                 android:textSize="13sp"
                                 android:lineHeight="16dp"

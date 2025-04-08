@@ -3,7 +3,7 @@ package com.androidlesson.domain.main.models;
 import java.util.List;
 
 public class HeroData {
-    private String heroName, heroInfo, heroAvatarImage;
+    private String heroName, heroInfo, heroAvatarImage,heroDate;
     private List<String> heroAdditionalImages, listProud;
     private String id;
 
@@ -23,6 +23,14 @@ public class HeroData {
         this.heroName = heroName;
         this.heroAvatarImage = heroAvatarImage;
         this.id = id;
+    }
+
+    public String getHeroDate() {
+        return heroDate;
+    }
+
+    public void setHeroDate(String heroDate) {
+        this.heroDate = heroDate;
     }
 
     public List<String> getListProud() {

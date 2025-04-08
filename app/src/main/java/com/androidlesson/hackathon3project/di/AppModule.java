@@ -14,6 +14,7 @@ import com.androidlesson.domain.authorization.useCase.SaveUserDataToSPUseCase;
 import com.androidlesson.domain.authorization.useCase.SetAuthorizationDataToSPUseCase;
 import com.androidlesson.domain.main.useCase.AddMedalToUserUseCase;
 import com.androidlesson.domain.main.useCase.AddNewHeroUseCase;
+import com.androidlesson.domain.main.useCase.AddTestPassedByIdUseCase;
 import com.androidlesson.domain.main.useCase.DeleteHeroDateUseCase;
 import com.androidlesson.domain.main.useCase.EditUserDataUseCase;
 import com.androidlesson.domain.main.useCase.GetHeroDataUseCase;
@@ -137,8 +138,8 @@ public class AppModule {
     }
 
     @Provides
-    public TestActivityViewModelFactory provideTestActivityViewModelFactory(AddMedalToUserUseCase addMedalToUserUseCase, UnlockTheNextPointUseCase unlockTheNextPointUseCase) {
-        return new TestActivityViewModelFactory(addMedalToUserUseCase,unlockTheNextPointUseCase);
+    public TestActivityViewModelFactory provideTestActivityViewModelFactory(AddMedalToUserUseCase addMedalToUserUseCase, UnlockTheNextPointUseCase unlockTheNextPointUseCase, AddTestPassedByIdUseCase addTestPassedByIdUseCase) {
+        return new TestActivityViewModelFactory(addMedalToUserUseCase,unlockTheNextPointUseCase,addTestPassedByIdUseCase);
     }
 }
 

@@ -136,7 +136,6 @@ public class MapFirebaseRepositoryImpl implements MapFirebaseRepository {
                     }
                 }
 
-                // Добавляем новый medalId только если его ещё нет
                 if (!medalsId.contains(medalId)) {
                     medalsId.add(medalId);
                     medalsRef.setValue(medalsId);
@@ -148,6 +147,29 @@ public class MapFirebaseRepositoryImpl implements MapFirebaseRepository {
                 Log.e("AddMedalToUser", "Database error: " + error.getMessage());
             }
         });
+    }
+
+    @Override
+    public void AddTestPassed(String userId) {
+        FirebaseDatabase.getInstance()
+                .getReference("USERS_DATA_DATABASE")
+                .child(userId).child("testsCompleted").addListenerForSingleValueEvent(new ValueEventListener() {
+                    @Override
+                    public void onDataChange(@NonNull DataSnapshot snapshot) {
+                        int testsCompleted=0;
+                        if (snapshot.exists()){
+                            testsCompleted=snapshot.getValue(Integer.class);
+                        }
+                        testsCompleted++;
+                        FirebaseDatabase.getInstance().getReference("USERS_DATA_DATABASE")
+                                .child(userId).child("testsCompleted").setValue(testsCompleted);
+                    }
+
+                    @Override
+                    public void onCancelled(@NonNull DatabaseError error) {
+
+                    }
+                });
     }
 
 }

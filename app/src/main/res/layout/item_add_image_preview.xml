@@ -2,7 +2,8 @@
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="127dp"
     android:layout_height="170dp"
-    android:background="@drawable/bg_rounded_16dp_grey">
+    android:background="@drawable/bg_rounded_16dp_grey"
+    android:layout_marginEnd="4dp">
 
     <ImageView
         android:id="@+id/iv_hero_image"

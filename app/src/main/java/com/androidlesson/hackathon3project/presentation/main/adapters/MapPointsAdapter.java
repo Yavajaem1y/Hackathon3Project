@@ -13,6 +13,7 @@ import android.widget.TextView;
 import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
 
+import com.androidlesson.domain.main.models.MapArticleItem;
 import com.androidlesson.domain.main.models.MapPoint;
 import com.androidlesson.domain.main.models.UserData;
 import com.androidlesson.hackathon3project.R;
@@ -57,29 +58,32 @@ public class MapPointsAdapter extends RecyclerView.Adapter<MapPointsAdapter.Poin
         if (userData != null) {
             int currentId = userData.getCurrentPoint();
 
+            holder.tv_point_info.setText(point.getInfo());
+
+
             if (Objects.equals(point.getType(), "ARTICLE")){
-                if (point.getId() < currentId) {
+                if (point.getId() <= currentId) {
                     holder.imageView.setImageResource(R.drawable.ic_point_article);
                 }
                 else
                     holder.imageView.setImageResource(R.drawable.ic_lock_point_article);
             }
             else if (Objects.equals(point.getType(), "HERO")){
-                if (point.getId() < currentId) {
+                if (point.getId() <= currentId) {
                     holder.imageView.setImageResource(R.drawable.ic_point_hero);
                 }
                 else
                     holder.imageView.setImageResource(R.drawable.ic_lock_point_hero);
             }
             else if (Objects.equals(point.getType(), "WEAPON")){
-                if (point.getId() < currentId) {
+                if (point.getId() <= currentId) {
                     holder.imageView.setImageResource(R.drawable.ic_point_weapon);
                 }
                 else
                     holder.imageView.setImageResource(R.drawable.ic_lock_point_weapon);
             }
             else{
-                if (point.getId() < currentId) {
+                if (point.getId() <= currentId) {
                     holder.imageView.setImageResource(R.drawable.ic_point_test);
                 }
                 else
@@ -87,7 +91,7 @@ public class MapPointsAdapter extends RecyclerView.Adapter<MapPointsAdapter.Poin
             }
         }
 
-        holder.imageView.setOnClickListener(v -> {
+        holder.itemView.setOnClickListener(v -> {
             if (userData != null && point.getId() <= userData.getCurrentPoint()) {
                 if (!Objects.equals(point.getType(), "TEST")) {
                     Intent intent = new Intent(context, PointDetailsActivity.class);
@@ -96,6 +100,8 @@ public class MapPointsAdapter extends RecyclerView.Adapter<MapPointsAdapter.Poin
                     intent.putExtra("USER_LAST_POINT", userData.getCurrentPoint());
                     intent.putExtra("POINT_ITEMS", (Serializable) point.getItems());
                     intent.putExtra("POINT_ID", point.getId());
+                    intent.putExtra("POINT_AVATAR", point.getAvatar());
+                    intent.putExtra("POINT_HINT", point.getHint());
                     intent.putExtra("MODULE_SIZE", moduleSize);
                     intent.putExtra("USER_POINTS_COMPLETED", userData.getPointsCompleted());
                     context.startActivity(intent);
@@ -121,10 +127,12 @@ public class MapPointsAdapter extends RecyclerView.Adapter<MapPointsAdapter.Poin
 
     public static class PointViewHolder extends RecyclerView.ViewHolder {
         ImageView imageView;
+        TextView tv_point_info;
 
         public PointViewHolder(@NonNull View itemView) {
             super(itemView);
             imageView = itemView.findViewById(R.id.iv_point_icon);
+            tv_point_info=itemView.findViewById(R.id.tv_point_info);
         }
     }
 }

@@ -1,15 +1,35 @@
 <?xml version="1.0" encoding="utf-8"?>
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
-    android:layout_height="wrap_content"
+    android:layout_height="90dp"
     android:orientation="horizontal"
-    android:padding="8dp">
+    android:background="@drawable/bg_rounded_14dp_grey"
+    android:layout_marginEnd="24dp"
+    android:layout_marginStart="24dp"
+    android:layout_marginBottom="16dp">
 
     <ImageView
         android:id="@+id/iv_point_icon"
-        android:layout_width="40dp"
-        android:layout_height="40dp"
+        android:layout_width="68dp"
+        android:layout_height="68dp"
         android:src="@drawable/ic_lock_point_article"
         android:scaleType="fitCenter"
-        android:layout_centerHorizontal="true"/>
+        android:layout_centerVertical="true"
+        android:layout_marginStart="18dp"/>
+
+    <TextView
+        android:id="@+id/tv_point_info"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_toRightOf="@id/iv_point_icon"
+        android:src="@drawable/ic_lock_point_article"
+        android:scaleType="fitCenter"
+        android:layout_centerVertical="true"
+        android:layout_marginStart="8dp"
+        android:layout_marginBottom="8dp"
+        android:layout_marginEnd="8dp"
+        android:lineHeight="13dp"
+        android:textSize="12sp"
+        android:fontFamily="@font/rubik_regular"
+        android:textColor="#D2D2D2"/>
 </RelativeLayout>

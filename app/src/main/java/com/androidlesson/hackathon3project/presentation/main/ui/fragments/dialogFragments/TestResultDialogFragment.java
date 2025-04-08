@@ -111,6 +111,7 @@ public class TestResultDialogFragment extends DialogFragment {
                 dismiss();
                 requireActivity().finish();
             }
+            vm.addTestPassed();
             vm.unlockTheNextPoint();
 
         });

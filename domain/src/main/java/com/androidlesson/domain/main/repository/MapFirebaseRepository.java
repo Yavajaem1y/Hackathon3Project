@@ -6,4 +6,5 @@ public interface MapFirebaseRepository {
     void getModulesFromFirebase(MapModulesCallback callback);
     void UnlockTheNextPointUseCase(String userId, int unlockPointId,int pointsCompleted);
     void AddMedalToUser(String userId,int medalId);
+    void AddTestPassed(String userId);
 }

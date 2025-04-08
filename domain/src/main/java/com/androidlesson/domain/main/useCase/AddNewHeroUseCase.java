@@ -30,7 +30,8 @@ public class AddNewHeroUseCase {
                 errorCallback.getString("Вы неправильно заполнили поле \"Годы жизни\"");
                 return;
             }
-            if (!CheckDate.isValidFirstNumber(data.getHeroDate())){
+            String[] parts = data.getHeroDate().split("-");
+            if (!CheckDate.isValidFirstNumber(parts[0])) {
                 errorCallback.getString("Нашим алгоритмам кажется, что ваш герой никак не связан с ВОВ");
                 return;
             }

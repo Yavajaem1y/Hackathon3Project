@@ -27,10 +27,13 @@
                     android:layout_height="80dp"
                     android:layout_gravity="center_horizontal"
                     android:layout_marginStart="20dp"
-                    android:layout_marginTop="30dp"
+                    android:layout_marginTop="27dp"
                     android:clickable="true"
                     android:focusable="true"
-                    android:src="@drawable/ic_empty_avatar" />
+                    android:src="@drawable/ic_empty_avatar"
+                    android:background="@drawable/bg_circle_avatar"
+                    app:civ_border_width="3dp"
+                    app:civ_border_color="#707070"/>
 
                 <TextView
                     android:id="@+id/tv_curr_user_name_and_surname"
@@ -38,13 +41,13 @@
                     android:layout_height="wrap_content"
                     android:layout_centerHorizontal="true"
                     android:layout_gravity="center_horizontal"
-                    android:layout_marginStart="24dp"
+                    android:layout_marginStart="20dp"
                     android:layout_marginTop="37dp"
                     android:layout_toRightOf="@id/civ_curr_user_avatar"
                     android:text="name surname"
                     android:textColor="@color/white"
                     android:textSize="16sp"
-                    android:textStyle="bold" />
+                    android:fontFamily="@font/inter_18pt_extrabold" />
 
                 <TextView
                     android:id="@+id/tv_login"
@@ -53,13 +56,13 @@
                     android:layout_below="@+id/tv_curr_user_name_and_surname"
                     android:layout_centerHorizontal="true"
                     android:layout_gravity="center_horizontal"
-                    android:layout_marginStart="24dp"
+                    android:layout_marginStart="20dp"
                     android:layout_marginBottom="10dp"
                     android:layout_toRightOf="@id/civ_curr_user_avatar"
                     android:text="\@login"
                     android:textColor="#71727A"
                     android:textSize="12sp"
-                    android:textStyle="bold" />
+                    android:fontFamily="@font/inter_28pt_regular"/>
             </RelativeLayout>
 
             <ImageView
@@ -92,7 +95,8 @@
                         android:layout_centerVertical="true"
                         android:textColor="@color/white"
                         android:textStyle="bold"
-                        android:textSize="16dp"/>
+                        android:textSize="16dp"
+                        android:fontFamily="@font/montserrat_semi_bold"/>
                     <TextView
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
@@ -101,7 +105,8 @@
                         android:layout_marginEnd="22dp"
                         android:layout_alignParentEnd="true"
                         android:textColor="#D2D2D2"
-                        android:layout_centerVertical="true" />
+                        android:layout_centerVertical="true"
+                        android:fontFamily="@font/inter_28pt_regular"/>
                 </RelativeLayout>
                 <RelativeLayout
                     android:layout_width="match_parent"
@@ -109,7 +114,14 @@
                     android:layout_marginStart="24dp"
                     android:layout_marginEnd="24dp"
                     android:layout_below="@id/rl_in_second_layout"
-                    android:background="@drawable/bg_rounded_24dp_light_grey">
+                    android:background="@drawable/bg_rounded_24dp_light_grey"
+                    android:paddingStart="29dp"
+                    android:paddingEnd="29dp">
+                    <androidx.recyclerview.widget.RecyclerView
+                        android:id="@+id/rv_medal_holer"
+                        android:layout_width="match_parent"
+                        android:layout_height="match_parent"
+                        android:orientation="horizontal"/>
                 </RelativeLayout>
             </RelativeLayout>
 
@@ -118,7 +130,7 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_below="@id/rl_second_layout"
-                android:layout_marginTop="28dp">
+                android:layout_marginTop="24dp">
                 <RelativeLayout
                     android:id="@+id/rl_in_third_layout"
                     android:layout_width="match_parent"
@@ -132,7 +144,8 @@
                         android:layout_centerVertical="true"
                         android:textColor="@color/white"
                         android:textSize="16dp"
-                        android:textStyle="bold"/>
+                        android:textStyle="bold"
+                        android:fontFamily="@font/montserrat_semi_bold"/>
                 </RelativeLayout>
                 <RelativeLayout
                     android:layout_width="match_parent"
@@ -177,7 +190,8 @@
                                 android:gravity="center"
                                 android:textColor="@color/white"
                                 android:textSize="10sp"
-                                android:layout_below="@id/tv_count_points_completed"/>
+                                android:layout_below="@id/tv_count_points_completed"
+                                android:fontFamily="@font/montserrat_medium"/>
                         </RelativeLayout>
                         <RelativeLayout
                             android:layout_width="86dp"
@@ -211,7 +225,8 @@
                                 android:gravity="center"
                                 android:textColor="@color/white"
                                 android:textSize="10sp"
-                                android:layout_below="@id/tv_count_modules_completed"/>
+                                android:layout_below="@id/tv_count_modules_completed"
+                                android:fontFamily="@font/montserrat_medium"/>
                         </RelativeLayout>
                         <RelativeLayout
                             android:layout_width="86dp"
@@ -243,7 +258,8 @@
                                 android:gravity="center"
                                 android:textColor="@color/white"
                                 android:textSize="10sp"
-                                android:layout_below="@id/tv_count_tests_completed"/>
+                                android:layout_below="@id/tv_count_tests_completed"
+                                android:fontFamily="@font/montserrat_medium"/>
                         </RelativeLayout>
                     </LinearLayout>
                 </RelativeLayout>
@@ -252,41 +268,96 @@
             <RelativeLayout
                 android:id="@+id/b_my_heroes"
                 android:layout_width="match_parent"
-                android:layout_height="80dp"
+                android:layout_height="96dp"
                 android:background="@drawable/bg_rounded_16dp_button"
                 android:layout_below="@id/rl_third_layout"
-                android:layout_marginTop="28dp"
+                android:layout_marginTop="24dp"
                 android:layout_marginEnd="24dp"
-                android:layout_marginStart="24dp">
+                android:layout_marginStart="24dp"
+                android:paddingStart="16dp">
+                <ImageView
+                    android:id="@+id/iv1"
+                    android:layout_width="64dp"
+                    android:layout_height="64dp"
+                    android:src="@drawable/ic_hero"
+                    android:layout_marginTop="16dp"/>
+                <TextView
+                    android:id="@+id/tv1"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="Мои герои"
+                    android:textSize="16sp"
+                    android:textColor="@color/white"
+                    android:fontFamily="@font/rubik_medium"
+                    android:layout_toRightOf="@id/iv1"
+                    android:layout_marginStart="10dp"
+                    android:layout_marginTop="12dp"/>
                 <TextView
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
+                    android:maxWidth="207dp"
+                    android:text="Добавьте рассказ о своем\nродственнике, чтобы сохранить\nпамять о его подвиге"
+                    android:textSize="12sp"
+                    android:textColor="@color/white"
+                    android:fontFamily="@font/rubik_regular"
+                    android:layout_toRightOf="@id/iv1"
+                    android:layout_below="@id/tv1"
+                    android:layout_marginStart="10dp"/>
+                <ImageView
+                    android:id="@+id/iv2"
+                    android:layout_width="28dp"
+                    android:layout_height="28dp"
+                    android:src="@drawable/ic_right_arrow"
+                    android:layout_alignParentEnd="true"
                     android:layout_centerVertical="true"
-                    android:text="Мои герои"
-                    android:textColor="#363636"
-                    android:textStyle="bold"
-                    android:textSize="20dp"
-                    android:layout_marginStart="42dp"/>
+                    android:layout_marginEnd="16dp"/>
             </RelativeLayout>
             <RelativeLayout
                 android:id="@+id/b_my_proud_list"
                 android:layout_width="match_parent"
-                android:layout_height="80dp"
+                android:layout_height="96dp"
                 android:background="@drawable/bg_rounded_16dp_button"
                 android:layout_below="@id/b_my_heroes"
-                android:layout_marginTop="28dp"
+                android:layout_marginTop="24dp"
                 android:layout_marginEnd="24dp"
-                android:layout_marginStart="24dp">
+                android:layout_marginStart="24dp"
+                android:paddingStart="16dp">
+                <ImageView
+                    android:id="@+id/iv3"
+                    android:layout_width="64dp"
+                    android:layout_height="64dp"
+                    android:src="@drawable/ic_favorite"
+                    android:layout_marginTop="16dp"/>
+                <TextView
+                    android:id="@+id/tv3"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="Горжусь"
+                    android:textSize="16sp"
+                    android:textColor="@color/white"
+                    android:fontFamily="@font/rubik_medium"
+                    android:layout_toRightOf="@id/iv3"
+                    android:layout_marginStart="10dp"
+                    android:layout_marginTop="12dp"/>
                 <TextView
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
+                    android:maxWidth="207dp"
+                    android:text="Сохраняйте вдохновляющие\nистории и события, которые\nтронули вас"
+                    android:textSize="12sp"
+                    android:textColor="@color/white"
+                    android:fontFamily="@font/rubik_regular"
+                    android:layout_toRightOf="@id/iv3"
+                    android:layout_below="@id/tv3"
+                    android:layout_marginStart="10dp"/>
+                <ImageView
+                    android:id="@+id/iv4"
+                    android:layout_width="28dp"
+                    android:layout_height="28dp"
+                    android:src="@drawable/ic_right_arrow"
+                    android:layout_alignParentEnd="true"
                     android:layout_centerVertical="true"
-                    android:text="Горжусь"
-                    android:textColor="#363636"
-                    android:textStyle="bold"
-                    android:textSize="20dp"
-                    android:layout_marginEnd="42dp"
-                    android:layout_alignParentEnd="true"/>
+                    android:layout_marginEnd="16dp"/>
             </RelativeLayout>
         </RelativeLayout>
 

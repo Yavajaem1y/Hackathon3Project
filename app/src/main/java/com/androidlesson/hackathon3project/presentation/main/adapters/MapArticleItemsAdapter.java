@@ -45,8 +45,7 @@ public class MapArticleItemsAdapter extends RecyclerView.Adapter<MapArticleItems
 
             String text = item.getText()
                     .replaceAll("<title>", "<h3 style='text-align:center;'>")
-                    .replaceAll("</title>", "</h3>");
-
+                    .replaceAll("</title>", "</h3>").replaceAll("/n","<br><br>");
 
             holder.textView.setText(Html.fromHtml(text));
         }

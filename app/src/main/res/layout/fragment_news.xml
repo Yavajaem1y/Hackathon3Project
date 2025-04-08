@@ -29,9 +29,9 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:text="Великая победа"
-            android:textStyle="bold"
             android:textSize="36sp"
-            android:textColor="@color/LightTextColor"/>
+            android:textColor="@color/LightTextColor"
+            android:fontFamily="@font/inter_28pt_bold"/>
         <TextView
             android:id="@+id/tv_secondary_text"
             android:layout_width="wrap_content"
@@ -40,7 +40,8 @@
             android:layout_below="@id/tv_main_text"
             android:textSize="14sp"
             android:fontFamily="@font/inter_28pt_regular"
-            android:textColor="@color/SecondaryLightGreyTextColor"/>
+            android:textColor="@color/SecondaryLightGreyTextColor"
+            android:lineHeight="15sp"/>
     </RelativeLayout>
     <RelativeLayout
         android:id="@+id/rl_bottom_element"

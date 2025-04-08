@@ -8,6 +8,7 @@ import androidx.lifecycle.ViewModel;
 
 import com.androidlesson.domain.main.models.Question;
 import com.androidlesson.domain.main.useCase.AddMedalToUserUseCase;
+import com.androidlesson.domain.main.useCase.AddTestPassedByIdUseCase;
 import com.androidlesson.domain.main.useCase.UnlockTheNextPointUseCase;
 
 import java.util.ArrayList;
@@ -16,6 +17,7 @@ import java.util.List;
 public class TestActivityViewModel extends ViewModel {
     private AddMedalToUserUseCase addMedalToUserUseCase;
     private UnlockTheNextPointUseCase unlockTheNextPointUseCase;
+    private AddTestPassedByIdUseCase addTestPassedByIdUseCase;
 
     public String userId;
     private int moduleSize,userLastPoint,pointsCompleted;
@@ -27,9 +29,10 @@ public class TestActivityViewModel extends ViewModel {
     private final MutableLiveData<Integer> selectedAnswerIndex = new MutableLiveData<>(-1);
     private final MutableLiveData<Boolean> isAnswerSubmitted = new MutableLiveData<>(false);
 
-    public TestActivityViewModel(AddMedalToUserUseCase addMedalToUserUseCase, UnlockTheNextPointUseCase unlockTheNextPointUseCase) {
+    public TestActivityViewModel(AddMedalToUserUseCase addMedalToUserUseCase, UnlockTheNextPointUseCase unlockTheNextPointUseCase,AddTestPassedByIdUseCase addTestPassedByIdUseCase) {
         this.addMedalToUserUseCase = addMedalToUserUseCase;
         this.unlockTheNextPointUseCase=unlockTheNextPointUseCase;
+        this.addTestPassedByIdUseCase=addTestPassedByIdUseCase;
     }
 
     public void setListQuestions(List<Question> questions){
@@ -54,6 +57,12 @@ public class TestActivityViewModel extends ViewModel {
             if (userLastPoint==pointId) {
                 unlockTheNextPointUseCase.execute(userId, pointId, moduleSize, pointsCompleted);
             }
+        }
+    }
+
+    public void addTestPassed(){
+        if (userId!=null){
+            addTestPassedByIdUseCase.execute(userId);
         }
     }
 

@@ -64,6 +64,11 @@ public class ShowEventDialogFragment extends DialogFragment {
     public ShowEventDialogFragment() {
     }
 
+    @Override
+    public void onCreate(@Nullable Bundle savedInstanceState) {
+        super.onCreate(savedInstanceState);
+    }
+
     @Nullable
     @Override
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
@@ -134,7 +139,7 @@ public class ShowEventDialogFragment extends DialogFragment {
             public void onChanged(EventDataFromDB data) {
                 if (data!=null){
                     tv_name.setText(data.getEventName());
-                    tv_info.setText(data.getEventInfo().replaceAll("  ","\n"));
+                    tv_info.setText(data.getEventInfo().replaceAll("  ","\n").replaceAll("/n","\n\n"));
                     tv_date.setText(data.getEventDate());
                     if (data.getEventAvatarImage()!=null && !data.getEventAvatarImage().isEmpty()){
                         Glide.with(getContext()).load(data.getEventAvatarImage()).centerCrop().into(iv_preview_image);

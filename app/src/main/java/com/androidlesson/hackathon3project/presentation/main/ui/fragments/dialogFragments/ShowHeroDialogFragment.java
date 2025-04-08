@@ -1,6 +1,8 @@
 package com.androidlesson.hackathon3project.presentation.main.ui.fragments.dialogFragments;
 
 import android.app.Dialog;
+import android.graphics.Color;
+import android.os.Build;
 import android.os.Bundle;
 import android.util.TypedValue;
 import android.view.Gravity;
@@ -162,7 +164,8 @@ public class ShowHeroDialogFragment extends DialogFragment {
             public void onChanged(HeroData heroData) {
                 if (heroData!=null) {
                     tv_hero_name.setText(heroData.getHeroName());
-                    tv_hero_info.setText(heroData.getHeroInfo());
+                    tv_hero_info.setText(heroData.getHeroInfo().replaceAll("/n","\n\n"));
+                    tv_hero_age.setText(heroData.getHeroDate());
 
                     if (heroData.getHeroAvatarImage() != null && !heroData.getHeroAvatarImage().isEmpty())
                         Glide.with(getContext()).load(heroData.getHeroAvatarImage()).into(iv_hero_image);

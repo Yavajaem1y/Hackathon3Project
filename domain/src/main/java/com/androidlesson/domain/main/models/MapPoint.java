@@ -7,7 +7,7 @@ public class MapPoint {
     private String name;
     private List<MapArticleItem> items;
     private List<Question> questions;
-    private String type;
+    private String type,info,hint,avatar;
 
     public MapPoint() {
     }
@@ -50,5 +50,29 @@ public class MapPoint {
 
     public void setType(String type) {
         this.type = type;
+    }
+
+    public String getInfo() {
+        return info;
+    }
+
+    public void setInfo(String info) {
+        this.info = info;
+    }
+
+    public String getHint() {
+        return hint;
+    }
+
+    public void setHint(String hint) {
+        this.hint = hint;
+    }
+
+    public String getAvatar() {
+        return avatar;
+    }
+
+    public void setAvatar(String avatar) {
+        this.avatar = avatar;
     }
 }

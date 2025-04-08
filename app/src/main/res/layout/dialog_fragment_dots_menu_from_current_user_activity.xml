@@ -21,8 +21,8 @@
             android:layout_height="wrap_content"
             android:text="Редактировать профиль"
             android:textSize="12dp"
-            android:textStyle="bold"
-            android:textColor="@color/black"/>
+            android:textColor="@color/white"
+            android:fontFamily="@font/montserrat_medium"/>
     </LinearLayout>
     <View
         android:layout_width="wrap_content"
@@ -46,8 +46,8 @@
             android:layout_height="wrap_content"
             android:text="Выйти"
             android:textSize="12dp"
-            android:textStyle="bold"
-            android:textColor="@color/black"/>
+            android:textColor="@color/white"
+            android:fontFamily="@font/montserrat_medium"/>
     </LinearLayout>
 
 </LinearLayout>

@@ -1,5 +1,6 @@
 package com.androidlesson.hackathon3project.presentation.main.ui.fragments;
 
+import android.graphics.Color;
 import android.os.Bundle;
 
 import androidx.fragment.app.Fragment;
@@ -147,6 +148,8 @@ public class MainFragment extends Fragment {
                     paramsMarginMap.setMargins(0,0,0,0);
                     paramsMarginProfile.setMargins(margin20dp,0,0,0);
 
+                    requireActivity().getWindow().setStatusBarColor(Color.parseColor("#403328"));
+
                 } else if (selectedItemId == R.id.navigation_map) {
                     iv_news_icon.setImageResource(R.drawable.icon_news);
                     iv_map_icon.setImageResource(R.drawable.icon_selected_map);
@@ -167,10 +170,12 @@ public class MainFragment extends Fragment {
                     paramsMarginNews.setMargins(margin24dp,0,margin10dp,0);
                     paramsMarginMap.setMargins(0,0,0,0);
                     paramsMarginProfile.setMargins(margin10dp,0,0,0);
+
+                    requireActivity().getWindow().setStatusBarColor(Color.parseColor("#2c2d33"));
                 } else {
                     iv_news_icon.setImageResource(R.drawable.icon_news);
                     iv_map_icon.setImageResource(R.drawable.icon_map);
-                    iv_user_profile_icon.setImageResource(R.drawable.icon_selected_profile);
+                    iv_user_profile_icon.setImageResource(R.drawable.icon_selected_user_profile);
 
                     tv_news_button_text.setVisibility(View.GONE);
                     tv_map_button_text.setVisibility(View.GONE);
@@ -187,6 +192,7 @@ public class MainFragment extends Fragment {
                     paramsMarginNews.setMargins(margin24dp,0,margin20dp,0);
                     paramsMarginMap.setMargins(0,0,0,0);
                     paramsMarginProfile.setMargins(margin20dp,0,0,0);
+                    requireActivity().getWindow().setStatusBarColor(Color.parseColor("#2c2d33"));
                 }
 
                 ll_b_news.setLayoutParams(paramsNews);

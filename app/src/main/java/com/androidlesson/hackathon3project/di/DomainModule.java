@@ -14,6 +14,7 @@ import com.androidlesson.domain.authorization.useCase.SetAuthorizationDataToSPUs
 import com.androidlesson.domain.main.repository.MainFirebaseRepository;
 import com.androidlesson.domain.main.repository.MapFirebaseRepository;
 import com.androidlesson.domain.main.useCase.AddNewHeroUseCase;
+import com.androidlesson.domain.main.useCase.AddTestPassedByIdUseCase;
 import com.androidlesson.domain.main.useCase.DeleteHeroDateUseCase;
 import com.androidlesson.domain.main.useCase.EditUserDataUseCase;
 import com.androidlesson.domain.main.useCase.GetHeroDataUseCase;
@@ -162,5 +163,10 @@ public class DomainModule {
     @Provides
     public AddMedalToUserUseCase provideSaveTestResultUseCase(MapFirebaseRepository firebaseRepository){
         return new AddMedalToUserUseCase(firebaseRepository);
+    }
+
+    @Provides
+    public AddTestPassedByIdUseCase provideAddTestPassedByIdUseCase(MapFirebaseRepository firebaseRepository){
+        return new AddTestPassedByIdUseCase(firebaseRepository);
     }
 }

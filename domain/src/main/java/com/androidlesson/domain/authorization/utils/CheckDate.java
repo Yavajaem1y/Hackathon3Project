@@ -28,7 +28,7 @@ public class CheckDate {
     public static boolean isValidFirstNumber(String input) {
         try {
             int firstNumber = Integer.parseInt(input.trim());
-            return firstNumber > 1946;
+            return firstNumber < 1946;
         } catch (NumberFormatException e) {
             return false; // Если строка не может быть преобразована в число, возвращаем false
         }

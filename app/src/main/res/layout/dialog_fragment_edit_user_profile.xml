@@ -3,13 +3,12 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     xmlns:app="http://schemas.android.com/apk/res-auto"
-    android:background="@drawable/bg_rounded_24dp_light_grey"
-    android:backgroundTint="@color/white">
+    android:background="@color/MainBackground">
 
     <RelativeLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:padding="24dp">
+        android:padding="20dp">
         <RelativeLayout
             android:id="@+id/rl_with_avatar"
             android:layout_width="80dp"
@@ -21,8 +20,10 @@
                 android:layout_gravity="center_horizontal"
                 android:clickable="true"
                 android:focusable="true"
-                android:src="@drawable/ic_user_avatar"
-                app:civ_circle_background_color="@color/userAvatarBackground"/>
+                android:src="@drawable/ic_empty_avatar"
+                app:civ_circle_background_color="@color/userAvatarBackground"
+                app:civ_border_width="3dp"
+                app:civ_border_color="#707070"/>
             <RelativeLayout
                 android:id="@+id/b_edit_avatar"
                 android:layout_width="24dp"
@@ -48,13 +49,13 @@
         android:layout_height="wrap_content"
         android:layout_centerHorizontal="true"
         android:layout_gravity="center_horizontal"
-        android:layout_marginStart="24dp"
+        android:layout_marginStart="20dp"
         android:layout_toRightOf="@id/rl_with_avatar"
         android:layout_marginTop="13dp"
         android:text="name surname"
-        android:textColor="@color/black"
+        android:textColor="@color/white"
         android:textSize="16sp"
-        android:textStyle="bold" />
+        android:fontFamily="@font/inter_18pt_extrabold"/>
     <TextView
         android:id="@+id/tv_login"
         android:layout_width="wrap_content"
@@ -62,19 +63,21 @@
         android:layout_below="@+id/tv_curr_user_name_and_surname"
         android:layout_centerHorizontal="true"
         android:layout_gravity="center_horizontal"
-        android:layout_marginStart="24dp"
+        android:layout_marginStart="20dp"
         android:layout_marginBottom="10dp"
         android:layout_toRightOf="@id/rl_with_avatar"
         android:text="\@login"
-        android:textColor="@color/userAvatarColor"
+        android:textColor="#71727A"
         android:textSize="12sp"
-        android:textStyle="bold" />
+        android:fontFamily="@font/inter_28pt_regular"/>
     <ImageView
         android:id="@+id/iv_cancellation"
-        android:layout_width="24dp"
-        android:layout_height="24dp"
+        android:layout_width="44dp"
+        android:layout_height="44dp"
         android:src="@drawable/ic_cancellation"
-        android:layout_alignParentRight="true" />
+        android:layout_alignParentRight="true"
+        android:padding="8dp"
+        android:background="@drawable/bg_circle_grey"/>
 
     <View
         android:id="@+id/view"
@@ -92,7 +95,8 @@
         android:text="Имя"
         android:layout_below="@id/view"
         android:textSize="12sp"
-        android:textStyle="bold"
+        android:textColor="#B3B3B3"
+        android:fontFamily="@font/inter_28pt_bold"
 
         android:layout_marginBottom="8dp"/>
     <EditText
@@ -107,7 +111,10 @@
         android:paddingBottom="12dp"
         android:hint="Ваше имя"
         android:layout_marginBottom="16dp"
-        android:textSize="14sp"/>
+        android:textSize="14sp"
+        android:textColor="@color/white"
+        android:textColorHint="#8F9098"
+        android:fontFamily="@font/inter_28pt_regular"/>
 
     <TextView
         android:id="@+id/tv_tv_surname"
@@ -116,8 +123,9 @@
         android:text="Фамилия пользователя"
         android:layout_below="@id/et_name"
         android:textSize="12sp"
-        android:textStyle="bold"
-        android:layout_marginBottom="8dp"/>
+        android:layout_marginBottom="8dp"
+        android:textColor="#B3B3B3"
+        android:fontFamily="@font/inter_28pt_bold"/>
     <EditText
         android:id="@+id/et_surname"
         android:layout_width="match_parent"
@@ -130,7 +138,10 @@
         android:paddingBottom="12dp"
         android:hint="Ваша фамилия"
         android:layout_marginBottom="16dp"
-        android:textSize="14sp"/>
+        android:textSize="14sp"
+        android:textColor="@color/white"
+        android:textColorHint="#8F9098"
+        android:fontFamily="@font/inter_28pt_regular"/>
 
     <TextView
         android:id="@+id/tv_tv_id"
@@ -140,7 +151,9 @@
         android:layout_below="@id/et_surname"
         android:textSize="12sp"
         android:textStyle="bold"
-        android:layout_marginBottom="8dp"/>
+        android:layout_marginBottom="8dp"
+        android:textColor="#B3B3B3"
+        android:fontFamily="@font/inter_28pt_bold"/>
     <EditText
         android:id="@+id/et_id"
         android:layout_width="match_parent"
@@ -153,7 +166,10 @@
         android:paddingBottom="12dp"
         android:hint="Ваш уникальный id"
         android:layout_marginBottom="16dp"
-        android:textSize="14sp"/>
+        android:textSize="14sp"
+        android:textColor="@color/white"
+        android:textColorHint="#8F9098"
+        android:fontFamily="@font/inter_28pt_regular"/>
 
     <TextView
         android:id="@+id/tv_tv_email"
@@ -162,8 +178,9 @@
         android:text="Адрес электронной почты"
         android:layout_below="@id/et_id"
         android:textSize="12sp"
-        android:textStyle="bold"
-        android:layout_marginBottom="8dp"/>
+        android:layout_marginBottom="8dp"
+        android:textColor="#B3B3B3"
+        android:fontFamily="@font/inter_28pt_bold"/>
     <EditText
         android:id="@+id/et_email"
         android:layout_width="match_parent"
@@ -176,7 +193,10 @@
         android:paddingBottom="12dp"
         android:hint="name@email.ru"
         android:layout_marginBottom="16dp"
-        android:textSize="14sp"/>
+        android:textSize="14sp"
+        android:textColor="@color/white"
+        android:textColorHint="#8F9098"
+        android:fontFamily="@font/inter_28pt_regular"/>
 
     <TextView
         android:id="@+id/b_edit_profile"
@@ -189,8 +209,8 @@
         android:layout_alignParentBottom="true"
         android:background="@drawable/bg_rounded_accent"
         android:textColor="@color/white"
-        android:textSize="12sp"
-        android:textStyle="bold"/>
+        android:textSize="14sp"
+        android:fontFamily="@font/inter_18pt_semibold"/>
     </RelativeLayout>
     <RelativeLayout
         android:id="@+id/rl_with_progress_bar"
