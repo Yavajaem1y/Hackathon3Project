@@ -31,7 +31,7 @@
             android:background="@drawable/bg_rounded_40dp_bottom_navigation"
             android:gravity="center_vertical"
             android:padding="4dp"
-            android:layout_marginBottom="4dp">
+            android:layout_marginBottom="16dp">
             <LinearLayout
                 android:id="@+id/ll_b_news"
                 android:layout_width="wrap_content"
@@ -73,7 +73,7 @@
                     android:visibility="gone"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:text="Карта"
+                    android:text="Архив"
                     android:textSize="11sp"
                     android:textColor="@color/black"
                     android:textStyle="bold"

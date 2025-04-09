@@ -116,11 +116,9 @@ public class NewsFragment extends Fragment {
             @Override
             public void getVisibility(Boolean bool) {
                 if (!bool){
-                    requireActivity().getWindow().setStatusBarColor(Color.parseColor("#2c2d33"));
                     rl_all_rl.setVisibility(View.INVISIBLE);
                 }
                 else {
-                    requireActivity().getWindow().setStatusBarColor(Color.parseColor("#403328"));
                     rl_all_rl.setVisibility(View.VISIBLE);
                 }
             }

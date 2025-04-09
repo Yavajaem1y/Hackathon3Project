@@ -15,6 +15,7 @@ import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.ImageView;
 
 import com.androidlesson.domain.main.models.MapModule;
 import com.androidlesson.domain.main.models.MapPoint;
@@ -40,6 +41,7 @@ public class MapFragment extends Fragment {
 
     private RecyclerView rvModulesHolder;
     private MapModulesAdapter moduleAdapter;
+    private ImageView imageView;
 
     private View view;
 
@@ -75,9 +77,14 @@ public class MapFragment extends Fragment {
     private void initialization(){
         rvModulesHolder = view.findViewById(R.id.rv_modules_holder);
         rvModulesHolder.setLayoutManager(new LinearLayoutManager(getContext()));
+        imageView=view.findViewById(R.id.iv_go_to_tytyty);
 
         moduleAdapter = new MapModulesAdapter();
         rvModulesHolder.setAdapter(moduleAdapter);
+
+        imageView.setOnClickListener(v->{
+            startActivity(new Intent(getContext(), OnboardingActivity.class));
+        });
     }
 
     private void observer() {
@@ -104,8 +111,8 @@ public class MapFragment extends Fragment {
             @Override
             public void onChanged(UserData userData) {
                 if (userData != null) {
+                    vm.setCurrentUserData(userData);
                     if (userData.getIsFirstTime() == 1) {
-                        vm.setCurrentUserData(userData);
                         vm.setIsFirstTime();
                         startActivity(new Intent(getActivity(), OnboardingActivity.class));
                     }

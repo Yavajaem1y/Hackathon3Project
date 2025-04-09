@@ -176,6 +176,7 @@ public class ShowHeroDialogFragment extends DialogFragment {
 
                     if (heroData.getHeroAdditionalImages() != null && !heroData.getHeroAdditionalImages().isEmpty()) {
                         adapter.setImages(heroData.getHeroAdditionalImages());
+                        rv_hero_additional_image_holder.setVisibility(View.VISIBLE);
                     } else {
                         rv_hero_additional_image_holder.setVisibility(View.GONE);
                     }
@@ -191,7 +192,7 @@ public class ShowHeroDialogFragment extends DialogFragment {
             public void onChanged(Boolean aBoolean) {
                 if (aBoolean){
                     b_dots_menu.setVisibility(View.VISIBLE);
-                    int sizeInDp = 28;
+                    int sizeInDp = 44;
                     int marginInDp = 8;
 
                     int sizeInPx = (int) TypedValue.applyDimension(
