@@ -1,17 +1,12 @@
 package com.androidlesson.hackathon3project.presentation.main.ui.fragments.dialogFragments;
 
 import android.app.Dialog;
-import android.content.DialogInterface;
-import android.graphics.Color;
-import android.os.Build;
 import android.os.Bundle;
 import android.view.Gravity;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.view.Window;
-import android.view.WindowInsets;
-import android.view.WindowInsetsController;
 import android.view.WindowManager;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
@@ -28,12 +23,13 @@ import com.androidlesson.domain.main.models.UserData;
 import com.androidlesson.hackathon3project.R;
 import com.androidlesson.hackathon3project.app.App;
 import com.androidlesson.hackathon3project.presentation.main.interfaces.VisibilityTopElement;
-import com.androidlesson.hackathon3project.presentation.main.viewModels.newsFragmentViewModel.NewsFragmentViewModel;
 import com.androidlesson.hackathon3project.presentation.main.viewModels.sharedViewModel.SharedViewModel;
 import com.androidlesson.hackathon3project.presentation.main.viewModels.sharedViewModel.SharedViewModelFactory;
 import com.androidlesson.hackathon3project.presentation.main.viewModels.showEventViewModel.ShowEventFragmentViewModel;
 import com.androidlesson.hackathon3project.presentation.main.viewModels.showEventViewModel.ShowEventFragmentViewModelFactory;
 import com.bumptech.glide.Glide;
+
+import java.util.Objects;
 
 import javax.inject.Inject;
 
@@ -58,7 +54,11 @@ public class ShowEventDialogFragment extends DialogFragment {
     public ShowEventDialogFragment(String eventId, VisibilityTopElement visibilityTopElement, String lastEventId) {
         this.eventId = eventId;
         this.visibilityTopElement=visibilityTopElement;
-        this.lastEventId=lastEventId;
+        this.lastEventId=lastEventId==null?"0":lastEventId;
+    }
+
+    public ShowEventDialogFragment(String eventId) {
+        this.eventId = eventId;
     }
 
     public ShowEventDialogFragment() {
@@ -124,13 +124,9 @@ public class ShowEventDialogFragment extends DialogFragment {
     }
 
     private void setOnClickListener(){
-        iv_back.setOnClickListener(v->{
-            dismiss();
-        });
+        iv_back.setOnClickListener(v->dismiss());
 
-        iv_proud.setOnClickListener(v->{
-            vm.proud();
-        });
+        iv_proud.setOnClickListener(v->vm.proud());
     }
 
     private void observe(){
@@ -142,9 +138,9 @@ public class ShowEventDialogFragment extends DialogFragment {
                     tv_info.setText(data.getEventInfo().replaceAll("  ","\n").replaceAll("/n","\n\n"));
                     tv_date.setText(data.getEventDate());
                     if (data.getEventAvatarImage()!=null && !data.getEventAvatarImage().isEmpty()){
-                        Glide.with(getContext()).load(data.getEventAvatarImage()).centerCrop().into(iv_preview_image);
+                        Glide.with(requireContext()).load(data.getEventAvatarImage()).centerCrop().into(iv_preview_image);
                     }
-                    else Glide.with(getContext()).load("dada").centerCrop().into(iv_preview_image);
+                    else Glide.with(requireContext()).load("dada").centerCrop().into(iv_preview_image);
                 }
             }
         });

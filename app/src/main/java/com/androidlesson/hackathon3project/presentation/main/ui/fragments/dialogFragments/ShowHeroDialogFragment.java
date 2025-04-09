@@ -1,8 +1,6 @@
 package com.androidlesson.hackathon3project.presentation.main.ui.fragments.dialogFragments;
 
 import android.app.Dialog;
-import android.graphics.Color;
-import android.os.Build;
 import android.os.Bundle;
 import android.util.TypedValue;
 import android.view.Gravity;
@@ -61,6 +59,10 @@ public class ShowHeroDialogFragment extends DialogFragment {
     public ShowHeroDialogFragment(String heroId, VisibilityTopElement visibilityTopElement) {
         this.heroId = heroId;
         this.visibilityTopElement=visibilityTopElement;
+    }
+
+    public ShowHeroDialogFragment(String heroId) {
+        this.heroId = heroId;
     }
 
     public ShowHeroDialogFragment() {
@@ -137,12 +139,8 @@ public class ShowHeroDialogFragment extends DialogFragment {
     }
 
     private void setOnClickListener(){
-        iv_cancellation.setOnClickListener(v->{
-            dismissAllowingStateLoss();
-        });
-        b_proud.setOnClickListener(v->{
-            vm.proud();
-        });
+        iv_cancellation.setOnClickListener(v->dismissAllowingStateLoss());
+        b_proud.setOnClickListener(v->vm.proud());
 
         b_dots_menu.setOnClickListener(v -> {
             FragmentManager fragmentManager = getParentFragmentManager();
@@ -168,7 +166,7 @@ public class ShowHeroDialogFragment extends DialogFragment {
                     tv_hero_age.setText(heroData.getHeroDate());
 
                     if (heroData.getHeroAvatarImage() != null && !heroData.getHeroAvatarImage().isEmpty())
-                        Glide.with(getContext()).load(heroData.getHeroAvatarImage()).into(iv_hero_image);
+                        Glide.with(requireContext()).load(heroData.getHeroAvatarImage()).into(iv_hero_image);
 
                     if (heroData.getListProud() != null) {
                         tv_hero_number_of_proud.setText("Число пользователей, котрые горядтся данным героем: " + heroData.getListProud().size());

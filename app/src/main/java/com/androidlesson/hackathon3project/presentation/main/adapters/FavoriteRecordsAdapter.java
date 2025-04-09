@@ -2,7 +2,6 @@ package com.androidlesson.hackathon3project.presentation.main.adapters;
 
 import android.annotation.SuppressLint;
 import android.content.Context;
-import android.util.Log;
 import android.util.TypedValue;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -12,23 +11,27 @@ import android.widget.TextView;
 
 import androidx.annotation.NonNull;
 import androidx.cardview.widget.CardView;
+import androidx.fragment.app.FragmentManager;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.androidlesson.domain.main.models.FavoriteRecord;
 import com.androidlesson.hackathon3project.R;
+import com.androidlesson.hackathon3project.presentation.main.ui.fragments.dialogFragments.ShowEventDialogFragment;
+import com.androidlesson.hackathon3project.presentation.main.ui.fragments.dialogFragments.ShowHeroDialogFragment;
 import com.bumptech.glide.Glide;
 
 import java.util.ArrayList;
 import java.util.List;
-import java.util.Objects;
 
 public class FavoriteRecordsAdapter extends RecyclerView.Adapter<FavoriteRecordsAdapter.FavoriteRecordViewHolder> {
 
     private List<FavoriteRecord> favoriteRecords=new ArrayList<>();
-    private Context context;
+    private final Context context;
+    private final FragmentManager fragmentManager;
 
-    public FavoriteRecordsAdapter(Context context) {
+    public FavoriteRecordsAdapter(Context context, FragmentManager fragmentManager) {
         this.context=context;
+        this.fragmentManager=fragmentManager;
     }
 
     @SuppressLint("NotifyDataSetChanged")
@@ -79,6 +82,21 @@ public class FavoriteRecordsAdapter extends RecyclerView.Adapter<FavoriteRecords
                         .placeholder(R.drawable.ic_empty_photo)
                         .into(holder.iv_image);
             }
+
+            if ("HERO".equals(record.getType())) {
+                holder.tv_show_full_record.setOnClickListener(v->{
+                    ShowHeroDialogFragment dialogFragment = new ShowHeroDialogFragment(record.getId());
+                    dialogFragment.show(fragmentManager, "event_dialog");
+                    fragmentManager.executePendingTransactions();
+                });
+            }
+            else {
+                holder.tv_show_full_record.setOnClickListener(v->{
+                    ShowEventDialogFragment dialogFragment = new ShowEventDialogFragment(record.getId());
+                    dialogFragment.show(fragmentManager, "event_dialog");
+                    fragmentManager.executePendingTransactions();
+                });
+            }
         }
     }
 
@@ -90,7 +108,7 @@ public class FavoriteRecordsAdapter extends RecyclerView.Adapter<FavoriteRecords
 
     static class FavoriteRecordViewHolder extends RecyclerView.ViewHolder {
 
-        private final TextView tvName, tvInfo;
+        private final TextView tvName, tvInfo,tv_show_full_record;
         private final ImageView iv_image;
         private final CardView cardView;
 
@@ -100,6 +118,7 @@ public class FavoriteRecordsAdapter extends RecyclerView.Adapter<FavoriteRecords
             tvInfo = itemView.findViewById(R.id.tv_info);
             iv_image=itemView.findViewById(R.id.iv_preview_image);
             cardView=itemView.findViewById(R.id.cv_top);
+            tv_show_full_record=itemView.findViewById(R.id.tv_show_full_record);
         }
     }
 }

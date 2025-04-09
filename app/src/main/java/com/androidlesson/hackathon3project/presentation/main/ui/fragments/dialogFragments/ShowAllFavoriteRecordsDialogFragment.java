@@ -23,7 +23,6 @@ import com.androidlesson.domain.main.models.UserData;
 import com.androidlesson.hackathon3project.R;
 import com.androidlesson.hackathon3project.app.App;
 import com.androidlesson.hackathon3project.presentation.main.adapters.FavoriteRecordsAdapter;
-import com.androidlesson.hackathon3project.presentation.main.adapters.MedalAdapter;
 import com.androidlesson.hackathon3project.presentation.main.viewModels.sharedViewModel.SharedViewModel;
 import com.androidlesson.hackathon3project.presentation.main.viewModels.sharedViewModel.SharedViewModelFactory;
 import com.androidlesson.hackathon3project.presentation.main.viewModels.showAllFavoriteRecordsViewModel.ShowAllFavoriteRecordsViewModel;
@@ -92,20 +91,18 @@ public class ShowAllFavoriteRecordsDialogFragment extends DialogFragment {
     private void initialization(View view){
         b_back=view.findViewById(R.id.b_back);
         rv_favorite_records_holder =view.findViewById(R.id.rv_favorite_records_holder);
-        setAdapter(view);
+        setAdapter();
     }
 
-    private void setAdapter(View view){
-        adapter=new FavoriteRecordsAdapter(getContext());
+    private void setAdapter(){
+        adapter=new FavoriteRecordsAdapter(getContext(),getParentFragmentManager());
 
         rv_favorite_records_holder.setLayoutManager(new LinearLayoutManager(getContext()));
         rv_favorite_records_holder.setAdapter(adapter);
     }
 
     private void setOnClickListener(){
-        b_back.setOnClickListener(v->{
-            dismiss();
-        });
+        b_back.setOnClickListener(v->dismiss());
 
     }
 
