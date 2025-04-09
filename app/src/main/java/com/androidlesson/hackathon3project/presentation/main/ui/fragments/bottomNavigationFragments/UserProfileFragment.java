@@ -23,6 +23,8 @@ import com.androidlesson.hackathon3project.databinding.FragmentUserProfileBindin
 import com.androidlesson.hackathon3project.presentation.main.adapters.MedalPreviewAdapter;
 import com.androidlesson.hackathon3project.presentation.main.ui.fragments.dialogFragments.AllUserHeroesDialogFragment;
 import com.androidlesson.hackathon3project.presentation.main.ui.fragments.dialogFragments.DotsMenuFragmentFromCurrnetUserActivity;
+import com.androidlesson.hackathon3project.presentation.main.ui.fragments.dialogFragments.ShowAllFavoriteRecordsDialogFragment;
+import com.androidlesson.hackathon3project.presentation.main.ui.fragments.dialogFragments.ShowAllMedalsDialogFragment;
 import com.androidlesson.hackathon3project.presentation.main.viewModels.sharedViewModel.SharedViewModel;
 import com.androidlesson.hackathon3project.presentation.main.viewModels.sharedViewModel.SharedViewModelFactory;
 import com.bumptech.glide.Glide;
@@ -43,8 +45,8 @@ public class UserProfileFragment extends Fragment {
     SharedViewModelFactory sharedViewModelFactory;
 
     private ImageView ic_dots_menu;
-    private RelativeLayout b_my_heroes;
-    private TextView tv_user_name_and_surname, tv_user_id,tv_count_points_completed,tv_tv_count_points_completed,tv_count_modules_completed,tv_tv_count_modules_completed,tv_count_tests_completed,tv_tv_count_tests_completed;
+    private RelativeLayout b_my_heroes,b_go_to_medals,b_my_proud_list;
+    private TextView tv_user_name_and_surname,tv_null_medals, tv_user_id,tv_count_points_completed,tv_tv_count_points_completed,tv_count_modules_completed,tv_tv_count_modules_completed,tv_count_tests_completed,tv_tv_count_tests_completed;
     private CircleImageView civ_user_avatar;
     private RecyclerView rv_medals;
 
@@ -78,6 +80,9 @@ public class UserProfileFragment extends Fragment {
         tv_tv_count_tests_completed=binding.tvTvCountTestsCompleted;
         tv_tv_count_modules_completed=binding.tvTvCountModulesCompleted;
         tv_tv_count_points_completed=binding.tvTvCountPointsCompleted;
+        b_go_to_medals=binding.rlInSecondLayout;
+        tv_null_medals=binding.tvNullMedals;
+        b_my_proud_list=binding.bMyProudList;
 
         UserData userData = null;
         
@@ -106,17 +111,26 @@ public class UserProfileFragment extends Fragment {
                     if (userData.getImageData()!=null && !userData.getImageData().isEmpty()){
                         Glide.with(getContext()).load(userData.getImageData()).into(civ_user_avatar);
                     }
-                    tv_count_points_completed.setText(String.valueOf(userData.getPointsCompleted()-userData.getTestsCompleted()));
+                    int countPoints=userData.getPointsCompleted()-userData.getTestsCompleted();
+                    if (countPoints<0) countPoints=0;
+
+                    tv_count_points_completed.setText(String.valueOf(countPoints));
                     tv_count_modules_completed.setText(String.valueOf(userData.getCurrentPoint()/10));
                     tv_count_tests_completed.setText(String.valueOf(userData.getTestsCompleted()));
-                    if (userData.getPointsCompleted()-userData.getTestsCompleted()%10==1 && userData.getPointsCompleted()-userData.getTestsCompleted()!=11){
+                    if (countPoints%10==1 && countPoints!=11){
                         tv_tv_count_points_completed.setText("Статья\nпрочитана");
+                    }
+                    else if (countPoints%10>1 && countPoints%10<5){
+                        tv_tv_count_points_completed.setText("Статьи\nпрочитано");
                     }
                     else {
                         tv_tv_count_points_completed.setText("Статей\nпрочитано");
                     }
-                    if ((userData.getCurrentPoint()/10)%10==1 && (userData.getCurrentPoint()/10)!=11){
+                    if ((userData.getCurrentPoint()/10)==1){
                         tv_tv_count_modules_completed.setText("Раздел\nпройден");
+                    }
+                    else if ((userData.getCurrentPoint()/10)>1 && (userData.getCurrentPoint()/10)<6){
+                        tv_tv_count_modules_completed.setText("Раздела\nпройдено");
                     }
                     else {
                         tv_tv_count_modules_completed.setText("Разделов\nпройдено");
@@ -124,12 +138,21 @@ public class UserProfileFragment extends Fragment {
                     if (userData.getTestsCompleted()%10==1 && userData.getTestsCompleted()!=11){
                         tv_tv_count_tests_completed.setText("Тест\nпройден");
                     }
+                    else if (userData.getTestsCompleted()%10>1 && userData.getTestsCompleted()%10<5){
+                        tv_tv_count_tests_completed.setText("Теста\nпройдено");
+                    }
                     else {
                         tv_tv_count_tests_completed.setText("Тестов\nпройдено");
                     }
 
                     if (userData.getMedalsId()!=null){
                         adapter.setNewMedalList(userData.getMedalsId());
+                        if (userData.getMedalsId().isEmpty()){
+                            tv_null_medals.setVisibility(View.VISIBLE);
+                        }
+                        else {
+                            tv_null_medals.setVisibility(View.GONE);
+                        }
                     }
                 }
             }
@@ -146,6 +169,18 @@ public class UserProfileFragment extends Fragment {
         b_my_heroes.setOnClickListener(v->{
             FragmentManager fragmentManager = getParentFragmentManager();
             AllUserHeroesDialogFragment dialogFragment = new AllUserHeroesDialogFragment();
+            dialogFragment.show(fragmentManager, "my_dialog");
+        });
+
+        b_go_to_medals.setOnClickListener(v->{
+            FragmentManager fragmentManager = getParentFragmentManager();
+            ShowAllMedalsDialogFragment dialogFragment = new ShowAllMedalsDialogFragment();
+            dialogFragment.show(fragmentManager, "my_dialog");
+        });
+
+        b_my_proud_list.setOnClickListener(v->{
+            FragmentManager fragmentManager = getParentFragmentManager();
+            ShowAllFavoriteRecordsDialogFragment dialogFragment = new ShowAllFavoriteRecordsDialogFragment();
             dialogFragment.show(fragmentManager, "my_dialog");
         });
     }

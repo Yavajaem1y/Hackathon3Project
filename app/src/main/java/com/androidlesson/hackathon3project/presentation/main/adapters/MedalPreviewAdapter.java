@@ -17,7 +17,7 @@ import com.androidlesson.hackathon3project.presentation.main.models.MedalsHolder
 import java.util.ArrayList;
 import java.util.List;
 
-public class MedalPreviewAdapter extends RecyclerView.Adapter<MedalPreviewAdapter.MedalViewHolder> {
+public class MedalPreviewAdapter extends RecyclerView.Adapter<MedalPreviewAdapter.MedalPreviewViewHolder> {
 
     private List<Medal> medalList=new ArrayList<>();
     private Context context;
@@ -38,13 +38,13 @@ public class MedalPreviewAdapter extends RecyclerView.Adapter<MedalPreviewAdapte
 
     @NonNull
     @Override
-    public MedalViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
+    public MedalPreviewViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
         View view = LayoutInflater.from(context).inflate(R.layout.item_medal_preview, parent, false);
-        return new MedalViewHolder(view);
+        return new MedalPreviewViewHolder(view);
     }
 
     @Override
-    public void onBindViewHolder(@NonNull MedalViewHolder holder, int position) {
+    public void onBindViewHolder(@NonNull MedalPreviewViewHolder holder, int position) {
         Medal medal = medalList.get(position);
         holder.ivMedal.setImageResource(medal.getMedal_image());
     }
@@ -54,10 +54,10 @@ public class MedalPreviewAdapter extends RecyclerView.Adapter<MedalPreviewAdapte
         return medalList.size();
     }
 
-    public static class MedalViewHolder extends RecyclerView.ViewHolder {
+    public static class MedalPreviewViewHolder extends RecyclerView.ViewHolder {
         ImageView ivMedal;
 
-        public MedalViewHolder(@NonNull View itemView) {
+        public MedalPreviewViewHolder(@NonNull View itemView) {
             super(itemView);
             ivMedal = itemView.findViewById(R.id.iv_medal);
         }

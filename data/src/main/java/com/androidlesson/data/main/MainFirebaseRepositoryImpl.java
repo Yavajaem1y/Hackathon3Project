@@ -8,12 +8,14 @@ import androidx.annotation.Nullable;
 import com.androidlesson.domain.authorization.interfaces.BooleanCallBack;
 import com.androidlesson.domain.authorization.interfaces.StringCallBack;
 import com.androidlesson.domain.main.interfaces.EventDataCallback;
+import com.androidlesson.domain.main.interfaces.FavoriteRecordCallback;
 import com.androidlesson.domain.main.interfaces.HeroDataCallback;
 import com.androidlesson.domain.main.interfaces.HeroDataPreviewCallback;
 import com.androidlesson.domain.main.interfaces.ListStringsCallback;
 import com.androidlesson.domain.main.interfaces.NewsPreviewCallback;
 import com.androidlesson.domain.main.interfaces.UserDataCallback;
 import com.androidlesson.domain.main.models.EventDataFromDB;
+import com.androidlesson.domain.main.models.FavoriteRecord;
 import com.androidlesson.domain.main.models.HeroData;
 import com.androidlesson.domain.main.models.HeroDataToDb;
 import com.androidlesson.domain.main.models.HeroImageToDb;
@@ -345,8 +347,9 @@ public class MainFirebaseRepositoryImpl implements MainFirebaseRepository {
             @Override
             public void onDataChange(@NonNull DataSnapshot snapshot) {
                 if (snapshot.exists()){
-                    List<String> list=snapshot.getValue(ArrayList.class);
-                    if (list==null) list=new ArrayList<>();
+                    GenericTypeIndicator<ArrayList<String>> t = new GenericTypeIndicator<ArrayList<String>>() {};
+                    List<String> list = snapshot.getValue(t);
+                    if (list == null) list = new ArrayList<>();
                     listStringsCallback.getList(list);
                 }
             }
@@ -358,9 +361,10 @@ public class MainFirebaseRepositoryImpl implements MainFirebaseRepository {
         });
     }
 
+
     @Override
     public void observeEventData(String eventId, EventDataCallback eventDataCallback) {
-        firebaseDatabase.getReference(DATABASE_WITH_EVENTS_DATA).child(eventId).addValueEventListener(new ValueEventListener() {
+        firebaseDatabase.getReference(DATABASE_WITH_EVENTS_DATA).child(eventId).addListenerForSingleValueEvent(new ValueEventListener() {
             @Override
             public void onDataChange(@NonNull DataSnapshot snapshot) {
                 if (snapshot.exists()) {
@@ -389,6 +393,58 @@ public class MainFirebaseRepositoryImpl implements MainFirebaseRepository {
     public void proudEvent(ProudOnEventModel model) {
         firebaseDatabase.getReference(DATABASE_WITH_EVENTS_DATA).child(model.getEventId()).child(EVENT_PROUD_LIST).setValue(model.getListProud());
         firebaseDatabase.getReference(DATABASE_WITH_USERS_DATA).child(model.getUserId()).child(USER_LIST_FAVORITE_RECORDS_IDS).setValue(model.getListFavoriteRecordIds());
+    }
+
+    @Override
+    public void getHeroDataById(String heroId, FavoriteRecordCallback favoriteRecordCallback) {
+        firebaseDatabase.getReference(DATABASE_WITH_HEROES_DATA).child(heroId).addListenerForSingleValueEvent(new ValueEventListener() {
+            @Override
+            public void onDataChange(@NonNull DataSnapshot snapshot) {
+                if (snapshot.exists()){
+                    String name=snapshot.child(HERO_NAME).getValue(String.class);
+                    String info=snapshot.child(HERO_INFO).getValue(String.class);
+                    String image=snapshot.child(HERO_AVATAR_IMAGE).getValue(String.class);
+                    FavoriteRecord data=new FavoriteRecord();
+                    data.setInfo(info);
+                    data.setName(name);
+                    data.setId(heroId);
+                    data.setAvatarUrl(image);
+                    data.setType("HERO");
+                    favoriteRecordCallback.getFavoriteRecord(data);
+                }
+            }
+
+            @Override
+            public void onCancelled(@NonNull DatabaseError error) {
+
+            }
+        });
+    }
+
+    @Override
+    public void getEventDataById(String eventId, FavoriteRecordCallback favoriteRecordCallback) {
+        firebaseDatabase.getReference(DATABASE_WITH_EVENTS_DATA).child(eventId).addListenerForSingleValueEvent(new ValueEventListener() {
+            @Override
+            public void onDataChange(@NonNull DataSnapshot snapshot) {
+                if (snapshot.exists()){
+                    String name=snapshot.child(EVENT_NAME).getValue(String.class);
+                    String info=snapshot.child(EVENT_INFO).getValue(String.class);
+                    String image=snapshot.child(EVENT_AVATAR_IMAGE).getValue(String.class);
+                    FavoriteRecord data=new FavoriteRecord();
+                    data.setInfo(info);
+                    data.setName(name);
+                    data.setId(eventId);
+                    data.setAvatarUrl(image);
+                    data.setType("EVENT");
+                    favoriteRecordCallback.getFavoriteRecord(data);
+                }
+            }
+
+            @Override
+            public void onCancelled(@NonNull DatabaseError error) {
+
+            }
+        });
     }
 
     private void saveHeroImageAvatarUrl(String imageId, String heroId, BooleanCallBack booleanCallBack) {

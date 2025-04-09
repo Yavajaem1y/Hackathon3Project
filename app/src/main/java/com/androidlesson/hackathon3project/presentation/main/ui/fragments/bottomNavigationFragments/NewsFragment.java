@@ -147,6 +147,7 @@ public class NewsFragment extends Fragment {
         sharedVM.getCurrentUserDataLiveData().observe(getViewLifecycleOwner(), new Observer<UserData>() {
             @Override
             public void onChanged(UserData userData) {
+                vm.setUserData(userData);
                 adapter.updateUserData(userData);
             }
         });

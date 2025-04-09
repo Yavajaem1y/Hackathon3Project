@@ -13,10 +13,11 @@ import com.androidlesson.hackathon3project.presentation.main.ui.fragments.dialog
 import com.androidlesson.hackathon3project.presentation.main.ui.fragments.dialogFragments.AllUserHeroesDialogFragment;
 import com.androidlesson.hackathon3project.presentation.main.ui.fragments.dialogFragments.DeleteHeroDialogFragment;
 import com.androidlesson.hackathon3project.presentation.main.ui.fragments.dialogFragments.EditUserProfileDialogFragment;
+import com.androidlesson.hackathon3project.presentation.main.ui.fragments.dialogFragments.ShowAllFavoriteRecordsDialogFragment;
+import com.androidlesson.hackathon3project.presentation.main.ui.fragments.dialogFragments.ShowAllMedalsDialogFragment;
 import com.androidlesson.hackathon3project.presentation.main.ui.fragments.dialogFragments.ShowEventDialogFragment;
 import com.androidlesson.hackathon3project.presentation.main.ui.fragments.dialogFragments.ShowHeroDialogFragment;
 import com.androidlesson.hackathon3project.presentation.main.ui.fragments.dialogFragments.TestResultDialogFragment;
-import com.androidlesson.hackathon3project.presentation.main.viewModels.editUserProfileFragmentViewModel.EditUserProfileFragmentViewModel;
 
 import dagger.Component;
 
@@ -60,4 +61,8 @@ public interface AppComponent {
     void injectTestActivity(TestActivity testActivity);
 
     void injectTestResultDialogFragment(TestResultDialogFragment testResultDialogFragment);
+
+    void injectShowAllMedals(ShowAllMedalsDialogFragment showAllMedalsDialogFragment);
+
+    void injectShowAllFavoriteRecords(ShowAllFavoriteRecordsDialogFragment ShowAllFavoriteRecordsDialogFragment);
 }

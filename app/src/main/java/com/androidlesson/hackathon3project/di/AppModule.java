@@ -17,6 +17,7 @@ import com.androidlesson.domain.main.useCase.AddNewHeroUseCase;
 import com.androidlesson.domain.main.useCase.AddTestPassedByIdUseCase;
 import com.androidlesson.domain.main.useCase.DeleteHeroDateUseCase;
 import com.androidlesson.domain.main.useCase.EditUserDataUseCase;
+import com.androidlesson.domain.main.useCase.GetFavoriteRecordsUseCase;
 import com.androidlesson.domain.main.useCase.GetHeroDataUseCase;
 import com.androidlesson.domain.main.useCase.GetHeroProudListUseCase;
 import com.androidlesson.domain.main.useCase.GetMapModuleUseCase;
@@ -42,6 +43,7 @@ import com.androidlesson.hackathon3project.presentation.main.viewModels.mapFragm
 import com.androidlesson.hackathon3project.presentation.main.viewModels.newsFragmentViewModel.NewsFragmentViewModelFactory;
 import com.androidlesson.hackathon3project.presentation.main.viewModels.pointDetailsActivityViewModel.PointDetailsActivityViewModelFactory;
 import com.androidlesson.hackathon3project.presentation.main.viewModels.sharedViewModel.SharedViewModelFactory;
+import com.androidlesson.hackathon3project.presentation.main.viewModels.showAllFavoriteRecordsViewModel.ShowAllFavoriteRecordsViewModelFactory;
 import com.androidlesson.hackathon3project.presentation.main.viewModels.showEventViewModel.ShowEventFragmentViewModelFactory;
 import com.androidlesson.hackathon3project.presentation.main.viewModels.showHeroViewModel.ShowHeroViewModelFactory;
 import com.androidlesson.hackathon3project.presentation.main.viewModels.testActivityViewModel.TestActivityViewModelFactory;
@@ -140,6 +142,11 @@ public class AppModule {
     @Provides
     public TestActivityViewModelFactory provideTestActivityViewModelFactory(AddMedalToUserUseCase addMedalToUserUseCase, UnlockTheNextPointUseCase unlockTheNextPointUseCase, AddTestPassedByIdUseCase addTestPassedByIdUseCase) {
         return new TestActivityViewModelFactory(addMedalToUserUseCase,unlockTheNextPointUseCase,addTestPassedByIdUseCase);
+    }
+
+    @Provides
+    public ShowAllFavoriteRecordsViewModelFactory provideShowAllFavoriteRecordsViewModelFactory(GetFavoriteRecordsUseCase getFavoriteRecordsUseCase) {
+        return new ShowAllFavoriteRecordsViewModelFactory(getFavoriteRecordsUseCase);
     }
 }
 

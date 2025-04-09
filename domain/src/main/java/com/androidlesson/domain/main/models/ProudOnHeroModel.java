@@ -45,13 +45,24 @@ public class ProudOnHeroModel {
         this.listFavoriteRecordIds = listFavoriteRecordIds;
     }
 
-    public void unProud(){
-        listProud.remove(userId);
-        listFavoriteRecordIds.remove(heroId);
+    public void unProud() {
+        // Удаляем только если элемент присутствует
+        if (listProud.contains(userId)) {
+            listProud.remove(userId);
+        }
+        if (listFavoriteRecordIds.contains(heroId)) {
+            listFavoriteRecordIds.remove(heroId);
+        }
     }
 
-    public void proud(){
-        listProud.add(userId);
-        listFavoriteRecordIds.add(heroId);
+    public void proud() {
+        // Добавляем только если элемента нет в списке
+        if (!listProud.contains(userId)) {
+            listProud.add(userId);
+        }
+        if (!listFavoriteRecordIds.contains(heroId)) {
+            listFavoriteRecordIds.add(heroId);
+        }
     }
+
 }

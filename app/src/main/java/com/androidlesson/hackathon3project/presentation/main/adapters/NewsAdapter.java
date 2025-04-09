@@ -3,6 +3,7 @@ package com.androidlesson.hackathon3project.presentation.main.adapters;
 import android.annotation.SuppressLint;
 import android.content.Context;
 import android.os.Handler;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -176,6 +177,7 @@ public class NewsAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder> {
     @Override
     public void onBindViewHolder(@NonNull RecyclerView.ViewHolder holder, int position) {
         NewsItem item = listSearchNews.get(position);
+
         if (item instanceof NewsHeroPreviewItem) {
             NewsHeroPreviewItem hero = (NewsHeroPreviewItem) item;
             if (holder instanceof HeroViewHolder) {
@@ -192,19 +194,70 @@ public class NewsAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder> {
                     Glide.with(holder.itemView.getContext()).load(R.drawable.ic_white_heart).into(((HeroViewHolder) holder).proud);
                 }
             }
+
+            holder.itemView.setOnClickListener(v -> {
+                if (holder instanceof HeroViewHolder) {
+                    assert item instanceof NewsHeroPreviewItem;
+                    NewsHeroPreviewItem heroItem = (NewsHeroPreviewItem) item;
+
+                    DialogFragment existingDialog = (DialogFragment) fragmentManager.findFragmentByTag("hero_dialog");
+                    if (existingDialog != null && existingDialog.isVisible()) {
+                        existingDialog.dismissAllowingStateLoss();
+                    }
+
+                    new Handler().post(() -> {
+                        ShowHeroDialogFragment dialogFragment = new ShowHeroDialogFragment(heroItem.getId(), visibilityTopElement);
+                        dialogFragment.show(fragmentManager, "hero_dialog");
+                        fragmentManager.executePendingTransactions();
+                        if (dialogFragment.getDialog() != null) {
+                            dialogFragment.getDialog().setOnDismissListener(dialog -> visibilityTopElement.getVisibility(true));
+                        }
+                    });
+                }
+
+                visibilityTopElement.getVisibility(false);
+            });
+
+            // Обработка кнопки "proud" для героя
+            HeroViewHolder heroViewHolder = (HeroViewHolder) holder;
+            heroViewHolder.proud.setOnClickListener(proud -> {
+                assert item instanceof NewsHeroPreviewItem;
+                NewsHeroPreviewItem heroItem = (NewsHeroPreviewItem) item;
+
+                boolean isFavorite = currentUserData.getListFavoriteRecordIds().contains(heroItem.getId());
+
+                if (isFavorite) {
+                    currentUserData.getListFavoriteRecordIds().remove(heroItem.getId());
+                } else {
+                    currentUserData.getListFavoriteRecordIds().add(heroItem.getId());
+                }
+
+                // Отложенный вызов, чтобы гарантировать обновление UI после изменения данных
+                new Handler().post(() -> {
+                    // Обновляем item сразу
+                    notifyItemChanged(position);
+
+                    // Отложенный вызов метода proudClickListener.onProudHeroClick
+                    if (proudClickListener != null) {
+                        Log.d("Proud", "proud on hero");
+                        proudClickListener.onProudHeroClick(hero.getId());
+                    }
+                });
+            });
+
         } else if (item instanceof NewsEventPreviewItem) {
-            NewsEventPreviewItem event = (NewsEventPreviewItem) item;
+            NewsEventPreviewItem eventItem = (NewsEventPreviewItem) item;
             if (holder instanceof EventViewHolder) {
-                ((EventViewHolder) holder).name.setText(event.getName());
-                ((EventViewHolder) holder).date.setText(event.getDate());
-                ((EventViewHolder) holder).info.setText(event.getInfo());
-                if (event.getAvatar() != null && !event.getAvatar().isEmpty()) {
-                    Glide.with(holder.itemView.getContext()).load(event.getAvatar()).centerCrop().into(((EventViewHolder) holder).avatar);
+                ((EventViewHolder) holder).name.setText(eventItem.getName());
+                ((EventViewHolder) holder).date.setText(eventItem.getDate());
+                ((EventViewHolder) holder).info.setText(eventItem.getInfo());
+                if (eventItem.getAvatar() != null && !eventItem.getAvatar().isEmpty()) {
+                    Glide.with(holder.itemView.getContext()).load(eventItem.getAvatar()).centerCrop().into(((EventViewHolder) holder).avatar);
                 } else {
                     Glide.with(holder.itemView.getContext()).load("dasda").centerCrop().into(((EventViewHolder) holder).avatar);
                 }
                 if (currentUserData != null && currentUserData.getListFavoriteRecordIds() != null) {
-                    if (currentUserData.getListFavoriteRecordIds().contains(event.getId())) {
+                    if (currentUserData.getListFavoriteRecordIds().contains(eventItem.getId())) {
                         Glide.with(holder.itemView.getContext()).load(R.drawable.ic_red_heart).into(((EventViewHolder) holder).proud);
                     } else {
                         Glide.with(holder.itemView.getContext()).load(R.drawable.ic_white_heart).into(((EventViewHolder) holder).proud);
@@ -212,75 +265,38 @@ public class NewsAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder> {
                 }
 
                 if (!lastEventId.isEmpty()) {
-                    if (event.getId().equals(lastEventId))
+                    if (eventItem.getId().equals(lastEventId)) {
                         ((EventViewHolder) holder).ll_article_of_the_day.setVisibility(View.VISIBLE);
-                    else
+                    } else {
                         ((EventViewHolder) holder).ll_article_of_the_day.setVisibility(View.GONE);
+                    }
                 }
             }
-        }
 
-        holder.itemView.setOnClickListener(v -> {
-            if (holder instanceof HeroViewHolder) {
-                assert item instanceof NewsHeroPreviewItem;
-                NewsHeroPreviewItem hero = (NewsHeroPreviewItem) item;
+            holder.itemView.setOnClickListener(v -> {
+                if (holder instanceof EventViewHolder) {
+                    assert item instanceof NewsEventPreviewItem;
+                    NewsEventPreviewItem event = (NewsEventPreviewItem) item;
 
-                DialogFragment existingDialog = (DialogFragment) fragmentManager.findFragmentByTag("hero_dialog");
-                if (existingDialog != null && existingDialog.isVisible()) {
-                    existingDialog.dismissAllowingStateLoss();
-                }
-
-                new Handler().post(() -> {
-                    ShowHeroDialogFragment dialogFragment = new ShowHeroDialogFragment(hero.getId(), visibilityTopElement);
-                    dialogFragment.show(fragmentManager, "hero_dialog");
-                    fragmentManager.executePendingTransactions();
-                    if (dialogFragment.getDialog() != null) {
-                        dialogFragment.getDialog().setOnDismissListener(dialog -> visibilityTopElement.getVisibility(true));
+                    DialogFragment existingDialog = (DialogFragment) fragmentManager.findFragmentByTag("event_dialog");
+                    if (existingDialog != null && existingDialog.isVisible()) {
+                        existingDialog.dismissAllowingStateLoss();
                     }
-                });
-            } else {
-                assert item instanceof NewsEventPreviewItem;
-                NewsEventPreviewItem event = (NewsEventPreviewItem) item;
 
-                DialogFragment existingDialog = (DialogFragment) fragmentManager.findFragmentByTag("event_dialog");
-                if (existingDialog != null && existingDialog.isVisible()) {
-                    existingDialog.dismissAllowingStateLoss();
+                    new Handler().post(() -> {
+                        ShowEventDialogFragment dialogFragment = new ShowEventDialogFragment(event.getNewsId(), visibilityTopElement, getLastEventId());
+                        dialogFragment.show(fragmentManager, "event_dialog");
+                        fragmentManager.executePendingTransactions();
+                        if (dialogFragment.getDialog() != null) {
+                            dialogFragment.getDialog().setOnDismissListener(dialog -> visibilityTopElement.getVisibility(true));
+                        }
+                    });
                 }
 
-                new Handler().post(() -> {
-                    ShowEventDialogFragment dialogFragment = new ShowEventDialogFragment(event.getNewsId(), visibilityTopElement, getLastEventId());
-                    dialogFragment.show(fragmentManager, "event_dialog");
-                    fragmentManager.executePendingTransactions();
-                    if (dialogFragment.getDialog() != null) {
-                        dialogFragment.getDialog().setOnDismissListener(dialog -> visibilityTopElement.getVisibility(true));
-                    }
-                });
-            }
-
-            visibilityTopElement.getVisibility(false);
-        });
-
-        if (holder instanceof HeroViewHolder) {
-            HeroViewHolder heroViewHolder = (HeroViewHolder) holder;
-            heroViewHolder.proud.setOnClickListener(proud -> {
-                assert item instanceof NewsHeroPreviewItem;
-                NewsHeroPreviewItem hero = (NewsHeroPreviewItem) item;
-
-                boolean isFavorite = currentUserData.getListFavoriteRecordIds().contains(hero.getId());
-
-                if (isFavorite) {
-                    currentUserData.getListFavoriteRecordIds().remove(hero.getId());
-                } else {
-                    currentUserData.getListFavoriteRecordIds().add(hero.getId());
-                }
-
-                notifyItemChanged(position);
-
-                if (proudClickListener != null) {
-                    proudClickListener.onProudHeroClick(hero.getId());
-                }
+                visibilityTopElement.getVisibility(false);
             });
-        } else {
+
+            // Обработка кнопки "proud" для события
             EventViewHolder eventViewHolder = (EventViewHolder) holder;
             eventViewHolder.proud.setOnClickListener(proud -> {
                 assert item instanceof NewsEventPreviewItem;
@@ -294,15 +310,20 @@ public class NewsAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder> {
                     currentUserData.getListFavoriteRecordIds().add(event.getId());
                 }
 
-                notifyItemChanged(position);
+                // Отложенный вызов, чтобы гарантировать обновление UI после изменения данных
+                new Handler().post(() -> {
+                    // Обновляем item сразу
+                    notifyItemChanged(position);
 
-                if (proudClickListener != null) {
-                    proudClickListener.onProudEventClick(event.getId());
-                }
+                    // Отложенный вызов метода proudClickListener.onProudEventClick
+                    if (proudClickListener != null) {
+                        Log.d("Proud", "proud on event");
+                        proudClickListener.onProudEventClick(event.getId());
+                    }
+                });
             });
         }
     }
-
 
     public String getLastEventId() {
         return lastEventId;

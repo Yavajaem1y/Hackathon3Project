@@ -1,5 +1,7 @@
 package com.androidlesson.hackathon3project.presentation.main.viewModels.newsFragmentViewModel;
 
+import android.util.Log;
+
 import androidx.lifecycle.LiveData;
 import androidx.lifecycle.MutableLiveData;
 import androidx.lifecycle.ViewModel;
@@ -112,6 +114,7 @@ public class NewsFragmentViewModel extends ViewModel {
 
     public void proudOnHero(String heroId){
         if (userData==null) return;
+        Log.d("Proud","proud on hero in vm");
         getHeroProudListUseCase.execute(heroId, new ListStringsCallback() {
             @Override
             public void getList(List<String> list) {
@@ -121,10 +124,15 @@ public class NewsFragmentViewModel extends ViewModel {
     }
 
     public void proudOnEvent(String eventId){
-        if (userData==null) return;
+        if (userData==null) {
+            Log.d("Proud","userData in vm null");
+            return;
+        }
+        Log.d("Proud","proud on event in vm");
         observeEventDataUseCase.execute(eventId, new EventDataCallback() {
             @Override
             public void getEventDate(EventDataFromDB eventDataFromDB) {
+                Log.d("Proud","pround from bd");
                 proudEventUseCase.execute(new ProudOnEventModel(eventId,userData.getUserId(),eventDataFromDB.getEventProudList(),userData.getListFavoriteRecordIds()));
             }
         });

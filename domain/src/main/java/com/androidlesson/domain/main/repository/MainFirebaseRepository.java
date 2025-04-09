@@ -3,6 +3,7 @@ package com.androidlesson.domain.main.repository;
 import com.androidlesson.domain.authorization.interfaces.BooleanCallBack;
 import com.androidlesson.domain.authorization.interfaces.StringCallBack;
 import com.androidlesson.domain.main.interfaces.EventDataCallback;
+import com.androidlesson.domain.main.interfaces.FavoriteRecordCallback;
 import com.androidlesson.domain.main.interfaces.HeroDataCallback;
 import com.androidlesson.domain.main.interfaces.HeroDataPreviewCallback;
 import com.androidlesson.domain.main.interfaces.ListStringsCallback;
@@ -36,4 +37,8 @@ public interface MainFirebaseRepository {
     void observeEventData(String eventId, EventDataCallback eventDataCallback);
 
     void proudEvent(ProudOnEventModel proudOnEventModel);
+
+    void getHeroDataById(String heroId, FavoriteRecordCallback favoriteRecordCallback);
+
+    void getEventDataById(String eventId, FavoriteRecordCallback favoriteRecordCallback);
 }

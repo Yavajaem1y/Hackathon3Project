@@ -48,13 +48,21 @@ public class ProudOnEventModel {
         this.listFavoriteRecordIds = listFavoriteRecordIds;
     }
 
-    public void unProud(){
-        listProud.remove(userId);
-        listFavoriteRecordIds.remove(eventId);
+    public void unProud() {
+        if (listProud.contains(userId)) {
+            listProud.remove(userId);
+        }
+        if (listFavoriteRecordIds.contains(eventId)) {
+            listFavoriteRecordIds.remove(eventId);
+        }
     }
 
-    public void proud(){
-        listProud.add(userId);
-        listFavoriteRecordIds.add(eventId);
+    public void proud() {
+        if (!listProud.contains(userId)) {
+            listProud.add(userId);
+        }
+        if (!listFavoriteRecordIds.contains(eventId)) {
+            listFavoriteRecordIds.add(eventId);
+        }
     }
 }

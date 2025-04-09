@@ -17,6 +17,7 @@ import com.androidlesson.domain.main.useCase.AddNewHeroUseCase;
 import com.androidlesson.domain.main.useCase.AddTestPassedByIdUseCase;
 import com.androidlesson.domain.main.useCase.DeleteHeroDateUseCase;
 import com.androidlesson.domain.main.useCase.EditUserDataUseCase;
+import com.androidlesson.domain.main.useCase.GetFavoriteRecordsUseCase;
 import com.androidlesson.domain.main.useCase.GetHeroDataUseCase;
 import com.androidlesson.domain.main.useCase.GetHeroProudListUseCase;
 import com.androidlesson.domain.main.useCase.GetMapModuleUseCase;
@@ -168,5 +169,10 @@ public class DomainModule {
     @Provides
     public AddTestPassedByIdUseCase provideAddTestPassedByIdUseCase(MapFirebaseRepository firebaseRepository){
         return new AddTestPassedByIdUseCase(firebaseRepository);
+    }
+
+    @Provides
+    public GetFavoriteRecordsUseCase provideGetFavoriteRecordsUseCase(MainFirebaseRepository firebaseRepository){
+        return new GetFavoriteRecordsUseCase(firebaseRepository);
     }
 }

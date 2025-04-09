@@ -1,0 +1,33 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:background="@color/MainBackground"
+    android:padding="24dp">
+    <ImageView
+        android:id="@+id/b_back"
+        android:layout_width="44dp"
+        android:layout_height="44dp"
+        android:src="@drawable/ic_left_arrow_white"
+        android:background="@drawable/bg_circle_grey"
+        android:padding="4dp"/>
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Мои достижения"
+        android:layout_toRightOf="@id/b_back"
+        android:textSize="20sp"
+        android:layout_marginStart="28dp"
+        android:textStyle="bold"
+        android:textColor="@color/white"
+        android:layout_marginTop="6dp"
+        android:fontFamily="@font/montserrat_semi_bold"/>
+    <androidx.recyclerview.widget.RecyclerView
+        android:id="@+id/rv_medal_holder"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_below="@id/b_back"
+        android:layout_marginTop="20dp"/>
+</RelativeLayout>

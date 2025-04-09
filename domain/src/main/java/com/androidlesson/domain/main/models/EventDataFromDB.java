@@ -4,7 +4,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class EventDataFromDB {
-    private String eventDate, eventName, eventInfo, eventAvatarImage;
+    private String id, eventDate, eventName, eventInfo, eventAvatarImage;
     private List<String> eventProudList;
 
     public EventDataFromDB(String eventDate, String eventName, String eventInfo, String eventAvatarImage, List<String> eventProudList) {
@@ -13,6 +13,14 @@ public class EventDataFromDB {
         this.eventInfo = eventInfo;
         this.eventAvatarImage = eventAvatarImage;
         this.eventProudList = eventProudList!=null ? eventProudList: new ArrayList<>();
+    }
+
+    public String getId() {
+        return id;
+    }
+
+    public void setId(String id) {
+        this.id = id;
     }
 
     public EventDataFromDB() {
