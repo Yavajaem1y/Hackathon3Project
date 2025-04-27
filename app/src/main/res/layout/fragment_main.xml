@@ -22,6 +22,14 @@
             android:background="@drawable/bottom_gradient"
             android:layout_alignParentBottom="true"/>
 
+        <View
+            android:layout_width="250dp"
+            android:layout_height="80dp"
+            android:layout_alignParentBottom="true"
+            android:layout_centerHorizontal="true"
+            android:clickable="true"
+            android:focusable="true"/>
+
         <RelativeLayout
             android:id="@+id/rl_bottom_navigation_view"
             android:layout_width="224dp"

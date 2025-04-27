@@ -1,43 +1,38 @@
 package com.androidlesson.hackathon3project.presentation.main.ui.activities;
 
-import android.animation.ObjectAnimator;
 import android.animation.ValueAnimator;
-import android.content.Intent;
 import android.graphics.Color;
 import android.os.Bundle;
-import android.util.Log;
 import android.view.View;
 import android.view.ViewGroup;
 import android.view.animation.DecelerateInterpolator;
 import android.widget.FrameLayout;
 import android.widget.ImageView;
+import android.widget.RelativeLayout;
 import android.widget.TextView;
 
-import androidx.activity.EdgeToEdge;
 import androidx.appcompat.app.AppCompatActivity;
-import androidx.core.graphics.Insets;
-import androidx.core.view.ViewCompat;
-import androidx.core.view.WindowInsetsCompat;
 import androidx.lifecycle.Observer;
 import androidx.lifecycle.ViewModelProvider;
 
-import com.androidlesson.domain.main.models.MapArticleItem;
 import com.androidlesson.domain.main.models.Question;
 import com.androidlesson.hackathon3project.R;
 import com.androidlesson.hackathon3project.app.App;
+import com.androidlesson.hackathon3project.presentation.main.ui.fragments.dialogFragments.TestBadResultDialogFragment;
 import com.androidlesson.hackathon3project.presentation.main.ui.fragments.dialogFragments.TestExitDialogFragment;
 import com.androidlesson.hackathon3project.presentation.main.ui.fragments.dialogFragments.TestResultDialogFragment;
 import com.androidlesson.hackathon3project.presentation.main.viewModels.testActivityViewModel.TestActivityViewModel;
 import com.androidlesson.hackathon3project.presentation.main.viewModels.testActivityViewModel.TestActivityViewModelFactory;
 
-import java.util.ArrayList;
 import java.util.List;
 
 import javax.inject.Inject;
 
 public class TestActivity extends AppCompatActivity {
     private TextView questionText, nextButton,progress_text;
-    private TextView[] optionButtons = new TextView[4];
+    private RelativeLayout[] optionLayout = new RelativeLayout[4];
+    private TextView[] optionText = new TextView[4];
+    private ImageView[] optionImage = new ImageView[4];
     private View progressView;
     private ImageView b_cancellation;
     private FrameLayout progressContainer;
@@ -78,10 +73,22 @@ public class TestActivity extends AppCompatActivity {
 
     private void initializeViews() {
         questionText = findViewById(R.id.question_text);
-        optionButtons[0] = findViewById(R.id.option1);
-        optionButtons[1] = findViewById(R.id.option2);
-        optionButtons[2] = findViewById(R.id.option3);
-        optionButtons[3] = findViewById(R.id.option4);
+
+        optionLayout[0] = findViewById(R.id.option1);
+        optionLayout[1] = findViewById(R.id.option2);
+        optionLayout[2] = findViewById(R.id.option3);
+        optionLayout[3] = findViewById(R.id.option4);
+
+        optionText[0]=findViewById(R.id.tv_option1);
+        optionText[1]=findViewById(R.id.tv_option2);
+        optionText[2]=findViewById(R.id.tv_option3);
+        optionText[3]=findViewById(R.id.tv_option4);
+
+        optionImage[0]=findViewById(R.id.iv_option1);
+        optionImage[1]=findViewById(R.id.iv_option2);
+        optionImage[2]=findViewById(R.id.iv_option3);
+        optionImage[3]=findViewById(R.id.iv_option4);
+
         nextButton = findViewById(R.id.next_button);
         progress_text=findViewById(R.id.progress_text);
         progressView = findViewById(R.id.progress_view);
@@ -104,9 +111,10 @@ public class TestActivity extends AppCompatActivity {
         List<String> options = q.getOptions();
 
         for (int i = 0; i < 4; i++) {
-            optionButtons[i].setText(options.get(i));
-            optionButtons[i].setBackgroundResource(R.drawable.bg_rounded_8dp_grey);
-            optionButtons[i].setClickable(true);
+            optionText[i].setText(options.get(i));
+            optionImage[i].setVisibility(View.GONE);
+            optionLayout[i].setBackgroundResource(R.drawable.bg_rounded_8dp_grey);
+            optionLayout[i].setClickable(true);
         }
 
         nextButton.setClickable(false);
@@ -116,7 +124,7 @@ public class TestActivity extends AppCompatActivity {
     private void setOnClickListeners() {
         for (int i = 0; i < 4; i++) {
             final int selectedIndex = i;
-            optionButtons[i].setOnClickListener(v -> vm.checkAnswer(selectedIndex));
+            optionLayout[i].setOnClickListener(v -> vm.checkAnswer(selectedIndex));
         }
 
         nextButton.setOnClickListener(v -> vm.nextQuestion());
@@ -144,16 +152,20 @@ public class TestActivity extends AppCompatActivity {
             int correctIndex = question.getCorrectAnswerIndex();
 
             for (int i = 0; i < 4; i++) {
-                optionButtons[i].setClickable(false);
+                optionLayout[i].setClickable(false);
 
                 if (i == selectedIndex) {
+                    optionImage[i].setVisibility(View.VISIBLE);
                     if (i == correctIndex) {
-                        optionButtons[i].setBackgroundResource(R.drawable.bg_rounded_8dp_accent);
+                        optionImage[i].setImageResource(R.drawable.ic_cur_answer);
+                        optionLayout[i].setBackgroundResource(R.drawable.bg_rounded_8dp_accent);
                     } else {
-                        optionButtons[i].setBackgroundResource(R.drawable.bg_rounded_8dp_red);
+                        optionImage[i].setImageResource(R.drawable.ic_huinya_otvet);
+                        optionLayout[i].setBackgroundResource(R.drawable.bg_rounded_8dp_red);
                     }
                 } else {
-                    optionButtons[i].setBackgroundResource(R.drawable.bg_rounded_8dp_grey);
+                    optionImage[i].setVisibility(View.GONE);
+                    optionLayout[i].setBackgroundResource(R.drawable.bg_rounded_8dp_grey);
                 }
             }
 
@@ -166,9 +178,16 @@ public class TestActivity extends AppCompatActivity {
         int correctAnswers = vm.getCorrectAnswersMutableLiveData().getValue();
         int totalQuestions = vm.getQuestionsMutableLiveData().getValue().size();
 
-        TestResultDialogFragment resultDialog = new TestResultDialogFragment(correctAnswers, totalQuestions);
-        resultDialog.setCancelable(false);
-        resultDialog.show(getSupportFragmentManager(), "ResultBottomSheet");
+        if ((correctAnswers*100)/totalQuestions>50){
+            TestResultDialogFragment resultDialog = new TestResultDialogFragment(correctAnswers, totalQuestions);
+            resultDialog.setCancelable(false);
+            resultDialog.show(getSupportFragmentManager(), "ResultBottomSheet");
+        }
+        else {
+            TestBadResultDialogFragment resultDialog = new TestBadResultDialogFragment(correctAnswers, totalQuestions);
+            resultDialog.setCancelable(false);
+            resultDialog.show(getSupportFragmentManager(), "ResultBottomSheet");
+        }
     }
 
     private void updateProgressBar(int currentIndex, int totalQuestions) {

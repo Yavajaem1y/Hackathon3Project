@@ -17,6 +17,7 @@ import com.androidlesson.hackathon3project.presentation.main.ui.fragments.dialog
 import com.androidlesson.hackathon3project.presentation.main.ui.fragments.dialogFragments.ShowAllMedalsDialogFragment;
 import com.androidlesson.hackathon3project.presentation.main.ui.fragments.dialogFragments.ShowEventDialogFragment;
 import com.androidlesson.hackathon3project.presentation.main.ui.fragments.dialogFragments.ShowHeroDialogFragment;
+import com.androidlesson.hackathon3project.presentation.main.ui.fragments.dialogFragments.TestBadResultDialogFragment;
 import com.androidlesson.hackathon3project.presentation.main.ui.fragments.dialogFragments.TestResultDialogFragment;
 
 import dagger.Component;
@@ -65,4 +66,6 @@ public interface AppComponent {
     void injectShowAllMedals(ShowAllMedalsDialogFragment showAllMedalsDialogFragment);
 
     void injectShowAllFavoriteRecords(ShowAllFavoriteRecordsDialogFragment ShowAllFavoriteRecordsDialogFragment);
+
+    void injectTestBadResultDialogFragment(TestBadResultDialogFragment TestBadResultDialogFragment);
 }
