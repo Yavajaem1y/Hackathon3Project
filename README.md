@@ -60,11 +60,12 @@ It engages users through personal stories, gamification, and access to valuable 
 🔘
 
 ## Screenshots
+![заставка](https://github.com/user-attachments/assets/b2aea3c8-f275-4ad4-b755-311bdc437a2b)
+![лента-герои](https://github.com/user-attachments/assets/6089b138-898f-4aa5-9f92-509fccbb6e9f)
+![архив](https://github.com/user-attachments/assets/3ce2b4e6-102a-42d2-af0e-6aca9804374b)
+![profile](https://github.com/user-attachments/assets/05d0bcb3-7c64-4e1a-a087-8964ad4bb768)
 ![тест](https://github.com/user-attachments/assets/75e2224f-d3be-4859-b9fc-3c354b2f7a04)
 ![достижения](https://github.com/user-attachments/assets/df645b5c-ad03-494e-86db-0c6556d55f54)
-![profile](https://github.com/user-attachments/assets/05d0bcb3-7c64-4e1a-a087-8964ad4bb768)
-![архив](https://github.com/user-attachments/assets/3ce2b4e6-102a-42d2-af0e-6aca9804374b)
-![заставка](https://github.com/user-attachments/assets/b2aea3c8-f275-4ad4-b755-311bdc437a2b)
 
 
 ## Contact
@@ -72,7 +73,7 @@ Developer - https://t.me/yvajaem1y
 Design - https://t.me/discetk
 3D - https://t.me/discetkmojjhm
 
-Created by **[Your Name]** — feel free to connect! 🚀  
+Created by **Nikolay Haidukov** — feel free to connect! 🚀  
 [LinkedIn](#) | [GitHub](#)
 
 ---
