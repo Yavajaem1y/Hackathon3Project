@@ -69,9 +69,9 @@ It engages users through personal stories, gamification, and access to valuable 
 
 
 ## Contact
-Developer - https://t.me/yvajaem1y
-Design - https://t.me/discetk
-3D - https://t.me/discetkmojjhm
+- Developer - https://t.me/yvajaem1y
+- Design - https://t.me/discetk
+- 3D - https://t.me/discetkmojjhm
 
 Created by **Nikolay Haidukov** — feel free to connect! 🚀  
 [LinkedIn](#) | [GitHub](#)
