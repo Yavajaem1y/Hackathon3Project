@@ -1,6 +1,5 @@
 # 📱 Помни — Mobile App for the 80th Anniversary of Victory
 
-🔘
 
 ## About
 
@@ -8,7 +7,6 @@
 The app combines elements of a social network, an educational platform, and a historical archive.  
 It engages users through personal stories, gamification, and access to valuable historical materials.
 
-🔘
 
 ## Features
 
@@ -21,7 +19,6 @@ It engages users through personal stories, gamification, and access to valuable 
   - Themed quizzes with medal-style achievements
 - 👤 **User Profile** — Manage personal data, track progress, add new heroes, manage favorites
 
-🔘
 
 ## Technology Stack
 
@@ -32,7 +29,6 @@ It engages users through personal stories, gamification, and access to valuable 
 - **Firebase** — authentication, cloud data, animation hosting
 - **MVVM** — clean architecture pattern
 
-🔘
 
 ## Development Highlights
 
@@ -42,14 +38,12 @@ It engages users through personal stories, gamification, and access to valuable 
 - All local history data structured in **SQLite**
 - Developed by a single programmer during a hackathon team challenge
 
-🔘
 
 ## Results
 
 🏆 **Winner** of the Hackathon by Nizhny Novgorod State Technical University (NSTU) named after R.E. Alekseev, dedicated to the 80th anniversary of Victory.  
 📝 Positive jury feedback for idea, implementation quality, and user engagement.
 
-🔘
 
 ## Future Plans
 
@@ -57,7 +51,6 @@ It engages users through personal stories, gamification, and access to valuable 
 - 🧩 More interactive sections and educational materials
 - 🎖️ Expanding the system of achievements
 
-🔘
 
 ## Screenshots
 ![заставка](https://github.com/user-attachments/assets/b2aea3c8-f275-4ad4-b755-311bdc437a2b)
@@ -66,6 +59,8 @@ It engages users through personal stories, gamification, and access to valuable 
 ![profile](https://github.com/user-attachments/assets/05d0bcb3-7c64-4e1a-a087-8964ad4bb768)
 ![тест](https://github.com/user-attachments/assets/75e2224f-d3be-4859-b9fc-3c354b2f7a04)
 ![достижения](https://github.com/user-attachments/assets/df645b5c-ad03-494e-86db-0c6556d55f54)
+![image](https://github.com/user-attachments/assets/5120d7f9-5470-44ac-b1cc-32b200b21ed5)
+
 
 
 ## Contact
