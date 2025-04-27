@@ -60,15 +60,17 @@ It engages users through personal stories, gamification, and access to valuable 
 🔘
 
 ## Screenshots
-![заставка-portrait](https://github.com/user-attachments/assets/a283aa39-c186-4578-aec9-6076ae47283e)
-![лента-герои-portrait](https://github.com/user-attachments/assets/441073a7-b1ed-4832-812c-f9de7f93b32e)
-![profile](https://github.com/user-attachments/assets/052d0ff2-fb28-441a-9886-525f8459e2ee)
-![достижения](https://github.com/user-attachments/assets/e497f8a0-8822-4a5c-86af-a0898ebfd0a6)
-![тест](https://github.com/user-attachments/assets/6d028c7e-8025-4652-84a2-3280e96f548e)
-![архив-portrait](https://github.com/user-attachments/assets/9790142b-6f24-4332-aaf2-b4802e830316)
+![тест](https://github.com/user-attachments/assets/75e2224f-d3be-4859-b9fc-3c354b2f7a04)
+![достижения](https://github.com/user-attachments/assets/df645b5c-ad03-494e-86db-0c6556d55f54)
+![profile](https://github.com/user-attachments/assets/05d0bcb3-7c64-4e1a-a087-8964ad4bb768)
+![архив](https://github.com/user-attachments/assets/3ce2b4e6-102a-42d2-af0e-6aca9804374b)
+![заставка](https://github.com/user-attachments/assets/b2aea3c8-f275-4ad4-b755-311bdc437a2b)
+
 
 ## Contact
-
+Developer - https://t.me/yvajaem1y
+Design - https://t.me/discetk
+3D - https://t.me/discetkmojjhm
 
 Created by **[Your Name]** — feel free to connect! 🚀  
 [LinkedIn](#) | [GitHub](#)
